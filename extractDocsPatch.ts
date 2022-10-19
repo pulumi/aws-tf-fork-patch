@@ -1,6 +1,6 @@
 import { GitPatch, GitPatchFile } from "./parseGitPatch";
 import { DocsReplacements, LineReplacement } from "./patches";
-import { groupBy } from "array-fns";
+import { groupBy, distinctBy } from "array-fns";
 
 export function extractDocsReplacements(patch: GitPatch): DocsReplacements {
   const replacements: DocsReplacements = {};
@@ -53,5 +53,5 @@ function getFileReplacements(file: GitPatchFile) {
   if (fileReplacements.length === 0) {
     return undefined;
   }
-  return fileReplacements;
+  return distinctBy(fileReplacements, (line) => line.old);
 }

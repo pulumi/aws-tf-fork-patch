@@ -205,10 +205,6 @@
     {
       "old": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. Terraform will only perform drift detection of its value when present in a configuration.",
       "new": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. This provider will only perform drift detection of its value when present in a configuration."
-    },
-    {
-      "old": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. Terraform will only perform drift detection of its value when present in a configuration.",
-      "new": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. This provider will only perform drift detection of its value when present in a configuration."
     }
   ],
   "website/docs/r/appmesh_virtual_node.html.markdown": [
@@ -397,10 +393,6 @@
     {
       "old": "  alarm_name          = \"terraform-test-foobar5\"",
       "new": "  alarm_name          = \"test-foobar5\""
-    },
-    {
-      "old": "  alarm_name                = \"terraform-test-foobar\"",
-      "new": "  alarm_name                = \"test-foobar\""
     },
     {
       "old": "  alarm_name                = \"terraform-test-foobar\"",
@@ -1199,24 +1191,8 @@
       "new": "  name        = \"kinesis-firehose-test-stream\""
     },
     {
-      "old": "  name        = \"terraform-kinesis-firehose-test-stream\"",
-      "new": "  name        = \"kinesis-firehose-test-stream\""
-    },
-    {
-      "old": "  name        = \"terraform-kinesis-firehose-test-stream\"",
-      "new": "  name        = \"kinesis-firehose-test-stream\""
-    },
-    {
       "old": "  name        = \"terraform-kinesis-firehose-es\"",
       "new": "  name        = \"kinesis-firehose-es\""
-    },
-    {
-      "old": "  name        = \"terraform-kinesis-firehose-test-stream\"",
-      "new": "  name        = \"kinesis-firehose-test-stream\""
-    },
-    {
-      "old": "  name        = \"terraform-kinesis-firehose-test-stream\"",
-      "new": "  name        = \"kinesis-firehose-test-stream\""
     }
   ],
   "website/docs/r/kinesis_stream.html.markdown": [
@@ -1313,10 +1289,6 @@
       "new": "for more information or how to launch [Spot Instances][3] with this provider."
     },
     {
-      "old": "  name                 = \"terraform-asg-example\"",
-      "new": "  name                 = \"asg-example\""
-    },
-    {
       "old": "  this blank, Terraform will auto-generate a unique name. Conflicts with `name_prefix`.",
       "new": "  this blank, this provider will auto-generate a unique name. Conflicts with `name_prefix`."
     },
@@ -1340,10 +1312,6 @@
     }
   ],
   "website/docs/r/lb_listener_rule.html.markdown": [
-    {
-      "old": "      values = [\"my-service.*.terraform.io\"]",
-      "new": "      values = [\"my-service.*.mycompany.io\"]"
-    },
     {
       "old": "      values = [\"my-service.*.terraform.io\"]",
       "new": "      values = [\"my-service.*.mycompany.io\"]"
@@ -2001,16 +1969,8 @@
       "new": "    deadLetterTargetArn = aws_sqs_queue.queue_deadletter.arn"
     },
     {
-      "old": "resource \"aws_sqs_queue\" \"terraform_queue\" {",
-      "new": "resource \"aws_sqs_queue\" \"queue\" {"
-    },
-    {
       "old": "  name                        = \"terraform-example-queue.fifo\"",
       "new": "  name                        = \"example-queue.fifo\""
-    },
-    {
-      "old": "resource \"aws_sqs_queue\" \"terraform_queue\" {",
-      "new": "resource \"aws_sqs_queue\" \"queue\" {"
     },
     {
       "old": "  name                              = \"terraform-example-queue\"",
@@ -2208,10 +2168,6 @@
     }
   ],
   "website/docs/r/worklink_fleet.html.markdown": [
-    {
-      "old": "  name = \"terraform-example\"",
-      "new": "  name = \"example\""
-    },
     {
       "old": "  name = \"terraform-example\"",
       "new": "  name = \"example\""
