@@ -6,7 +6,7 @@ import { constants } from "fs";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { PatchContext } from "./config";
-import { applyTagsAll } from "./patches/tags_all";
+import * as patches from "./patches";
 
 yargs(hideBin(process.argv))
   .command(
@@ -24,7 +24,8 @@ yargs(hideBin(process.argv))
       };
 
       console.log("Applying patches ");
-      await applyTagsAll(config);
+      await patches.applyTagsAll(config);
+      await patches.applyStripDocLinks(config);
     }
   )
   .demandCommand()
