@@ -3,6 +3,7 @@ import glob from "fast-glob";
 import { readFile, writeFile } from "fs/promises";
 import { join, relative } from "path";
 import { EOL } from "os";
+import { findPendingReplacements } from "../findPendingReplacements";
 
 export async function applyDocsReplacements(ctx: PatchContext) {
   const replacements = await readReplacements();
@@ -14,26 +15,16 @@ export async function applyDocsReplacements(ctx: PatchContext) {
     }
     const filePath = join(ctx.dir, file);
     const content = await readFile(filePath, { encoding: "utf-8" });
-    const replaced = tryReplace(replacements, file, content);
+    const { replaced, unmatched } = tryReplace(replacements, file, content);
     if (replaced != content) {
       await writeFile(filePath, replaced);
     }
+    if (unmatched.length > 0) {
+      console.warn("Missed replacements in", join(ctx.dir, file), ":");
+      console.warn(unmatched.map((m) => m.old).join(EOL));
+    }
     if (!replaced.includes("Terraform")) {
       continue;
-    }
-    // Build suggestions for pending replacements
-    const tfLines: [number, string][] = [];
-    content.split(EOL).forEach((line, i) => {
-      if (line.includes("Terraform")) {
-        tfLines.push([i + 1, line]);
-      }
-    });
-    if (tfLines.length > 0) {
-      const suggestedFileReplacements = tfLines.map(([n, old]) => ({
-        old: old,
-        new: buildSuggestion(old),
-      }));
-      suggestions[file] = suggestedFileReplacements;
     }
   }
   if (Object.keys(suggestions).length > 0) {
@@ -49,7 +40,8 @@ function tryReplace(
   replacements: DocsReplacements,
   file: string,
   content: string
-): string {
+): { replaced: string; unmatched: LineReplacement[] } {
+  const unmatched: LineReplacement[] = [];
   let replaced = content;
   if (file in replacements) {
     const fileReplacements = replacements[file];
@@ -59,28 +51,12 @@ function tryReplace(
           ? replaced.replaceAll(replacement.old, replacement.new) // Simple find/replace
           : replaced.replaceAll(EOL + replacement.old, ""); // Remove whole line
       if (replaced === newReplacement) {
-        console.warn("Replacement not matched:", file, "\n", replacement.old);
+        unmatched.push(replacement);
       }
       replaced = newReplacement;
     }
   }
-  return replaced;
-}
-
-function buildSuggestion(line: string): string {
-  // if (line.includes("Terraform data source")) {
-  //   return line.replace("Terraform data source", "data source");
-  // }
-  // if (line.includes("Terraform will fail")) {
-  //   return line.replace("Terraform will fail", "the provider will fail");
-  // }
-  // if (line.includes("which Terraform is")) {
-  //   return line.replace("which Terraform is", "which the provider is");
-  // }
-  // if (line.includes("Terraform's")) {
-  //   return line.replace("Terraform's", "the provider's");
-  // }
-  return line;
+  return { replaced, unmatched };
 }
 
 export type LineReplacement = {

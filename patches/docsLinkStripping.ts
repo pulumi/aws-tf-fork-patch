@@ -52,6 +52,7 @@ export async function applyStripDocLinks(ctx: PatchContext) {
             case "www.ietf.org":
             case "www.iso.org":
             case "www.joda.org":
+            case "www.pulumi.com":
             case "www.rfc-editor.org":
             case "www.w3.org":
               return source;

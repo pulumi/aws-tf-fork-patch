@@ -1,0 +1,1756 @@
+{
+  "website/docs/d/appconfig_configuration_profile.html.markdown": [
+    {
+      "old": "  Terraform data source for managing an AWS AppConfig Configuration Profile.",
+      "new": "  TODO data source for managing an AWS AppConfig Configuration Profile."
+    }
+  ],
+  "website/docs/d/appconfig_configuration_profiles.html.markdown": [
+    {
+      "old": "    Terraform data source for managing an AWS AppConfig Configuration Profiles.",
+      "new": "    TODO data source for managing an AWS AppConfig Configuration Profiles."
+    }
+  ],
+  "website/docs/d/appconfig_environment.html.markdown": [
+    {
+      "old": "  Terraform data source for managing an AWS AppConfig Environment.",
+      "new": "  TODO data source for managing an AWS AppConfig Environment."
+    }
+  ],
+  "website/docs/d/appconfig_environments.html.markdown": [
+    {
+      "old": "    Terraform data source for managing an AWS AppConfig Environments.",
+      "new": "    TODO data source for managing an AWS AppConfig Environments."
+    }
+  ],
+  "website/docs/d/cloudfront_origin_access_identity.html.markdown": [
+    {
+      "old": "[`aws_s3_bucket`][4] bucket policy, causing spurious diffs in Terraform. If",
+      "new": "[`aws_s3_bucket`][4] bucket policy, causing spurious diffs in TODO. If"
+    }
+  ],
+  "website/docs/d/default_tags.markdown": [
+    {
+      "old": "With this data source, you can apply default tags to resources not _directly_ managed by a Terraform resource, such as the instances underneath an Auto Scaling group or the volumes created for an EC2 instance.",
+      "new": "With this data source, you can apply default tags to resources not _directly_ managed by a TODO resource, such as the instances underneath an Auto Scaling group or the volumes created for an EC2 instance."
+    }
+  ],
+  "website/docs/d/ec2_transit_gateway_vpc_attachments.html.markdown": [
+    {
+      "old": "[2]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_transit_gateway_vpc_attachment",
+      "new": "[2]: https://registry.TODO.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_transit_gateway_vpc_attachment"
+    }
+  ],
+  "website/docs/d/iam_session_context.markdown": [
+    {
+      "old": "### Find the Terraform Runner's Source Role",
+      "new": "### Find the TODO Runner's Source Role"
+    },
+    {
+      "old": "~> If `arn` is a non-role ARN, Terraform gives no error and `issuer_arn` will be equal to the `arn` value. For STS assumed-role ARNs, Terraform gives an error if the identified IAM role does not exist.",
+      "new": "~> If `arn` is a non-role ARN, TODO gives no error and `issuer_arn` will be equal to the `arn` value. For STS assumed-role ARNs, TODO gives an error if the identified IAM role does not exist."
+    }
+  ],
+  "website/docs/d/instances.html.markdown": [
+    {
+      "old": "**use `terraform_remote_state`",
+      "new": "**use `TODO_remote_state`"
+    },
+    {
+      "old": "data source instead** if you manage referenced instances via Terraform.",
+      "new": "data source instead** if you manage referenced instances via TODO."
+    }
+  ],
+  "website/docs/d/kms_secret.html.markdown": [
+    {
+      "old": "!> **WARNING:** This data source was removed in version 2.0.0 of the Terraform AWS Provider. You can migrate existing configurations to the `aws_kms_secrets` data source following instructions available in the Version 2 Upgrade Guide.",
+      "new": "!> **WARNING:** This data source was removed in version 2.0.0 of the TODO AWS Provider. You can migrate existing configurations to the `aws_kms_secrets` data source following instructions available in the Version 2 Upgrade Guide."
+    }
+  ],
+  "website/docs/d/kms_secrets.html.markdown": [
+    {
+      "old": "That encrypted output can now be inserted into Terraform configurations without exposing the plaintext secret directly.",
+      "new": "That encrypted output can now be inserted into TODO configurations without exposing the plaintext secret directly."
+    }
+  ],
+  "website/docs/d/networkfirewall_firewall_policy.html.markdown": [
+    {
+      "old": "[1]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share",
+      "new": "[1]: https://registry.TODO.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share"
+    },
+    {
+      "old": "[2]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/networkfirewall_firewall_policy",
+      "new": "[2]: https://registry.TODO.io/providers/hashicorp/aws/latest/docs/resources/networkfirewall_firewall_policy"
+    }
+  ],
+  "website/docs/d/networkmanager_core_network_policy_document.html.markdown": [
+    {
+      "old": "-> For more information about building AWS Core Network policy documents with Terraform, see the Using AWS & AWSCC Provider Together Guide",
+      "new": "-> For more information about building AWS Core Network policy documents with TODO, see the Using AWS & AWSCC Provider Together Guide"
+    }
+  ],
+  "website/docs/d/partition.html.markdown": [
+    {
+      "old": "which Terraform is working.",
+      "new": "which TODO is working."
+    }
+  ],
+  "website/docs/d/s3_account_public_access_block.html.markdown": [
+    {
+      "old": "* `account_id` - (Optional) AWS account ID to configure. Defaults to automatically determined account ID of the Terraform AWS provider.",
+      "new": "* `account_id` - (Optional) AWS account ID to configure. Defaults to automatically determined account ID of the TODO AWS provider."
+    }
+  ],
+  "website/docs/d/s3_object.html.markdown": [
+    {
+      "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`.",
+      "new": "-> **Note:** TODO ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
+    }
+  ],
+  "website/docs/d/s3_objects.html.markdown": [
+    {
+      "old": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect Terraform's performance.",
+      "new": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect TODO's performance."
+    },
+    {
+      "old": "The following example retrieves a list of all object keys in an S3 bucket and creates corresponding Terraform object data sources:",
+      "new": "The following example retrieves a list of all object keys in an S3 bucket and creates corresponding TODO object data sources:"
+    }
+  ],
+  "website/docs/d/secretsmanager_secret_version.html.markdown": [
+    {
+      "old": "Reading key-value pairs from JSON back into a native Terraform map can be accomplished in Terraform 0.12 and later with the `jsondecode()` function:",
+      "new": "Reading key-value pairs from JSON back into a native TODO map can be accomplished in TODO 0.12 and later with the `jsondecode()` function:"
+    }
+  ],
+  "website/docs/d/ssm_parameter.html.markdown": [
+    {
+      "old": "* `value` - Value of the parameter. This value is always marked as sensitive in the Terraform plan output, regardless of `type`. In Terraform CLI version 0.15 and later, this may require additional configuration handling for certain scenarios. For more information, see the Terraform v0.15 Upgrade Guide.",
+      "new": "* `value` - Value of the parameter. This value is always marked as sensitive in the TODO plan output, regardless of `type`. In TODO CLI version 0.15 and later, this may require additional configuration handling for certain scenarios. For more information, see the TODO v0.15 Upgrade Guide."
+    }
+  ],
+  "website/docs/d/vpc_ipam_preview_next_cidr.html.markdown": [
+    {
+      "old": "~> **NOTE:** This functionality is also encapsulated in a resource sharing the same name. The data source can be used when you need to use the cidr in a calculation of the same Root module, `count` for example. However, once a cidr range has been allocated that was previewed, the next refresh will find a **new** cidr and may force new resources downstream. Make sure to use Terraform's lifecycle `ignore_changes` policy if this is undesirable.",
+      "new": "~> **NOTE:** This functionality is also encapsulated in a resource sharing the same name. The data source can be used when you need to use the cidr in a calculation of the same Root module, `count` for example. However, once a cidr range has been allocated that was previewed, the next refresh will find a **new** cidr and may force new resources downstream. Make sure to use TODO's lifecycle `ignore_changes` policy if this is undesirable."
+    }
+  ],
+  "website/docs/d/vpc_peering_connections.html.markdown": [
+    {
+      "old": "the data source, as noted in [issue 4149](https://github.com/hashicorp/terraform/issues/4149)",
+      "new": "the data source, as noted in [issue 4149](https://github.com/hashicorp/TODO/issues/4149)"
+    }
+  ],
+  "website/docs/r/accessanalyzer_archive_rule.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS AccessAnalyzer Archive Rule.",
+      "new": "  TODO resource for managing an AWS AccessAnalyzer Archive Rule."
+    },
+    {
+      "old": "Terraform resource for managing an AWS AccessAnalyzer Archive Rule.",
+      "new": "TODO resource for managing an AWS AccessAnalyzer Archive Rule."
+    }
+  ],
+  "website/docs/r/acm_certificate.html.markdown": [
+    {
+      "old": "    * `validation_method` - (Required) Which method to use for validation. `DNS` or `EMAIL` are valid, `NONE` can be used for certificates that were imported into ACM and then into Terraform.",
+      "new": "    * `validation_method` - (Required) Which method to use for validation. `DNS` or `EMAIL` are valid, `NONE` can be used for certificates that were imported into ACM and then into TODO."
+    },
+    {
+      "old": "[1]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html",
+      "new": "[1]: https://www.TODO.io/docs/configuration/meta-arguments/lifecycle.html"
+    }
+  ],
+  "website/docs/r/amplify_app.html.markdown": [
+    {
+      "old": "~> **Note:** When you create/update an Amplify App from Terraform, you may end up with the error \"BadRequestException: You should at least provide one valid token\" because of authentication issues. See the section \"Repository with Tokens\" below.",
+      "new": "~> **Note:** When you create/update an Amplify App from TODO, you may end up with the error \"BadRequestException: You should at least provide one valid token\" because of authentication issues. See the section \"Repository with Tokens\" below."
+    }
+  ],
+  "website/docs/r/api_gateway_rest_api.html.markdown": [
+    {
+      "old": "### Terraform Resources",
+      "new": "### TODO Resources"
+    },
+    {
+      "old": "    #       Terraform configuration file(s) or removing the .id references to",
+      "new": "    #       TODO configuration file(s) or removing the .id references to"
+    },
+    {
+      "old": "* `policy` - (Optional) JSON formatted policy document that controls access to the API Gateway. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide. Terraform will only perform drift detection of its value when present in a configuration. We recommend using the `aws_api_gateway_rest_api_policy` resource instead. If importing an OpenAPI specification via the `body` argument, this corresponds to the [`x-amazon-apigateway-policy` extension](https://docs.aws.amazon.com/apigateway/latest/developerguide/openapi-extensions-policy.html). If the argument value is provided and is different than the OpenAPI value, the argument value will override the OpenAPI value.",
+      "new": "* `policy` - (Optional) JSON formatted policy document that controls access to the API Gateway. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide. TODO will only perform drift detection of its value when present in a configuration. We recommend using the `aws_api_gateway_rest_api_policy` resource instead. If importing an OpenAPI specification via the `body` argument, this corresponds to the [`x-amazon-apigateway-policy` extension](https://docs.aws.amazon.com/apigateway/latest/developerguide/openapi-extensions-policy.html). If the argument value is provided and is different than the OpenAPI value, the argument value will override the OpenAPI value."
+    }
+  ],
+  "website/docs/r/apigatewayv2_deployment.html.markdown": [
+    {
+      "old": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform.",
+      "new": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in TODO."
+    },
+    {
+      "old": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a redeployment. To force a redeployment without changing these keys/values, use the `terraform taint` command.",
+      "new": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a redeployment. To force a redeployment without changing these keys/values, use the `TODO taint` command."
+    }
+  ],
+  "website/docs/r/appautoscaling_policy.html.markdown": [
+    {
+      "old": " ```terraform",
+      "new": " ```TODO"
+    }
+  ],
+  "website/docs/r/athena_database.html.markdown": [
+    {
+      "old": "Certain resource arguments, like `encryption_configuration` and `bucket`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
+      "new": "Certain resource arguments, like `encryption_configuration` and `bucket`, do not have an API method for reading the information after creation. If the argument is set in the TODO configuration on an imported resource, TODO will always show a difference. To workaround this behavior, either omit the argument from the TODO configuration or use `ignore_changes` to hide the difference, e.g.,"
+    }
+  ],
+  "website/docs/r/autoscaling_group.html.markdown": [
+    {
+      "old": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on HashiCorp Learn.",
+      "new": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on TODO Learn."
+    },
+    {
+      "old": "  Terraform to skip all Capacity Waiting behavior.",
+      "new": "  TODO to skip all Capacity Waiting behavior."
+    },
+    {
+      "old": "* `min_elb_capacity` - (Optional) Setting this causes Terraform to wait for",
+      "new": "* `min_elb_capacity` - (Optional) Setting this causes TODO to wait for"
+    },
+    {
+      "old": "The `min_elb_capacity` parameter causes Terraform to wait for at least the",
+      "new": "The `min_elb_capacity` parameter causes TODO to wait for at least the"
+    },
+    {
+      "old": "Terraform moves on. If new instances don't pass the ELB's health checks for any",
+      "new": "TODO moves on. If new instances don't pass the ELB's health checks for any"
+    },
+    {
+      "old": "As with ASG Capacity, Terraform will wait for up to `wait_for_capacity_timeout`",
+      "new": "As with ASG Capacity, TODO will wait for up to `wait_for_capacity_timeout`"
+    }
+  ],
+  "website/docs/r/autoscaling_group_tag.html.markdown": [
+    {
+      "old": "Manages an individual Autoscaling Group (ASG) tag. This resource should only be used in cases where ASGs are created outside Terraform (e.g., ASGs implicitly created by EKS Node Groups).",
+      "new": "Manages an individual Autoscaling Group (ASG) tag. This resource should only be used in cases where ASGs are created outside TODO (e.g., ASGs implicitly created by EKS Node Groups)."
+    },
+    {
+      "old": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_autoscaling_group` and `aws_autoscaling_group_tag` to manage tags of the same ASG will cause a perpetual difference where the `aws_autoscaling_group` resource will try to remove the tag being added by the `aws_autoscaling_group_tag` resource.",
+      "new": "~> **NOTE:** This tagging resource should not be combined with the TODO resource for managing the parent resource. For example, using `aws_autoscaling_group` and `aws_autoscaling_group_tag` to manage tags of the same ASG will cause a perpetual difference where the `aws_autoscaling_group` resource will try to remove the tag being added by the `aws_autoscaling_group_tag` resource."
+    }
+  ],
+  "website/docs/r/autoscaling_policy.html.markdown": [
+    {
+      "old": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on HashiCorp Learn.",
+      "new": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on TODO Learn."
+    }
+  ],
+  "website/docs/r/batch_compute_environment.html.markdown": [
+    {
+      "old": "* `compute_environment_name` - (Optional, Forces new resource) The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed. If omitted, Terraform will assign a random, unique name.",
+      "new": "* `compute_environment_name` - (Optional, Forces new resource) The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed. If omitted, TODO will assign a random, unique name."
+    }
+  ],
+  "website/docs/r/budgets_budget.html.markdown": [
+    {
+      "old": "`$ terraform import aws_budgets_budget.myBudget 123456789012:myBudget`",
+      "new": "`$ TODO import aws_budgets_budget.myBudget 123456789012:myBudget`"
+    }
+  ],
+  "website/docs/r/budgets_budget_action.html.markdown": [
+    {
+      "old": "`$ terraform import aws_budgets_budget_action.myBudget 123456789012:some-id:myBudget`",
+      "new": "`$ TODO import aws_budgets_budget_action.myBudget 123456789012:some-id:myBudget`"
+    }
+  ],
+  "website/docs/r/cloudcontrolapi_resource.html.markdown": [
+    {
+      "old": "* `desired_state` - (Required) JSON string matching the CloudFormation resource type schema with desired configuration. Terraform configuration expressions can be converted into JSON using the `jsonencode()` function.",
+      "new": "* `desired_state` - (Required) JSON string matching the CloudFormation resource type schema with desired configuration. TODO configuration expressions can be converted into JSON using the `jsonencode()` function."
+    }
+  ],
+  "website/docs/r/cloudformation_type.html.markdown": [
+    {
+      "old": "~> **NOTE:** The destroy operation of this resource marks the version as deprecated. If this was the only `LIVE` version, the type is marked as deprecated. Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform.",
+      "new": "~> **NOTE:** The destroy operation of this resource marks the version as deprecated. If this was the only `LIVE` version, the type is marked as deprecated. Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in TODO."
+    },
+    {
+      "old": "terraform import aws_cloudformation_type.example arn:aws:cloudformation:us-east-1:123456789012:type/resource/ExampleCompany-ExampleService-ExampleType/1",
+      "new": "TODO import aws_cloudformation_type.example arn:aws:cloudformation:us-east-1:123456789012:type/resource/ExampleCompany-ExampleService-ExampleType/1"
+    }
+  ],
+  "website/docs/r/cloudfront_origin_access_control.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS CloudFront Origin Access Control.",
+      "new": "  TODO resource for managing an AWS CloudFront Origin Access Control."
+    }
+  ],
+  "website/docs/r/cloudsearch_domain.html.markdown": [
+    {
+      "old": "Terraform waits for the domain to become `Active` when applying a configuration.",
+      "new": "TODO waits for the domain to become `Active` when applying a configuration."
+    }
+  ],
+  "website/docs/r/cloudsearch_domain_service_access_policy.html.markdown": [
+    {
+      "old": "Terraform waits for the domain service access policy to become `Active` when applying a configuration.",
+      "new": "TODO waits for the domain service access policy to become `Active` when applying a configuration."
+    }
+  ],
+  "website/docs/r/cloudwatch_event_bus_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The text of the policy. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Required) The text of the policy. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide."
+    }
+  ],
+  "website/docs/r/cloudwatch_event_target.html.markdown": [
+    {
+      "old": "* `input_template` - (Required) Template to customize data sent to the target. Must be valid JSON. To send a string value, the string value must include double quotes. Values must be escaped for both JSON and Terraform, e.g., `\"\\\"Your string goes here.\\\\nA new line.\\\"\"`",
+      "new": "* `input_template` - (Required) Template to customize data sent to the target. Must be valid JSON. To send a string value, the string value must include double quotes. Values must be escaped for both JSON and TODO, e.g., `\"\\\"Your string goes here.\\\\nA new line.\\\"\"`"
+    }
+  ],
+  "website/docs/r/cloudwatch_metric_stream.html.markdown": [
+    {
+      "old": "* `name` - (Optional, Forces new resource) Friendly name of the metric stream. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Friendly name of the metric stream. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/codebuild_project.html.markdown": [
+    {
+      "old": "* `id` - Name (if imported via `name`) or ARN (if created via Terraform or imported via ARN) of the CodeBuild project.",
+      "new": "* `id` - Name (if imported via `name`) or ARN (if created via TODO or imported via ARN) of the CodeBuild project."
+    }
+  ],
+  "website/docs/r/codecommit_trigger.html.markdown": [
+    {
+      "old": "~> **NOTE:** Terraform currently can create only one trigger per repository, even if multiple aws_codecommit_trigger resources are defined. Moreover, creating triggers with Terraform will delete all other triggers in the repository (also manually-created triggers).",
+      "new": "~> **NOTE:** TODO currently can create only one trigger per repository, even if multiple aws_codecommit_trigger resources are defined. Moreover, creating triggers with TODO will delete all other triggers in the repository (also manually-created triggers)."
+    }
+  ],
+  "website/docs/r/codepipeline_custom_action_type.html.markdown": [
+    {
+      "old": "* `id` - Composed of category, provider and version. For example, `Build:terraform:1`",
+      "new": "* `id` - Composed of category, provider and version. For example, `Build:TODO:1`"
+    }
+  ],
+  "website/docs/r/cognito_user.html.markdown": [
+    {
+      "old": "    name                     = \"terraform\"",
+      "new": "    name                     = \"TODO\""
+    },
+    {
+      "old": "    terraform      = true",
+      "new": "    TODO      = true"
+    },
+    {
+      "old": "    email          = \"no-reply@hashicorp.com\"",
+      "new": "    email          = \"no-reply@TODO.com\""
+    }
+  ],
+  "website/docs/r/comprehend_document_classifier.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Comprehend Document Classifier.",
+      "new": "  TODO resource for managing an AWS Comprehend Document Classifier."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Comprehend Document Classifier.",
+      "new": "TODO resource for managing an AWS Comprehend Document Classifier."
+    },
+    {
+      "old": "  If omitted, Terraform will assign a random, unique version name.",
+      "new": "  If omitted, TODO will assign a random, unique version name."
+    }
+  ],
+  "website/docs/r/comprehend_entity_recognizer.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Comprehend Entity Recognizer.",
+      "new": "  TODO resource for managing an AWS Comprehend Entity Recognizer."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Comprehend Entity Recognizer.",
+      "new": "TODO resource for managing an AWS Comprehend Entity Recognizer."
+    },
+    {
+      "old": "  If omitted, Terraform will assign a random, unique version name.",
+      "new": "  If omitted, TODO will assign a random, unique version name."
+    }
+  ],
+  "website/docs/r/connect_contact_flow.html.markdown": [
+    {
+      "old": "    \"Application\" = \"Terraform\",",
+      "new": "    \"Application\" = \"TODO\","
+    },
+    {
+      "old": "    \"Application\" = \"Terraform\",",
+      "new": "    \"Application\" = \"TODO\","
+    },
+    {
+      "old": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow source specified with `filename`. The usual way to set this is filebase64sha256(\"mycontact_flow.json\") (Terraform 0.11.12 and later) or base64sha256(file(\"mycontact_flow.json\")) (Terraform 0.11.11 and earlier), where \"mycontact_flow.json\" is the local filename of the Contact Flow source.",
+      "new": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow source specified with `filename`. The usual way to set this is filebase64sha256(\"mycontact_flow.json\") (TODO 0.11.12 and later) or base64sha256(file(\"mycontact_flow.json\")) (TODO 0.11.11 and earlier), where \"mycontact_flow.json\" is the local filename of the Contact Flow source."
+    }
+  ],
+  "website/docs/r/connect_contact_flow_module.html.markdown": [
+    {
+      "old": "    \"Application\" = \"Terraform\",",
+      "new": "    \"Application\" = \"TODO\","
+    },
+    {
+      "old": "    \"Application\" = \"Terraform\",",
+      "new": "    \"Application\" = \"TODO\","
+    },
+    {
+      "old": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow Module source specified with `filename`. The usual way to set this is filebase64sha256(\"contact_flow_module.json\") (Terraform 0.11.12 and later) or base64sha256(file(\"contact_flow_module.json\")) (Terraform 0.11.11 and earlier), where \"contact_flow_module.json\" is the local filename of the Contact Flow Module source.",
+      "new": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow Module source specified with `filename`. The usual way to set this is filebase64sha256(\"contact_flow_module.json\") (TODO 0.11.12 and later) or base64sha256(file(\"contact_flow_module.json\")) (TODO 0.11.11 and earlier), where \"contact_flow_module.json\" is the local filename of the Contact Flow Module source."
+    }
+  ],
+  "website/docs/r/db_instance.html.markdown": [
+    {
+      "old": "Replicate database managed by Terraform will promote the database to a fully",
+      "new": "Replicate database managed by TODO will promote the database to a fully"
+    }
+  ],
+  "website/docs/r/db_parameter_group.html.markdown": [
+    {
+      "old": "> **Hands-on:** For an example of the `aws_db_parameter_group` in use, follow the Manage AWS RDS Instances tutorial on HashiCorp Learn.",
+      "new": "> **Hands-on:** For an example of the `aws_db_parameter_group` in use, follow the Manage AWS RDS Instances tutorial on TODO Learn."
+    },
+    {
+      "old": "~> **NOTE:** After applying your changes, you may encounter a perpetual diff in your Terraform plan",
+      "new": "~> **NOTE:** After applying your changes, you may encounter a perpetual diff in your TODO plan"
+    }
+  ],
+  "website/docs/r/db_security_group.html.markdown": [
+    {
+      "old": "!> **WARNING:** With the retirement of EC2-Classic the `aws_db_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command.",
+      "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_db_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from TODO state using the `TODO state rm` command."
+    }
+  ],
+  "website/docs/r/default_vpc.html.markdown": [
+    {
+      "old": "If no default VPC exists, Terraform creates a new default VPC, which leads to the implicit creation of [other resources](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html#default-vpc-components).",
+      "new": "If no default VPC exists, TODO creates a new default VPC, which leads to the implicit creation of [other resources](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html#default-vpc-components)."
+    }
+  ],
+  "website/docs/r/docdb_cluster.html.markdown": [
+    {
+      "old": "* `cluster_identifier` - (Optional, Forces new resources) The cluster identifier. If omitted, Terraform will assign a random, unique identifier.",
+      "new": "* `cluster_identifier` - (Optional, Forces new resources) The cluster identifier. If omitted, TODO will assign a random, unique identifier."
+    }
+  ],
+  "website/docs/r/docdb_cluster_instance.html.markdown": [
+    {
+      "old": "[3]: https://www.terraform.io/docs/configuration/meta-arguments/count.html",
+      "new": "[3]: https://www.TODO.io/docs/configuration/meta-arguments/count.html"
+    }
+  ],
+  "website/docs/r/docdb_event_subscription.html.markdown": [
+    {
+      "old": "* `name` - (Optional) The name of the DocDB event subscription. By default generated by Terraform.",
+      "new": "* `name` - (Optional) The name of the DocDB event subscription. By default generated by TODO."
+    }
+  ],
+  "website/docs/r/docdb_global_cluster.html.markdown": [
+    {
+      "old": "  # Terraform will begin showing it as a difference. Do not configure:",
+      "new": "  # TODO will begin showing it as a difference. Do not configure:"
+    },
+    {
+      "old": "* `engine` - (Optional, Forces new resources) Name of the database engine to be used for this DB cluster. Terraform will only perform drift detection if a configuration value is provided. Current Valid values: `docdb`. Defaults to `docdb`. Conflicts with `source_db_cluster_identifier`.",
+      "new": "* `engine` - (Optional, Forces new resources) Name of the database engine to be used for this DB cluster. TODO will only perform drift detection if a configuration value is provided. Current Valid values: `docdb`. Defaults to `docdb`. Conflicts with `source_db_cluster_identifier`."
+    },
+    {
+      "old": "* `source_db_cluster_identifier` - (Optional) Amazon Resource Name (ARN) to use as the primary DB Cluster of the Global Cluster on creation. Terraform cannot perform drift detection of this value.",
+      "new": "* `source_db_cluster_identifier` - (Optional) Amazon Resource Name (ARN) to use as the primary DB Cluster of the Global Cluster on creation. TODO cannot perform drift detection of this value."
+    },
+    {
+      "old": "* `storage_encrypted` - (Optional, Forces new resources) Specifies whether the DB cluster is encrypted. The default is `false` unless `source_db_cluster_identifier` is specified and encrypted. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `storage_encrypted` - (Optional, Forces new resources) Specifies whether the DB cluster is encrypted. The default is `false` unless `source_db_cluster_identifier` is specified and encrypted. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.",
+      "new": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the TODO configuration on an imported resource, TODO will always show a difference. To workaround this behavior, either omit the argument from the TODO configuration or use `ignore_changes` to hide the difference, e.g."
+    }
+  ],
+  "website/docs/r/dynamodb_tag.html.markdown": [
+    {
+      "old": "Manages an individual DynamoDB resource tag. This resource should only be used in cases where DynamoDB resources are created outside Terraform (e.g., Table replicas in other regions).",
+      "new": "Manages an individual DynamoDB resource tag. This resource should only be used in cases where DynamoDB resources are created outside TODO (e.g., Table replicas in other regions)."
+    },
+    {
+      "old": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_dynamodb_table` and `aws_dynamodb_tag` to manage tags of the same DynamoDB Table in the same region will cause a perpetual difference where the `aws_dynamodb_cluster` resource will try to remove the tag being added by the `aws_dynamodb_tag` resource.",
+      "new": "~> **NOTE:** This tagging resource should not be combined with the TODO resource for managing the parent resource. For example, using `aws_dynamodb_table` and `aws_dynamodb_tag` to manage tags of the same DynamoDB Table in the same region will cause a perpetual difference where the `aws_dynamodb_cluster` resource will try to remove the tag being added by the `aws_dynamodb_tag` resource."
+    }
+  ],
+  "website/docs/r/ebs_snapshot_copy.html.markdown": [
+    {
+      "old": "* `tags` - A map of tags for the snapshot. If configured with a provider `default_tags` configuration block](https://www.terraform.io/docs/providers/aws/index.html#default_tags-configuration-block present, tags with matching keys will overwrite those defined at the provider-level.",
+      "new": "* `tags` - A map of tags for the snapshot. If configured with a provider `default_tags` configuration block](https://www.TODO.io/docs/providers/aws/index.html#default_tags-configuration-block present, tags with matching keys will overwrite those defined at the provider-level."
+    }
+  ],
+  "website/docs/r/ebs_volume.html.markdown": [
+    {
+      "old": "* `kms_key_id` - (Optional) The ARN for the KMS encryption key. When specifying `kms_key_id`, `encrypted` needs to be set to true. Note: Terraform must be running with credentials which have the `GenerateDataKeyWithoutPlaintext` permission on the specified KMS key as required by the [EBS KMS CMK volume provisioning process](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html#ebs-cmk) to prevent a volume from being created and almost immediately deleted.",
+      "new": "* `kms_key_id` - (Optional) The ARN for the KMS encryption key. When specifying `kms_key_id`, `encrypted` needs to be set to true. Note: TODO must be running with credentials which have the `GenerateDataKeyWithoutPlaintext` permission on the specified KMS key as required by the [EBS KMS CMK volume provisioning process](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html#ebs-cmk) to prevent a volume from being created and almost immediately deleted."
+    }
+  ],
+  "website/docs/r/ec2_client_vpn_network_association.html.markdown": [
+    {
+      "old": "~> **NOTE on Client VPN endpoint target network security groups:** Terraform provides both a standalone Client VPN endpoint network association resource with a (deprecated) `security_groups` argument and a Client VPN endpoint resource with a `security_group_ids` argument. Do not specify security groups in both resources. Doing so will cause a conflict and will overwrite the target network security group association.",
+      "new": "~> **NOTE on Client VPN endpoint target network security groups:** TODO provides both a standalone Client VPN endpoint network association resource with a (deprecated) `security_groups` argument and a Client VPN endpoint resource with a `security_group_ids` argument. Do not specify security groups in both resources. Doing so will cause a conflict and will overwrite the target network security group association."
+    }
+  ],
+  "website/docs/r/ec2_managed_prefix_list.html.markdown": [
+    {
+      "old": "~> **NOTE on Managed Prefix Lists and Managed Prefix List Entries:** Terraform",
+      "new": "~> **NOTE on Managed Prefix Lists and Managed Prefix List Entries:** TODO"
+    }
+  ],
+  "website/docs/r/ec2_managed_prefix_list_entry.html.markdown": [
+    {
+      "old": "~> **NOTE on Managed Prefix Lists and Managed Prefix List Entries:** Terraform",
+      "new": "~> **NOTE on Managed Prefix Lists and Managed Prefix List Entries:** TODO"
+    }
+  ],
+  "website/docs/r/ec2_serial_console_access.html.markdown": [
+    {
+      "old": "~> **NOTE:** Removing this Terraform resource disables serial console access.",
+      "new": "~> **NOTE:** Removing this TODO resource disables serial console access."
+    }
+  ],
+  "website/docs/r/ec2_transit_gateway_multicast_domain.html.markdown": [
+    {
+      "old": "terraform import aws_ec2_transit_gateway_multicast_domain.example tgw-mcast-domain-12345",
+      "new": "TODO import aws_ec2_transit_gateway_multicast_domain.example tgw-mcast-domain-12345"
+    }
+  ],
+  "website/docs/r/ec2_transit_gateway_peering_attachment.html.markdown": [
+    {
+      "old": "terraform import aws_ec2_transit_gateway_peering_attachment.example tgw-attach-12345678",
+      "new": "TODO import aws_ec2_transit_gateway_peering_attachment.example tgw-attach-12345678"
+    }
+  ],
+  "website/docs/r/ecr_registry_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with TODO, see the AWS IAM Policy Document Guide"
+    }
+  ],
+  "website/docs/r/ecrpublic_repository_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with TODO, see the AWS IAM Policy Document Guide"
+    }
+  ],
+  "website/docs/r/ecs_cluster_capacity_providers.html.markdown": [
+    {
+      "old": "~> **NOTE on Clusters and Cluster Capacity Providers:** Terraform provides both a standalone `aws_ecs_cluster_capacity_providers` resource, as well as allowing the capacity providers and default strategies to be managed in-line by the `aws_ecs_cluster` resource. You cannot use a Cluster with in-line capacity providers in conjunction with the Capacity Providers resource, nor use more than one Capacity Providers resource with a single Cluster, as doing so will cause a conflict and will lead to mutual overwrites.",
+      "new": "~> **NOTE on Clusters and Cluster Capacity Providers:** TODO provides both a standalone `aws_ecs_cluster_capacity_providers` resource, as well as allowing the capacity providers and default strategies to be managed in-line by the `aws_ecs_cluster` resource. You cannot use a Cluster with in-line capacity providers in conjunction with the Capacity Providers resource, nor use more than one Capacity Providers resource with a single Cluster, as doing so will cause a conflict and will lead to mutual overwrites."
+    }
+  ],
+  "website/docs/r/ecs_tag.html.markdown": [
+    {
+      "old": "Manages an individual ECS resource tag. This resource should only be used in cases where ECS resources are created outside Terraform (e.g., ECS Clusters implicitly created by Batch Compute Environments).",
+      "new": "Manages an individual ECS resource tag. This resource should only be used in cases where ECS resources are created outside TODO (e.g., ECS Clusters implicitly created by Batch Compute Environments)."
+    },
+    {
+      "old": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_ecs_cluster` and `aws_ecs_tag` to manage tags of the same ECS Cluster will cause a perpetual difference where the `aws_ecs_cluster` resource will try to remove the tag being added by the `aws_ecs_tag` resource.",
+      "new": "~> **NOTE:** This tagging resource should not be combined with the TODO resource for managing the parent resource. For example, using `aws_ecs_cluster` and `aws_ecs_tag` to manage tags of the same ECS Cluster will cause a perpetual difference where the `aws_ecs_cluster` resource will try to remove the tag being added by the `aws_ecs_tag` resource."
+    }
+  ],
+  "website/docs/r/ecs_task_set.html.markdown": [
+    {
+      "old": "You can utilize the generic Terraform resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling).",
+      "new": "You can utilize the generic TODO resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling)."
+    },
+    {
+      "old": "  # Optional: Allow external changes without Terraform plan difference",
+      "new": "  # Optional: Allow external changes without TODO plan difference"
+    },
+    {
+      "old": "* `force_delete` - (Optional) Whether to allow deleting the task set without waiting for scaling down to 0. You can force a task set to delete even if it's in the process of scaling a resource. Normally, Terraform drains all the tasks before deleting the task set. This bypasses that behavior and potentially leaves resources dangling.",
+      "new": "* `force_delete` - (Optional) Whether to allow deleting the task set without waiting for scaling down to 0. You can force a task set to delete even if it's in the process of scaling a resource. Normally, TODO drains all the tasks before deleting the task set. This bypasses that behavior and potentially leaves resources dangling."
+    },
+    {
+      "old": "* `wait_until_stable` - (Optional) Whether `terraform` should wait until the task set has reached `STEADY_STATE`.",
+      "new": "* `wait_until_stable` - (Optional) Whether `TODO` should wait until the task set has reached `STEADY_STATE`."
+    }
+  ],
+  "website/docs/r/eks_cluster.html.markdown": [
+    {
+      "old": "* `public_access_cidrs` - (Optional) List of CIDR blocks. Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with `0.0.0.0/0`. Terraform will only perform drift detection of its value when present in a configuration.",
+      "new": "* `public_access_cidrs` - (Optional) List of CIDR blocks. Indicates which CIDR blocks can access the Amazon EKS public API server endpoint when enabled. EKS defaults this to a list with `0.0.0.0/0`. TODO will only perform drift detection of its value when present in a configuration."
+    }
+  ],
+  "website/docs/r/eks_node_group.html.markdown": [
+    {
+      "old": "* `disk_size` - (Optional) Disk size in GiB for worker nodes. Defaults to `20`. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `disk_size` - (Optional) Disk size in GiB for worker nodes. Defaults to `20`. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `instance_types` - (Optional) List of instance types associated with the EKS Node Group. Defaults to `[\"t3.medium\"]`. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `instance_types` - (Optional) List of instance types associated with the EKS Node Group. Defaults to `[\"t3.medium\"]`. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `node_group_name` – (Optional) Name of the EKS Node Group. If omitted, Terraform will assign a random, unique name. Conflicts with `node_group_name_prefix`.",
+      "new": "* `node_group_name` – (Optional) Name of the EKS Node Group. If omitted, TODO will assign a random, unique name. Conflicts with `node_group_name_prefix`."
+    },
+    {
+      "old": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `version` - (Required) EC2 Launch Template version number. While the API accepts values like `$Default` and `$Latest`, the API will convert the value to the associated version number (e.g., `1`) on read and Terraform will show a difference on next plan. Using the `default_version` or `latest_version` attribute of the `aws_launch_template` resource or data source is recommended for this argument.",
+      "new": "* `version` - (Required) EC2 Launch Template version number. While the API accepts values like `$Default` and `$Latest`, the API will convert the value to the associated version number (e.g., `1`) on read and TODO will show a difference on next plan. Using the `default_version` or `latest_version` attribute of the `aws_launch_template` resource or data source is recommended for this argument."
+    }
+  ],
+  "website/docs/r/elasticache_global_replication_group.html.markdown": [
+    {
+      "old": "The member replication groups must have [`lifecycle.ignore_changes[engine_version]`](https://www.terraform.io/language/meta-arguments/lifecycle) set,",
+      "new": "The member replication groups must have [`lifecycle.ignore_changes[engine_version]`](https://www.TODO.io/language/meta-arguments/lifecycle) set,"
+    },
+    {
+      "old": "or Terraform will always return a diff.",
+      "new": "or TODO will always return a diff."
+    }
+  ],
+  "website/docs/r/elasticache_security_group.html.markdown": [
+    {
+      "old": "!> **WARNING:** With the retirement of EC2-Classic the `aws_elasticache_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command.",
+      "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_elasticache_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from TODO state using the `TODO state rm` command."
+    }
+  ],
+  "website/docs/r/elasticache_user_group_association.html.markdown": [
+    {
+      "old": "~> **NOTE:** Terraform will detect changes in the `aws_elasticache_user_group` since `aws_elasticache_user_group_association` changes the user IDs associated with the user group. You can ignore these changes with the `lifecycle` `ignore_changes` meta argument as shown in the example.",
+      "new": "~> **NOTE:** TODO will detect changes in the `aws_elasticache_user_group` since `aws_elasticache_user_group_association` changes the user IDs associated with the user group. You can ignore these changes with the `lifecycle` `ignore_changes` meta argument as shown in the example."
+    }
+  ],
+  "website/docs/r/elasticsearch_domain.html.markdown": [
+    {
+      "old": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your Elasticsearch domain on every apply.",
+      "new": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing TODO to want to recreate your Elasticsearch domain on every apply."
+    },
+    {
+      "old": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `encrypt_at_rest`, Terraform with recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, Terraform will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, Terraform will also recreate the domain, potentially causing data loss.",
+      "new": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `encrypt_at_rest`, TODO with recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, TODO will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, TODO will also recreate the domain, potentially causing data loss."
+    },
+    {
+      "old": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent Terraform detecting unwanted changes, use the key ARN instead.",
+      "new": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent TODO detecting unwanted changes, use the key ARN instead."
+    },
+    {
+      "old": "~> **Note:** You can enable `node_to_node_encryption` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `node_to_node_encryption`, Terraform will recreate the domain, potentially causing data loss. For any version, if you disable `node_to_node_encryption` for an existing, node-to-node encrypted domain, Terraform will recreate the domain, potentially causing data loss.",
+      "new": "~> **Note:** You can enable `node_to_node_encryption` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `node_to_node_encryption`, TODO will recreate the domain, potentially causing data loss. For any version, if you disable `node_to_node_encryption` for an existing, node-to-node encrypted domain, TODO will recreate the domain, potentially causing data loss."
+    }
+  ],
+  "website/docs/r/elasticsearch_domain_saml_options.html.markdown": [
+    {
+      "old": "  Terraform resource for managing SAML authentication options for an AWS Elasticsearch Domain.",
+      "new": "  TODO resource for managing SAML authentication options for an AWS Elasticsearch Domain."
+    }
+  ],
+  "website/docs/r/emr_cluster.html.markdown": [
+    {
+      "old": "* `additional_info` - (Optional) JSON string for selecting additional features such as adding proxy information. Note: Currently there is no API to retrieve the value of this argument after EMR cluster creation from provider, therefore Terraform cannot detect drift from the actual EMR cluster if its value is changed outside Terraform.",
+      "new": "* `additional_info` - (Optional) JSON string for selecting additional features such as adding proxy information. Note: Currently there is no API to retrieve the value of this argument after EMR cluster creation from provider, therefore TODO cannot detect drift from the actual EMR cluster if its value is changed outside TODO."
+    },
+    {
+      "old": "Since the API does not return the actual values for Kerberos configurations, environments with those Terraform configurations will need to use the `lifecycle` configuration block `ignore_changes` argument available to all Terraform resources to prevent perpetual differences, e.g.,",
+      "new": "Since the API does not return the actual values for Kerberos configurations, environments with those TODO configurations will need to use the `lifecycle` configuration block `ignore_changes` argument available to all TODO resources to prevent perpetual differences, e.g.,"
+    }
+  ],
+  "website/docs/r/fsx_ontap_file_system.html.markdown": [
+    {
+      "old": "Certain resource arguments, like `security_group_ids`, do not have a FSx API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
+      "new": "Certain resource arguments, like `security_group_ids`, do not have a FSx API method for reading the information after creation. If the argument is set in the TODO configuration on an imported resource, TODO will always show a difference. To workaround this behavior, either omit the argument from the TODO configuration or use `ignore_changes` to hide the difference, e.g.,"
+    }
+  ],
+  "website/docs/r/fsx_ontap_storage_virtual_machine.html.markdown": [
+    {
+      "old": "Certain resource arguments, like `svm_admin_password` and the `self_managed_active_directory` configuation block `password`, do not have a FSx API method for reading the information after creation. If these arguments are set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
+      "new": "Certain resource arguments, like `svm_admin_password` and the `self_managed_active_directory` configuation block `password`, do not have a FSx API method for reading the information after creation. If these arguments are set in the TODO configuration on an imported resource, TODO will always show a difference. To workaround this behavior, either omit the argument from the TODO configuration or use `ignore_changes` to hide the difference, e.g.,"
+    }
+  ],
+  "website/docs/r/fsx_openzfs_file_system.html.markdown": [
+    {
+      "old": "Certain resource arguments, like `security_group_ids`, do not have a FSx API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
+      "new": "Certain resource arguments, like `security_group_ids`, do not have a FSx API method for reading the information after creation. If the argument is set in the TODO configuration on an imported resource, TODO will always show a difference. To workaround this behavior, either omit the argument from the TODO configuration or use `ignore_changes` to hide the difference, e.g.,"
+    }
+  ],
+  "website/docs/r/glue_resource_policy.html.markdown": [
+    {
+      "old": "* `enable_hybrid` - (Optional) Indicates that you are using both methods to grant cross-account. Valid values are `TRUE` and `FALSE`. Note the terraform will not perform drift detetction on this field as its not return on read.",
+      "new": "* `enable_hybrid` - (Optional) Indicates that you are using both methods to grant cross-account. Valid values are `TRUE` and `FALSE`. Note the TODO will not perform drift detetction on this field as its not return on read."
+    }
+  ],
+  "website/docs/r/iam_access_key.html.markdown": [
+    {
+      "old": "* `encrypted_secret` - Encrypted secret, base64 encoded, if `pgp_key` was specified. This attribute is not available for imported resources. The encrypted secret may be decrypted using the command line, for example: `terraform output -raw encrypted_secret | base64 --decode | keybase pgp decrypt`.",
+      "new": "* `encrypted_secret` - Encrypted secret, base64 encoded, if `pgp_key` was specified. This attribute is not available for imported resources. The encrypted secret may be decrypted using the command line, for example: `TODO output -raw encrypted_secret | base64 --decode | keybase pgp decrypt`."
+    },
+    {
+      "old": "* `encrypted_ses_smtp_password_v4` - Encrypted SES SMTP password, base64 encoded, if `pgp_key` was specified. This attribute is not available for imported resources. The encrypted password may be decrypted using the command line, for example: `terraform output -raw encrypted_ses_smtp_password_v4 | base64 --decode | keybase pgp decrypt`.",
+      "new": "* `encrypted_ses_smtp_password_v4` - Encrypted SES SMTP password, base64 encoded, if `pgp_key` was specified. This attribute is not available for imported resources. The encrypted password may be decrypted using the command line, for example: `TODO output -raw encrypted_ses_smtp_password_v4 | base64 --decode | keybase pgp decrypt`."
+    }
+  ],
+  "website/docs/r/iam_group.html.markdown": [
+    {
+      "old": "~> **NOTE on user management:** Using `aws_iam_group_membership` or `aws_iam_user_group_membership` resources in addition to manually managing user/group membership using the console may lead to configuration drift or conflicts. For this reason, it's recommended to either manage membership entirely with Terraform or entirely within the AWS console.",
+      "new": "~> **NOTE on user management:** Using `aws_iam_group_membership` or `aws_iam_user_group_membership` resources in addition to manually managing user/group membership using the console may lead to configuration drift or conflicts. For this reason, it's recommended to either manage membership entirely with TODO or entirely within the AWS console."
+    }
+  ],
+  "website/docs/r/iam_group_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with TODO, see the AWS IAM Policy Document Guide"
+    },
+    {
+      "old": "* `name` - (Optional) The name of the policy. If omitted, Terraform will",
+      "new": "* `name` - (Optional) The name of the policy. If omitted, TODO will"
+    }
+  ],
+  "website/docs/r/iam_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide"
+    }
+  ],
+  "website/docs/r/iam_role.html.markdown": [
+    {
+      "old": "* `inline_policy` - (Optional) Configuration block defining an exclusive set of IAM inline policies associated with the IAM role. See below. If no blocks are configured, Terraform will not manage any inline policies in this resource. Configuring one empty block (i.e., `inline_policy {}`) will cause Terraform to remove _all_ inline policies added out of band on `apply`.",
+      "new": "* `inline_policy` - (Optional) Configuration block defining an exclusive set of IAM inline policies associated with the IAM role. See below. If no blocks are configured, TODO will not manage any inline policies in this resource. Configuring one empty block (i.e., `inline_policy {}`) will cause TODO to remove _all_ inline policies added out of band on `apply`."
+    },
+    {
+      "old": "~> **NOTE:** Since one empty block (i.e., `inline_policy {}`) is valid syntactically to remove out of band policies on `apply`, `name` and `policy` are technically _optional_. However, they are both _required_ in order to manage actual inline policies. Not including one or the other may not result in Terraform errors but will result in unpredictable and incorrect behavior.",
+      "new": "~> **NOTE:** Since one empty block (i.e., `inline_policy {}`) is valid syntactically to remove out of band policies on `apply`, `name` and `policy` are technically _optional_. However, they are both _required_ in order to manage actual inline policies. Not including one or the other may not result in TODO errors but will result in unpredictable and incorrect behavior."
+    }
+  ],
+  "website/docs/r/iam_role_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The inline policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
+      "new": "* `policy` - (Required) The inline policy document. This is a JSON formatted string. For more information about building IAM policy documents with TODO, see the AWS IAM Policy Document Guide"
+    }
+  ],
+  "website/docs/r/iam_server_certificate.html.markdown": [
+    {
+      "old": "in use. In order for Terraform to effectively manage a Certificate in this situation, it is",
+      "new": "in use. In order for TODO to effectively manage a Certificate in this situation, it is"
+    }
+  ],
+  "website/docs/r/iam_user_login_profile.html.markdown": [
+    {
+      "old": "* `encrypted_password` - The encrypted password, base64 encoded. Only available if password was handled on Terraform resource creation, not import.",
+      "new": "* `encrypted_password` - The encrypted password, base64 encoded. Only available if password was handled on TODO resource creation, not import."
+    }
+  ],
+  "website/docs/r/iam_user_policy.html.markdown": [
+    {
+      "old": "  # Terraform expression result to valid JSON syntax.",
+      "new": "  # TODO expression result to valid JSON syntax."
+    },
+    {
+      "old": "* `name` - (Optional) The name of the policy. If omitted, Terraform will assign a random, unique name.",
+      "new": "* `name` - (Optional) The name of the policy. If omitted, TODO will assign a random, unique name."
+    }
+  ],
+  "website/docs/r/identitystore_group.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS IdentityStore Group.",
+      "new": "  TODO resource for managing an AWS IdentityStore Group."
+    },
+    {
+      "old": "Terraform resource for managing an AWS IdentityStore Group.",
+      "new": "TODO resource for managing an AWS IdentityStore Group."
+    }
+  ],
+  "website/docs/r/identitystore_group_membership.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS IdentityStore Group Membership.",
+      "new": "  TODO resource for managing an AWS IdentityStore Group Membership."
+    },
+    {
+      "old": "Terraform resource for managing an AWS IdentityStore Group Membership.",
+      "new": "TODO resource for managing an AWS IdentityStore Group Membership."
+    }
+  ],
+  "website/docs/r/identitystore_user.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Identity Store User.",
+      "new": "  TODO resource for managing an AWS Identity Store User."
+    }
+  ],
+  "website/docs/r/inspector2_delegated_admin_account.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Inspector V2 Delegated Admin Account.",
+      "new": "  TODO resource for managing an AWS Inspector V2 Delegated Admin Account."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Inspector V2 Delegated Admin Account.",
+      "new": "TODO resource for managing an AWS Inspector V2 Delegated Admin Account."
+    }
+  ],
+  "website/docs/r/inspector2_organization_configuration.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Inspector V2 Organization Configuration.",
+      "new": "  TODO resource for managing an AWS Inspector V2 Organization Configuration."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Inspector V2 Organization Configuration.",
+      "new": "TODO resource for managing an AWS Inspector V2 Organization Configuration."
+    }
+  ],
+  "website/docs/r/iot_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. Use the [IoT Developer Guide](http://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) for more information on IoT Policies. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. Use the [IoT Developer Guide](http://docs.aws.amazon.com/iot/latest/developerguide/iot-policies.html) for more information on IoT Policies. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide."
+    }
+  ],
+  "website/docs/r/iot_thing_group.html.markdown": [
+    {
+      "old": "    terraform = \"true\"",
+      "new": "    TODO = \"true\""
+    }
+  ],
+  "website/docs/r/kendra_data_source.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Kendra Data Source.",
+      "new": "  TODO resource for managing an AWS Kendra Data Source."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Kendra Data Source.",
+      "new": "TODO resource for managing an AWS Kendra Data Source."
+    }
+  ],
+  "website/docs/r/kendra_experience.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Kendra Experience.",
+      "new": "  TODO resource for managing an AWS Kendra Experience."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Kendra Experience.",
+      "new": "TODO resource for managing an AWS Kendra Experience."
+    },
+    {
+      "old": "* `configuration` - (Optional) Configuration information for your Amazon Kendra experience. Terraform will only perform drift detection of its value when present in a configuration. [Detailed below](#configuration).",
+      "new": "* `configuration` - (Optional) Configuration information for your Amazon Kendra experience. TODO will only perform drift detection of its value when present in a configuration. [Detailed below](#configuration)."
+    },
+    {
+      "old": "* `content_source_configuration` - (Optional, Required if `user_identity_configuration` not provided) The identifiers of your data sources and FAQs. Or, you can specify that you want to use documents indexed via the `BatchPutDocument API`. Terraform will only perform drift detection of its value when present in a configuration. [Detailed below](#content_source_configuration).",
+      "new": "* `content_source_configuration` - (Optional, Required if `user_identity_configuration` not provided) The identifiers of your data sources and FAQs. Or, you can specify that you want to use documents indexed via the `BatchPutDocument API`. TODO will only perform drift detection of its value when present in a configuration. [Detailed below](#content_source_configuration)."
+    }
+  ],
+  "website/docs/r/kendra_faq.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Kendra FAQ.",
+      "new": "  TODO resource for managing an AWS Kendra FAQ."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Kendra FAQ.",
+      "new": "TODO resource for managing an AWS Kendra FAQ."
+    }
+  ],
+  "website/docs/r/kendra_query_suggestions_block_list.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Kendra block list used for query suggestions for an index",
+      "new": "  TODO resource for managing an AWS Kendra block list used for query suggestions for an index"
+    },
+    {
+      "old": "Terraform resource for managing an AWS Kendra block list used for query suggestions for an index.",
+      "new": "TODO resource for managing an AWS Kendra block list used for query suggestions for an index."
+    }
+  ],
+  "website/docs/r/kendra_thesaurus.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Kendra Thesaurus.",
+      "new": "  TODO resource for managing an AWS Kendra Thesaurus."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Kendra Thesaurus.",
+      "new": "TODO resource for managing an AWS Kendra Thesaurus."
+    }
+  ],
+  "website/docs/r/key_pair.html.markdown": [
+    {
+      "old": "* `key_name` - (Optional) The name for the key pair. If neither `key_name` nor `key_name_prefix` is provided, Terraform will create a unique key name using the prefix `terraform-`.",
+      "new": "* `key_name` - (Optional) The name for the key pair. If neither `key_name` nor `key_name_prefix` is provided, TODO will create a unique key name using the prefix `TODO-`."
+    },
+    {
+      "old": "* `key_name_prefix` - (Optional) Creates a unique name beginning with the specified prefix. Conflicts with `key_name`. If neither `key_name` nor `key_name_prefix` is provided, Terraform will create a unique key name using the prefix `terraform-`.",
+      "new": "* `key_name_prefix` - (Optional) Creates a unique name beginning with the specified prefix. Conflicts with `key_name`. If neither `key_name` nor `key_name_prefix` is provided, TODO will create a unique key name using the prefix `TODO-`."
+    },
+    {
+      "old": "~> **NOTE:** The AWS API does not include the public key in the response, so `terraform apply` will attempt to replace the key pair. There is currently no supported workaround for this limitation.",
+      "new": "~> **NOTE:** The AWS API does not include the public key in the response, so `TODO apply` will attempt to replace the key pair. There is currently no supported workaround for this limitation."
+    }
+  ],
+  "website/docs/r/kinesis_firehose_delivery_stream.html.markdown": [
+    {
+      "old": "~> **NOTE:** Parameters with default values, including `NumberOfRetries`(default: 3), `RoleArn`(default: firehose role ARN), `BufferSizeInMBs`(default: 3), and `BufferIntervalInSeconds`(default: 60), are not stored in terraform state. To prevent perpetual differences, it is therefore recommended to only include parameters with non-default values.",
+      "new": "~> **NOTE:** Parameters with default values, including `NumberOfRetries`(default: 3), `RoleArn`(default: firehose role ARN), `BufferSizeInMBs`(default: 3), and `BufferIntervalInSeconds`(default: 60), are not stored in TODO state. To prevent perpetual differences, it is therefore recommended to only include parameters with non-default values."
+    }
+  ],
+  "website/docs/r/kms_custom_key_store.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS KMS (Key Management) Custom Key Store.",
+      "new": "  TODO resource for managing an AWS KMS (Key Management) Custom Key Store."
+    },
+    {
+      "old": "Terraform resource for managing an AWS KMS (Key Management) Custom Key Store.",
+      "new": "TODO resource for managing an AWS KMS (Key Management) Custom Key Store."
+    }
+  ],
+  "website/docs/r/kms_replica_external_key.html.markdown": [
+    {
+      "old": "For more information about building policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "For more information about building policy documents with TODO, see the AWS IAM Policy Document Guide."
+    }
+  ],
+  "website/docs/r/kms_replica_key.html.markdown": [
+    {
+      "old": "For more information about building policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "For more information about building policy documents with TODO, see the AWS IAM Policy Document Guide."
+    }
+  ],
+  "website/docs/r/lakeformation_permissions.html.markdown": [
+    {
+      "old": "~> **NOTE:** In general, the `principal` should _NOT_ be a Lake Formation administrator or the entity (e.g., IAM role) that is running Terraform. Administrators have implicit permissions. These should be managed by granting or not granting administrator rights using `aws_lakeformation_data_lake_settings`, _not_ with this resource.",
+      "new": "~> **NOTE:** In general, the `principal` should _NOT_ be a Lake Formation administrator or the entity (e.g., IAM role) that is running TODO. Administrators have implicit permissions. These should be managed by granting or not granting administrator rights using `aws_lakeformation_data_lake_settings`, _not_ with this resource."
+    },
+    {
+      "old": "~> **NOTE:** We highly recommend that the `principal` _NOT_ be a Lake Formation administrator (granted using `aws_lakeformation_data_lake_settings`). The entity (e.g., IAM role) running Terraform will most likely need to be a Lake Formation administrator. As such, the entity will have implicit permissions and does not need permissions granted through this resource.",
+      "new": "~> **NOTE:** We highly recommend that the `principal` _NOT_ be a Lake Formation administrator (granted using `aws_lakeformation_data_lake_settings`). The entity (e.g., IAM role) running TODO will most likely need to be a Lake Formation administrator. As such, the entity will have implicit permissions and does not need permissions granted through this resource."
+    },
+    {
+      "old": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid TODO reporting a difference."
+    },
+    {
+      "old": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid TODO reporting a difference."
+    }
+  ],
+  "website/docs/r/lakeformation_resource_lf_tags.html.markdown": [
+    {
+      "old": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid TODO reporting a difference."
+    },
+    {
+      "old": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid TODO reporting a difference."
+    }
+  ],
+  "website/docs/r/lambda_function.html.markdown": [
+    {
+      "old": "* `kms_key_arn` - (Optional) Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key. If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference, remove this configuration.",
+      "new": "* `kms_key_arn` - (Optional) Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key. If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this configuration and TODO will show a perpetual difference of adding the key. To fix the perpetual difference, remove this configuration."
+    }
+  ],
+  "website/docs/r/lambda_invocation.html.markdown": [
+    {
+      "old": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. To force a re-invocation without changing these keys/values, use the `terraform taint` command.",
+      "new": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a re-invocation. To force a re-invocation without changing these keys/values, use the `TODO taint` command."
+    }
+  ],
+  "website/docs/r/lambda_layer_version.html.markdown": [
+    {
+      "old": "~> **NOTE:** Setting `skip_destroy` to `true` means that the AWS Provider will _not_ destroy any layer version, even when running `terraform destroy`. Layer versions are thus intentional dangling resources that are _not_ managed by Terraform and may incur extra expense in your AWS account.",
+      "new": "~> **NOTE:** Setting `skip_destroy` to `true` means that the AWS Provider will _not_ destroy any layer version, even when running `TODO destroy`. Layer versions are thus intentional dangling resources that are _not_ managed by TODO and may incur extra expense in your AWS account."
+    },
+    {
+      "old": "* `source_code_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either `filename` or `s3_key`. The usual way to set this is `${filebase64sha256(\"file.zip\")}` (Terraform 0.11.12 or later) or `${base64sha256(file(\"file.zip\"))}` (Terraform 0.11.11 and earlier), where \"file.zip\" is the local filename of the lambda layer source archive.",
+      "new": "* `source_code_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either `filename` or `s3_key`. The usual way to set this is `${filebase64sha256(\"file.zip\")}` (TODO 0.11.12 or later) or `${base64sha256(file(\"file.zip\"))}` (TODO 0.11.11 and earlier), where \"file.zip\" is the local filename of the lambda layer source archive."
+    }
+  ],
+  "website/docs/r/lambda_permission.html.markdown": [
+    {
+      "old": "* `statement_id` - (Optional) A unique statement identifier. By default generated by Terraform.",
+      "new": "* `statement_id` - (Optional) A unique statement identifier. By default generated by TODO."
+    },
+    {
+      "old": "* `statement_id_prefix` - (Optional) A statement identifier prefix. Terraform will generate a unique suffix. Conflicts with `statement_id`.",
+      "new": "* `statement_id_prefix` - (Optional) A statement identifier prefix. TODO will generate a unique suffix. Conflicts with `statement_id`."
+    }
+  ],
+  "website/docs/r/launch_configuration.html.markdown": [
+    {
+      "old": "[2]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html",
+      "new": "[2]: https://www.TODO.io/docs/configuration/meta-arguments/lifecycle.html"
+    }
+  ],
+  "website/docs/r/launch_template.html.markdown": [
+    {
+      "old": "* `name` - (Optional) The name of the launch template. If you leave this blank, Terraform will auto-generate a unique name.",
+      "new": "* `name` - (Optional) The name of the launch template. If you leave this blank, TODO will auto-generate a unique name."
+    }
+  ],
+  "website/docs/r/lightsail_container_service_deployment_version.html.markdown": [
+    {
+      "old": "~> **NOTE:** This resource allows you to manage an Amazon Lightsail container service deployment version but Terraform cannot destroy it. Removing this resource from your configuration will remove it from your statefile and Terraform management.",
+      "new": "~> **NOTE:** This resource allows you to manage an Amazon Lightsail container service deployment version but TODO cannot destroy it. Removing this resource from your configuration will remove it from your statefile and TODO management."
+    }
+  ],
+  "website/docs/r/location_geofence_collection.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Location Geofence Collection.",
+      "new": "  TODO resource for managing an AWS Location Geofence Collection."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Location Geofence Collection.",
+      "new": "TODO resource for managing an AWS Location Geofence Collection."
+    }
+  ],
+  "website/docs/r/location_tracker_association.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Location Tracker Association.",
+      "new": "  TODO resource for managing an AWS Location Tracker Association."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Location Tracker Association.",
+      "new": "TODO resource for managing an AWS Location Tracker Association."
+    }
+  ],
+  "website/docs/r/macie2_classification_job.html.markdown": [
+    {
+      "old": "* `name` -  (Optional) A custom name for the job. The name can contain as many as 500 characters. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` -  (Optional) A custom name for the job. The name can contain as many as 500 characters. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/macie2_custom_data_identifier.html.markdown": [
+    {
+      "old": "* `name` - (Optional) A custom name for the custom data identifier. The name can contain as many as 128 characters. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional) A custom name for the custom data identifier. The name can contain as many as 128 characters. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/macie2_findings_filter.html.markdown": [
+    {
+      "old": "* `name` - (Optional) A custom name for the filter. The name must contain at least 3 characters and can contain as many as 64 characters. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional) A custom name for the filter. The name must contain at least 3 characters and can contain as many as 64 characters. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/main_route_table_association.html.markdown": [
+    {
+      "old": "For more information, see the Amazon VPC User Guide on [Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html). For information about managing normal route tables in Terraform, see `aws_route_table`.",
+      "new": "For more information, see the Amazon VPC User Guide on [Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html). For information about managing normal route tables in TODO, see `aws_route_table`."
+    }
+  ],
+  "website/docs/r/medialive_input.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS MediaLive Input.",
+      "new": "  TODO resource for managing an AWS MediaLive Input."
+    },
+    {
+      "old": "Terraform resource for managing an AWS MediaLive Input.",
+      "new": "TODO resource for managing an AWS MediaLive Input."
+    }
+  ],
+  "website/docs/r/medialive_input_security_group.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS MediaLive InputSecurityGroup.",
+      "new": "  TODO resource for managing an AWS MediaLive InputSecurityGroup."
+    },
+    {
+      "old": "Terraform resource for managing an AWS MediaLive InputSecurityGroup.",
+      "new": "TODO resource for managing an AWS MediaLive InputSecurityGroup."
+    }
+  ],
+  "website/docs/r/medialive_multiplex.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS MediaLive Multiplex.",
+      "new": "  TODO resource for managing an AWS MediaLive Multiplex."
+    },
+    {
+      "old": "Terraform resource for managing an AWS MediaLive Multiplex.",
+      "new": "TODO resource for managing an AWS MediaLive Multiplex."
+    }
+  ],
+  "website/docs/r/medialive_multiplex_program.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS MediaLive MultiplexProgram.",
+      "new": "  TODO resource for managing an AWS MediaLive MultiplexProgram."
+    },
+    {
+      "old": "Terraform resource for managing an AWS MediaLive MultiplexProgram.",
+      "new": "TODO resource for managing an AWS MediaLive MultiplexProgram."
+    }
+  ],
+  "website/docs/r/memorydb_acl.html.markdown": [
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the ACL. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the ACL. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/memorydb_cluster.html.markdown": [
+    {
+      "old": "* `description` - (Optional) Description for the cluster. Defaults to `\"Managed by Terraform\"`.",
+      "new": "* `description` - (Optional) Description for the cluster. Defaults to `\"Managed by TODO\"`."
+    },
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the cluster. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the cluster. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/memorydb_parameter_group.html.markdown": [
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the parameter group. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the parameter group. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    },
+    {
+      "old": "* `description` - (Optional, Forces new resource) Description for the parameter group. Defaults to `\"Managed by Terraform\"`.",
+      "new": "* `description` - (Optional, Forces new resource) Description for the parameter group. Defaults to `\"Managed by TODO\"`."
+    }
+  ],
+  "website/docs/r/memorydb_snapshot.html.markdown": [
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the snapshot. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the snapshot. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    }
+  ],
+  "website/docs/r/memorydb_subnet_group.html.markdown": [
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, TODO will assign a random, unique name. Conflicts with `name_prefix`."
+    },
+    {
+      "old": "* `description` - (Optional) Description for the subnet group. Defaults to `\"Managed by Terraform\"`.",
+      "new": "* `description` - (Optional) Description for the subnet group. Defaults to `\"Managed by TODO\"`."
+    }
+  ],
+  "website/docs/r/msk_scram_secret_association.html.markdown": [
+    {
+      "old": "however, this policy will not be in terraform and as such, will present a diff on plan/apply. For that reason, you must use the `aws_secretsmanager_secret_policy`",
+      "new": "however, this policy will not be in TODO and as such, will present a diff on plan/apply. For that reason, you must use the `aws_secretsmanager_secret_policy`"
+    }
+  ],
+  "website/docs/r/msk_serverless_cluster.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an Amazon MSK Serverless cluster.",
+      "new": "  TODO resource for managing an Amazon MSK Serverless cluster."
+    }
+  ],
+  "website/docs/r/neptune_cluster_instance.html.markdown": [
+    {
+      "old": "[1]: https://www.terraform.io/docs/configuration/meta-arguments/count.html",
+      "new": "[1]: https://www.TODO.io/docs/configuration/meta-arguments/count.html"
+    }
+  ],
+  "website/docs/r/network_acl.html.markdown": [
+    {
+      "old": "~> **NOTE on Network ACLs and Network ACL Associations:** Terraform provides both a standalone network ACL association",
+      "new": "~> **NOTE on Network ACLs and Network ACL Associations:** TODO provides both a standalone network ACL association"
+    }
+  ],
+  "website/docs/r/network_acl_association.html.markdown": [
+    {
+      "old": "~> **NOTE on Network ACLs and Network ACL Associations:** Terraform provides both a standalone network ACL association resource",
+      "new": "~> **NOTE on Network ACLs and Network ACL Associations:** TODO provides both a standalone network ACL association resource"
+    }
+  ],
+  "website/docs/r/networkmanager_attachment_accepter.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS NetworkManager Attachment Accepter.",
+      "new": "  TODO resource for managing an AWS NetworkManager Attachment Accepter."
+    },
+    {
+      "old": "Terraform resource for managing an AWS NetworkManager Attachment Accepter.",
+      "new": "TODO resource for managing an AWS NetworkManager Attachment Accepter."
+    }
+  ],
+  "website/docs/r/networkmanager_vpc_attachment.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS NetworkManager VpcAttachment.",
+      "new": "  TODO resource for managing an AWS NetworkManager VpcAttachment."
+    },
+    {
+      "old": "Terraform resource for managing an AWS NetworkManager VpcAttachment.",
+      "new": "TODO resource for managing an AWS NetworkManager VpcAttachment."
+    }
+  ],
+  "website/docs/r/opensearch_domain.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS OpenSearch Domain.",
+      "new": "  TODO resource for managing an AWS OpenSearch Domain."
+    },
+    {
+      "old": "  description = \"Managed by Terraform\"",
+      "new": "  description = \"Managed by TODO\""
+    },
+    {
+      "old": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your OpenSearch domain on every apply.",
+      "new": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing TODO to want to recreate your OpenSearch domain on every apply."
+    },
+    {
+      "old": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `encrypt_at_rest`, Terraform with recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, Terraform will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, Terraform will also recreate the domain, potentially causing data loss.",
+      "new": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `encrypt_at_rest`, TODO with recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, TODO will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, TODO will also recreate the domain, potentially causing data loss."
+    },
+    {
+      "old": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent Terraform detecting unwanted changes, use the key ARN instead.",
+      "new": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent TODO detecting unwanted changes, use the key ARN instead."
+    },
+    {
+      "old": "~> **Note:** You can enable `node_to_node_encryption` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `node_to_node_encryption`, Terraform will recreate the domain, potentially causing data loss. For any version, if you disable `node_to_node_encryption` for an existing, node-to-node encrypted domain, Terraform will recreate the domain, potentially causing data loss.",
+      "new": "~> **Note:** You can enable `node_to_node_encryption` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `node_to_node_encryption`, TODO will recreate the domain, potentially causing data loss. For any version, if you disable `node_to_node_encryption` for an existing, node-to-node encrypted domain, TODO will recreate the domain, potentially causing data loss."
+    }
+  ],
+  "website/docs/r/opensearch_domain_saml_options.html.markdown": [
+    {
+      "old": "  Terraform resource for managing SAML authentication options for an AWS OpenSearch Domain.",
+      "new": "  TODO resource for managing SAML authentication options for an AWS OpenSearch Domain."
+    }
+  ],
+  "website/docs/r/opsworks_stack.html.markdown": [
+    {
+      "old": "* `password` - (Optional) Password to use when authenticating to the source. Terraform cannot perform drift detection of this configuration.",
+      "new": "* `password` - (Optional) Password to use when authenticating to the source. TODO cannot perform drift detection of this configuration."
+    }
+  ],
+  "website/docs/r/organizations_account.html.markdown": [
+    {
+      "old": "* `create_govcloud` - (Optional) Whether to also create a GovCloud account. The GovCloud account is tied to the main (commercial) account this resource creates. If `true`, the GovCloud account ID is available in the `govcloud_id` attribute. The only way to manage the GovCloud account with Terraform is to subsequently import the account using this resource.",
+      "new": "* `create_govcloud` - (Optional) Whether to also create a GovCloud account. The GovCloud account is tied to the main (commercial) account this resource creates. If `true`, the GovCloud account ID is available in the `govcloud_id` attribute. The only way to manage the GovCloud account with TODO is to subsequently import the account using this resource."
+    }
+  ],
+  "website/docs/r/qldb_ledger.html.markdown": [
+    {
+      "old": "* `deletion_protection` - (Optional) The deletion protection for the QLDB Ledger instance. By default it is `true`. To delete this resource via Terraform, this value must be configured to `false` and applied first before attempting deletion.",
+      "new": "* `deletion_protection` - (Optional) The deletion protection for the QLDB Ledger instance. By default it is `true`. To delete this resource via TODO, this value must be configured to `false` and applied first before attempting deletion."
+    },
+    {
+      "old": "* `name` - (Optional) The friendly name for the QLDB Ledger instance. By default generated by Terraform.",
+      "new": "* `name` - (Optional) The friendly name for the QLDB Ledger instance. By default generated by TODO."
+    }
+  ],
+  "website/docs/r/rds_cluster.html.markdown": [
+    {
+      "old": "* `storage_encrypted` - (Optional) Specifies whether the DB cluster is encrypted. The default is `false` for `provisioned` `engine_mode` and `true` for `serverless` `engine_mode`. When restoring an unencrypted `snapshot_identifier`, the `kms_key_id` argument must be provided to encrypt the restored cluster. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `storage_encrypted` - (Optional) Specifies whether the DB cluster is encrypted. The default is `false` for `provisioned` `engine_mode` and `true` for `serverless` `engine_mode`. When restoring an unencrypted `snapshot_identifier`, the `kms_key_id` argument must be provided to encrypt the restored cluster. TODO will only perform drift detection if a configuration value is provided."
+    }
+  ],
+  "website/docs/r/rds_cluster_activity_stream.html.markdown": [
+    {
+      "old": "~> **Note:** This resource always calls the RDS [`StartActivityStream`][2] API with the `ApplyImmediately` parameter set to `true`. This is because the Terraform needs the activity stream to be started in order for it to get the associated attributes.",
+      "new": "~> **Note:** This resource always calls the RDS [`StartActivityStream`][2] API with the `ApplyImmediately` parameter set to `true`. This is because the TODO needs the activity stream to be started in order for it to get the associated attributes."
+    }
+  ],
+  "website/docs/r/rds_cluster_instance.html.markdown": [
+    {
+      "old": "[5]: https://www.terraform.io/docs/configuration/meta-arguments/count.html",
+      "new": "[5]: https://www.TODO.io/docs/configuration/meta-arguments/count.html"
+    }
+  ],
+  "website/docs/r/rds_global_cluster.html.markdown": [
+    {
+      "old": "When you upgrade the version of an `aws_rds_global_cluster`, Terraform will attempt to in-place upgrade the engine versions of all associated clusters. Since the `aws_rds_cluster` resource is being updated through the `aws_rds_global_cluster`, you are likely to get an error (`Provider produced inconsistent final plan`). To avoid this, use the `lifecycle` `ignore_changes` meta argument as shown below on the `aws_rds_cluster`.",
+      "new": "When you upgrade the version of an `aws_rds_global_cluster`, TODO will attempt to in-place upgrade the engine versions of all associated clusters. Since the `aws_rds_cluster` resource is being updated through the `aws_rds_global_cluster`, you are likely to get an error (`Provider produced inconsistent final plan`). To avoid this, use the `lifecycle` `ignore_changes` meta argument as shown below on the `aws_rds_cluster`."
+    },
+    {
+      "old": "* `engine` - (Optional, Forces new resources) Name of the database engine to be used for this DB cluster. Terraform will only perform drift detection if a configuration value is provided. Valid values: `aurora`, `aurora-mysql`, `aurora-postgresql`. Defaults to `aurora`. Conflicts with `source_db_cluster_identifier`.",
+      "new": "* `engine` - (Optional, Forces new resources) Name of the database engine to be used for this DB cluster. TODO will only perform drift detection if a configuration value is provided. Valid values: `aurora`, `aurora-mysql`, `aurora-postgresql`. Defaults to `aurora`. Conflicts with `source_db_cluster_identifier`."
+    },
+    {
+      "old": "* `engine_version` - (Optional) Engine version of the Aurora global database. The `engine`, `engine_version`, and `instance_class` (on the `aws_rds_cluster_instance`) must together support global databases. See [Using Amazon Aurora global databases](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) for more information. By upgrading the engine version, Terraform will upgrade cluster members. **NOTE:** To avoid an `inconsistent final plan` error while upgrading, use the `lifecycle` `ignore_changes` for `engine_version` meta argument on the associated `aws_rds_cluster` resource as shown above in [Upgrading Engine Versions](#upgrading-engine-versions) example.",
+      "new": "* `engine_version` - (Optional) Engine version of the Aurora global database. The `engine`, `engine_version`, and `instance_class` (on the `aws_rds_cluster_instance`) must together support global databases. See [Using Amazon Aurora global databases](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) for more information. By upgrading the engine version, TODO will upgrade cluster members. **NOTE:** To avoid an `inconsistent final plan` error while upgrading, use the `lifecycle` `ignore_changes` for `engine_version` meta argument on the associated `aws_rds_cluster` resource as shown above in [Upgrading Engine Versions](#upgrading-engine-versions) example."
+    }
+  ],
+  "website/docs/r/redshift_security_group.html.markdown": [
+    {
+      "old": "!> **WARNING:** With the retirement of EC2-Classic the `aws_redshift_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command.",
+      "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_redshift_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from TODO state using the `TODO state rm` command."
+    }
+  ],
+  "website/docs/r/rolesanywhere_profile.html.markdown": [
+    {
+      "old": "Terraform resource for managing a Roles Anywhere Profile.",
+      "new": "TODO resource for managing a Roles Anywhere Profile."
+    }
+  ],
+  "website/docs/r/rolesanywhere_trust_anchor.html.markdown": [
+    {
+      "old": "Terraform resource for managing a Roles Anywhere Trust Anchor.",
+      "new": "TODO resource for managing a Roles Anywhere Trust Anchor."
+    }
+  ],
+  "website/docs/r/route53_record.html.markdown": [
+    {
+      "old": "* `records` - (Required for non-alias records) A string list of records. To specify a single record value longer than 255 characters such as a TXT record for DKIM, add `\\\"\\\"` inside the Terraform configuration string (e.g., `\"first255characters\\\"\\\"morecharacters\"`).",
+      "new": "* `records` - (Required for non-alias records) A string list of records. To specify a single record value longer than 255 characters such as a TXT record for DKIM, add `\\\"\\\"` inside the TODO configuration string (e.g., `\"first255characters\\\"\\\"morecharacters\"`)."
+    }
+  ],
+  "website/docs/r/route53domains_registered_domain.html.markdown": [
+    {
+      "old": "The `aws_route53domains_registered_domain` resource behaves differently from normal resources in that if a domain has been registered, Terraform does not _register_ this domain, but instead \"adopts\" it into management. `terraform destroy` does not delete the domain but does remove the resource from Terraform state.",
+      "new": "The `aws_route53domains_registered_domain` resource behaves differently from normal resources in that if a domain has been registered, TODO does not _register_ this domain, but instead \"adopts\" it into management. `TODO destroy` does not delete the domain but does remove the resource from TODO state."
+    }
+  ],
+  "website/docs/r/s3_bucket.html.markdown": [
+    {
+      "old": "  bucket = \"s3-website-test.hashicorp.com\"",
+      "new": "  bucket = \"s3-website-test.TODO.com\""
+    },
+    {
+      "old": "  bucket = \"s3-website-test.hashicorp.com\"",
+      "new": "  bucket = \"s3-website-test.TODO.com\""
+    },
+    {
+      "old": "    allowed_origins = [\"https://s3-website-test.hashicorp.com\"]",
+      "new": "    allowed_origins = [\"https://s3-website-test.TODO.com\"]"
+    },
+    {
+      "old": "* `acl` - (Optional, **Deprecated**) The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply. Valid values are `private`, `public-read`, `public-read-write`, `aws-exec-read`, `authenticated-read`, and `log-delivery-write`. Defaults to `private`.  Conflicts with `grant`. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead.",
+      "new": "* `acl` - (Optional, **Deprecated**) The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply. Valid values are `private`, `public-read`, `public-read-write`, `aws-exec-read`, `authenticated-read`, and `log-delivery-write`. Defaults to `private`.  Conflicts with `grant`. TODO will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead."
+    },
+    {
+      "old": "* `grant` - (Optional, **Deprecated**) An [ACL policy grant](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#sample-acl). See [Grant](#grant) below for details. Conflicts with `acl`. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead.",
+      "new": "* `grant` - (Optional, **Deprecated**) An [ACL policy grant](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#sample-acl). See [Grant](#grant) below for details. Conflicts with `acl`. TODO will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead."
+    },
+    {
+      "old": "* `lifecycle_rule` - (Optional, **Deprecated**) A configuration of [object lifecycle management](http://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html). See [Lifecycle Rule](#lifecycle-rule) below for details. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `lifecycle_rule` - (Optional, **Deprecated**) A configuration of [object lifecycle management](http://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html). See [Lifecycle Rule](#lifecycle-rule) below for details. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `logging` - (Optional, **Deprecated**) A configuration of [S3 bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/UG/ManagingBucketLogging.html) parameters. See [Logging](#logging) below for details. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `logging` - (Optional, **Deprecated**) A configuration of [S3 bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/UG/ManagingBucketLogging.html) parameters. See [Logging](#logging) below for details. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "  Terraform wil only perform drift detection if a configuration value is provided.",
+      "new": "  TODO wil only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `policy` - (Optional, **Deprecated**) A valid [bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html) JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a `terraform plan`. In this case, please make sure you use the verbose/specific version of the policy. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Optional, **Deprecated**) A valid [bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html) JSON document. Note that if the policy document is not specific enough (but still valid), TODO may view the policy as constantly changing in a `TODO plan`. In this case, please make sure you use the verbose/specific version of the policy. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide."
+    },
+    {
+      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "  TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `replication_configuration` - (Optional, **Deprecated**) A configuration of [replication configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html). See [Replication Configuration](#replication-configuration) below for details. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `replication_configuration` - (Optional, **Deprecated**) A configuration of [replication configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html). See [Replication Configuration](#replication-configuration) below for details. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "  TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "  TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `website` - (Optional, **Deprecated**) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `website` - (Optional, **Deprecated**) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. TODO will only perform drift detection if a configuration value is provided."
+    }
+  ],
+  "website/docs/r/s3_bucket_accelerate_configuration.html.markdown": [
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_acl.html.markdown": [
+    {
+      "old": "~> **Note:** `terraform destroy` does not delete the S3 Bucket ACL but does remove the resource from Terraform state.",
+      "new": "~> **Note:** `TODO destroy` does not delete the S3 Bucket ACL but does remove the resource from TODO state."
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the _same_ account used to configure the Terraform AWS Provider, and the source bucket is **not configured** with a",
+      "new": "If the owner (account ID) of the source bucket is the _same_ account used to configure the TODO AWS Provider, and the source bucket is **not configured** with a"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the _same_ account used to configure the Terraform AWS Provider, and the source bucket is **configured** with a",
+      "new": "If the owner (account ID) of the source bucket is the _same_ account used to configure the TODO AWS Provider, and the source bucket is **configured** with a"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the Terraform AWS Provider, and the source bucket is **not configured** with a",
+      "new": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the TODO AWS Provider, and the source bucket is **not configured** with a"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the Terraform AWS Provider, and the source bucket is **configured** with a",
+      "new": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the TODO AWS Provider, and the source bucket is **configured** with a"
+    }
+  ],
+  "website/docs/r/s3_bucket_cors_configuration.html.markdown": [
+    {
+      "old": "    allowed_origins = [\"https://s3-website-test.hashicorp.com\"]",
+      "new": "    allowed_origins = [\"https://s3-website-test.TODO.com\"]"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_lifecycle_configuration.html.markdown": [
+    {
+      "old": "parameter in the Terraform AWS Provider `aws_s3_bucket` resource prior to `v4.0`.",
+      "new": "parameter in the TODO AWS Provider `aws_s3_bucket` resource prior to `v4.0`."
+    },
+    {
+      "old": "Since `prefix` is deprecated by Amazon S3 and will be removed in the next major version of the Terraform AWS Provider, we recommend users either specify `filter` or leave both `filter` and `prefix` unspecified.",
+      "new": "Since `prefix` is deprecated by Amazon S3 and will be removed in the next major version of the TODO AWS Provider, we recommend users either specify `filter` or leave both `filter` and `prefix` unspecified."
+    },
+    {
+      "old": "~> **NOTE** Terraform cannot distinguish a difference between configurations that use `rule.filter {}` and configurations that neither use `rule.filter` nor `rule.prefix`, so a rule cannot be updated from applying to all objects in the bucket via `rule.filter {}` to applying to a subset of objects based on the key prefix `\"\"` and vice versa.",
+      "new": "~> **NOTE** TODO cannot distinguish a difference between configurations that use `rule.filter {}` and configurations that neither use `rule.filter` nor `rule.prefix`, so a rule cannot be updated from applying to all objects in the bucket via `rule.filter {}` to applying to a subset of objects based on the key prefix `\"\"` and vice versa."
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_logging.html.markdown": [
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_notification.html.markdown": [
+    {
+      "old": "For Terraform's JSON syntax, use an array instead of defining the `queue` key twice.",
+      "new": "For TODO's JSON syntax, use an array instead of defining the `queue` key twice."
+    }
+  ],
+  "website/docs/r/s3_bucket_object.html.markdown": [
+    {
+      "old": "  # The filemd5() function is available in Terraform 0.11.12 and later",
+      "new": "  # The filemd5() function is available in TODO 0.11.12 and later"
+    },
+    {
+      "old": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:",
+      "new": "  # For TODO 0.11.11 and earlier, use the md5() function and the file() function:"
+    },
+    {
+      "old": "* `source_hash` - (Optional) Triggers updates like `etag` but useful to address `etag` encryption limitations. Set using `filemd5(\"path/to/source\")` (Terraform 0.11.12 or later). (The value is only stored in state and not saved by AWS.)",
+      "new": "* `source_hash` - (Optional) Triggers updates like `etag` but useful to address `etag` encryption limitations. Set using `filemd5(\"path/to/source\")` (TODO 0.11.12 or later). (The value is only stored in state and not saved by AWS.)"
+    }
+  ],
+  "website/docs/r/s3_bucket_object_lock_configuration.html.markdown": [
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_request_payment_configuration.html.markdown": [
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_server_side_encryption_configuration.html.markdown": [
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_versioning.html.markdown": [
+    {
+      "old": "simply remove the resource from Terraform state if the associated S3 bucket is unversioned.",
+      "new": "simply remove the resource from TODO state if the associated S3 bucket is unversioned."
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_bucket_website_configuration.html.markdown": [
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the TODO AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the TODO AWS Provider,"
+    }
+  ],
+  "website/docs/r/s3_object.html.markdown": [
+    {
+      "old": "  # The filemd5() function is available in Terraform 0.11.12 and later",
+      "new": "  # The filemd5() function is available in TODO 0.11.12 and later"
+    },
+    {
+      "old": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:",
+      "new": "  # For TODO 0.11.11 and earlier, use the md5() function and the file() function:"
+    },
+    {
+      "old": "* `etag` - (Optional) Triggers updates when the value changes. The only meaningful value is `filemd5(\"path/to/file\")` (Terraform 0.11.12 or later) or `${md5(file(\"path/to/file\"))}` (Terraform 0.11.11 or earlier). This attribute is not compatible with KMS encryption, `kms_key_id` or `server_side_encryption = \"aws:kms\"`, also if an object is larger than 16 MB, the AWS Management Console will upload or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest (see `source_hash` instead).",
+      "new": "* `etag` - (Optional) Triggers updates when the value changes. The only meaningful value is `filemd5(\"path/to/file\")` (TODO 0.11.12 or later) or `${md5(file(\"path/to/file\"))}` (TODO 0.11.11 or earlier). This attribute is not compatible with KMS encryption, `kms_key_id` or `server_side_encryption = \"aws:kms\"`, also if an object is larger than 16 MB, the AWS Management Console will upload or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest (see `source_hash` instead)."
+    },
+    {
+      "old": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. TODO will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `source_hash` - (Optional) Triggers updates like `etag` but useful to address `etag` encryption limitations. Set using `filemd5(\"path/to/source\")` (Terraform 0.11.12 or later). (The value is only stored in state and not saved by AWS.)",
+      "new": "* `source_hash` - (Optional) Triggers updates like `etag` but useful to address `etag` encryption limitations. Set using `filemd5(\"path/to/source\")` (TODO 0.11.12 or later). (The value is only stored in state and not saved by AWS.)"
+    },
+    {
+      "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`.",
+      "new": "-> **Note:** TODO ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
+    }
+  ],
+  "website/docs/r/s3control_access_point_policy.html.markdown": [
+    {
+      "old": "~> **NOTE on Access Points and Access Point Policies:** Terraform provides both a standalone Access Point Policy resource and an Access Point resource with a resource policy defined in-line. You cannot use an Access Point with in-line resource policy in conjunction with an Access Point Policy resource. Doing so will cause a conflict of policies and will overwrite the access point's resource policy.",
+      "new": "~> **NOTE on Access Points and Access Point Policies:** TODO provides both a standalone Access Point Policy resource and an Access Point resource with a resource policy defined in-line. You cannot use an Access Point with in-line resource policy in conjunction with an Access Point Policy resource. Doing so will cause a conflict of policies and will overwrite the access point's resource policy."
+    }
+  ],
+  "website/docs/r/s3control_multi_region_access_point_policy.html.markdown": [
+    {
+      "old": "* `account_id` - (Optional) The AWS account ID for the owner of the Multi-Region Access Point. Defaults to automatically determined account ID of the Terraform AWS provider.",
+      "new": "* `account_id` - (Optional) The AWS account ID for the owner of the Multi-Region Access Point. Defaults to automatically determined account ID of the TODO AWS provider."
+    }
+  ],
+  "website/docs/r/s3control_object_lambda_access_point.html.markdown": [
+    {
+      "old": "* `account_id` - (Optional) The AWS account ID for the owner of the bucket for which you want to create an Object Lambda Access Point. Defaults to automatically determined account ID of the Terraform AWS provider.",
+      "new": "* `account_id` - (Optional) The AWS account ID for the owner of the bucket for which you want to create an Object Lambda Access Point. Defaults to automatically determined account ID of the TODO AWS provider."
+    }
+  ],
+  "website/docs/r/s3control_object_lambda_access_point_policy.html.markdown": [
+    {
+      "old": "* `account_id` - (Optional) The AWS account ID for the account that owns the Object Lambda Access Point. Defaults to automatically determined account ID of the Terraform AWS provider.",
+      "new": "* `account_id` - (Optional) The AWS account ID for the account that owns the Object Lambda Access Point. Defaults to automatically determined account ID of the TODO AWS provider."
+    }
+  ],
+  "website/docs/r/s3control_storage_lens_configuration.html.markdown": [
+    {
+      "old": "* `account_id` - (Optional) The AWS account ID for the S3 Storage Lens configuration. Defaults to automatically determined account ID of the Terraform AWS provider.",
+      "new": "* `account_id` - (Optional) The AWS account ID for the S3 Storage Lens configuration. Defaults to automatically determined account ID of the TODO AWS provider."
+    }
+  ],
+  "website/docs/r/sagemaker_code_repository.html.markdown": [
+    {
+      "old": "    repository_url = \"https://github.com/hashicorp/terraform-provider-aws.git\"",
+      "new": "    repository_url = \"https://github.com/hashicorp/TODO-provider-aws.git\""
+    },
+    {
+      "old": "    repository_url = \"https://github.com/hashicorp/terraform-provider-aws.git\"",
+      "new": "    repository_url = \"https://github.com/hashicorp/TODO-provider-aws.git\""
+    }
+  ],
+  "website/docs/r/sagemaker_endpoint.html.markdown": [
+    {
+      "old": "* `name` - (Optional) The name of the endpoint. If omitted, Terraform will assign a random, unique name.",
+      "new": "* `name` - (Optional) The name of the endpoint. If omitted, TODO will assign a random, unique name."
+    }
+  ],
+  "website/docs/r/sagemaker_notebook_instance.html.markdown": [
+    {
+      "old": "    repository_url = \"https://github.com/hashicorp/terraform-provider-aws.git\"",
+      "new": "    repository_url = \"https://github.com/hashicorp/TODO-provider-aws.git\""
+    }
+  ],
+  "website/docs/r/secretsmanager_secret_version.html.markdown": [
+    {
+      "old": "Reading key-value pairs from JSON back into a native Terraform map can be accomplished in Terraform 0.12 and later with the `jsondecode()` function:",
+      "new": "Reading key-value pairs from JSON back into a native TODO map can be accomplished in TODO 0.12 and later with the `jsondecode()` function:"
+    }
+  ],
+  "website/docs/r/security_group.html.markdown": [
+    {
+      "old": "You must invert the default behavior of Terraform. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:",
+      "new": "You must invert the default behavior of TODO. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:"
+    },
+    {
+      "old": "* `revoke_rules_on_delete` - (Optional) Instruct Terraform to revoke all of the Security Groups attached ingress and egress rules before deleting the rule itself. This is normally not needed, however certain AWS services such as Elastic Map Reduce may automatically add required rules to security groups used with the service, and those rules may contain a cyclic dependency that prevent the security groups from being destroyed without removing the dependency first. Default `false`.",
+      "new": "* `revoke_rules_on_delete` - (Optional) Instruct TODO to revoke all of the Security Groups attached ingress and egress rules before deleting the rule itself. This is normally not needed, however certain AWS services such as Elastic Map Reduce may automatically add required rules to security groups used with the service, and those rules may contain a cyclic dependency that prevent the security groups from being destroyed without removing the dependency first. Default `false`."
+    }
+  ],
+  "website/docs/r/securityhub_standards_control.markdown": [
+    {
+      "old": "Terraform does not _create_ this resource, but instead \"adopts\" it",
+      "new": "TODO does not _create_ this resource, but instead \"adopts\" it"
+    },
+    {
+      "old": "into management. When you _delete_ this resource configuration, Terraform \"abandons\" resource as is and just removes it from the state.",
+      "new": "into management. When you _delete_ this resource configuration, TODO \"abandons\" resource as is and just removes it from the state."
+    }
+  ],
+  "website/docs/r/service_discovery_instance.html.markdown": [
+    {
+      "old": "  name        = \"example.terraform.local\"",
+      "new": "  name        = \"example.TODO.local\""
+    },
+    {
+      "old": "  name        = \"example.terraform.com\"",
+      "new": "  name        = \"example.TODO.com\""
+    }
+  ],
+  "website/docs/r/sesv2_configuration_set.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Configuration Set.",
+      "new": "  TODO resource for managing an AWS SESv2 (Simple Email V2) Configuration Set."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Configuration Set.",
+      "new": "TODO resource for managing an AWS SESv2 (Simple Email V2) Configuration Set."
+    }
+  ],
+  "website/docs/r/sns_topic.html.markdown": [
+    {
+      "old": "* `policy` - (Optional) The fully-formed AWS policy as JSON. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Optional) The fully-formed AWS policy as JSON. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide."
+    }
+  ],
+  "website/docs/r/sqs_queue.html.markdown": [
+    {
+      "old": "  name                  = \"terraform-example-queue.fifo\"",
+      "new": "  name                  = \"TODO-example-queue.fifo\""
+    },
+    {
+      "old": "resource \"aws_sqs_queue\" \"terraform_queue_deadletter\" {",
+      "new": "resource \"aws_sqs_queue\" \"TODO_queue_deadletter\" {"
+    },
+    {
+      "old": "  name = \"terraform-example-deadletter-queue\"",
+      "new": "  name = \"TODO-example-deadletter-queue\""
+    },
+    {
+      "old": "    sourceQueueArns   = [aws_sqs_queue.terraform_queue.arn]",
+      "new": "    sourceQueueArns   = [aws_sqs_queue.TODO_queue.arn]"
+    },
+    {
+      "old": "  name                    = \"terraform-example-queue\"",
+      "new": "  name                    = \"TODO-example-queue\""
+    }
+  ],
+  "website/docs/r/ssm_parameter.html.markdown": [
+    {
+      "old": "~> **Note:** `overwrite` also makes it possible to overwrite an existing SSM Parameter that's not created by Terraform before.",
+      "new": "~> **Note:** `overwrite` also makes it possible to overwrite an existing SSM Parameter that's not created by TODO before."
+    },
+    {
+      "old": "* `insecure_value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. **Use caution:** This value is _never_ marked as sensitive in the Terraform plan output. This argument is not valid with a `type` of `SecureString`.",
+      "new": "* `insecure_value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. **Use caution:** This value is _never_ marked as sensitive in the TODO plan output. This argument is not valid with a `type` of `SecureString`."
+    }
+  ],
+  "website/docs/r/transcribe_language_model.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Transcribe LanguageModel.",
+      "new": "  TODO resource for managing an AWS Transcribe LanguageModel."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Transcribe LanguageModel.",
+      "new": "TODO resource for managing an AWS Transcribe LanguageModel."
+    }
+  ],
+  "website/docs/r/transcribe_medical_vocabulary.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Transcribe MedicalVocabulary.",
+      "new": "  TODO resource for managing an AWS Transcribe MedicalVocabulary."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Transcribe MedicalVocabulary.",
+      "new": "TODO resource for managing an AWS Transcribe MedicalVocabulary."
+    }
+  ],
+  "website/docs/r/transcribe_vocabulary.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Transcribe Vocabulary.",
+      "new": "  TODO resource for managing an AWS Transcribe Vocabulary."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Transcribe Vocabulary.",
+      "new": "TODO resource for managing an AWS Transcribe Vocabulary."
+    }
+  ],
+  "website/docs/r/transcribe_vocabulary_filter.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Transcribe VocabularyFilter.",
+      "new": "  TODO resource for managing an AWS Transcribe VocabularyFilter."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Transcribe VocabularyFilter.",
+      "new": "TODO resource for managing an AWS Transcribe VocabularyFilter."
+    }
+  ],
+  "website/docs/r/transfer_access.html.markdown": [
+    {
+      "old": "* `policy` - (Optional) An IAM JSON policy document that scopes down user access to portions of their Amazon S3 bucket. IAM variables you can use inside this policy include `${Transfer:UserName}`, `${Transfer:HomeDirectory}`, and `${Transfer:HomeBucket}`. Since the IAM variable syntax matches Terraform's interpolation syntax, they must be escaped inside Terraform configuration strings (`$${Transfer:UserName}`).  These are evaluated on-the-fly when navigating the bucket.",
+      "new": "* `policy` - (Optional) An IAM JSON policy document that scopes down user access to portions of their Amazon S3 bucket. IAM variables you can use inside this policy include `${Transfer:UserName}`, `${Transfer:HomeDirectory}`, and `${Transfer:HomeBucket}`. Since the IAM variable syntax matches TODO's interpolation syntax, they must be escaped inside TODO configuration strings (`$${Transfer:UserName}`).  These are evaluated on-the-fly when navigating the bucket."
+    }
+  ],
+  "website/docs/r/transfer_tag.html.markdown": [
+    {
+      "old": "Manages an individual Transfer Family resource tag. This resource should only be used in cases where Transfer Family resources are created outside Terraform (e.g., Servers without AWS Management Console) or the tag key has the `aws:` prefix.",
+      "new": "Manages an individual Transfer Family resource tag. This resource should only be used in cases where Transfer Family resources are created outside TODO (e.g., Servers without AWS Management Console) or the tag key has the `aws:` prefix."
+    },
+    {
+      "old": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_transfer_server` and `aws_transfer_tag` to manage tags of the same server will cause a perpetual difference where the `aws_transfer_server` resource will try to remove the tag being added by the `aws_transfer_tag` resource.",
+      "new": "~> **NOTE:** This tagging resource should not be combined with the TODO resource for managing the parent resource. For example, using `aws_transfer_server` and `aws_transfer_tag` to manage tags of the same server will cause a perpetual difference where the `aws_transfer_server` resource will try to remove the tag being added by the `aws_transfer_tag` resource."
+    }
+  ],
+  "website/docs/r/vpc_endpoint.html.markdown": [
+    {
+      "old": "~> **NOTE on VPC Endpoints and VPC Endpoint Associations:** Terraform provides both standalone VPC Endpoint Associations for",
+      "new": "~> **NOTE on VPC Endpoints and VPC Endpoint Associations:** TODO provides both standalone VPC Endpoint Associations for"
+    }
+  ],
+  "website/docs/r/vpc_endpoint_policy.html.markdown": [
+    {
+      "old": "* `policy` - (Optional) A policy to attach to the endpoint that controls access to the service. Defaults to full access. All `Gateway` and some `Interface` endpoints support policies - see the [relevant AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) for more details. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Optional) A policy to attach to the endpoint that controls access to the service. Defaults to full access. All `Gateway` and some `Interface` endpoints support policies - see the [relevant AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) for more details. For more information about building AWS IAM policy documents with TODO, see the AWS IAM Policy Document Guide."
+    }
+  ],
+  "website/docs/r/vpc_endpoint_security_group_association.html.markdown": [
+    {
+      "old": "~> **NOTE on VPC Endpoints and VPC Endpoint Security Group Associations:** Terraform provides",
+      "new": "~> **NOTE on VPC Endpoints and VPC Endpoint Security Group Associations:** TODO provides"
+    }
+  ],
+  "website/docs/r/vpn_connection.html.markdown": [
+    {
+      "old": "  name            = \"terraform_ipsec_vpn_example\"",
+      "new": "  name            = \"TODO_ipsec_vpn_example\""
+    },
+    {
+      "old": "  description     = \"terraform_ipsec_vpn_example\"",
+      "new": "  description     = \"TODO_ipsec_vpn_example\""
+    },
+    {
+      "old": "    Name = \"terraform_ipsec_vpn_example\"",
+      "new": "    Name = \"TODO_ipsec_vpn_example\""
+    },
+    {
+      "old": "    Name = \"terraform_ipsec_vpn_example\"",
+      "new": "    Name = \"TODO_ipsec_vpn_example\""
+    }
+  ]
+}

@@ -28,15 +28,6 @@ function getDocsReplacements(file: GitPatchFile) {
   const fileReplacements: LineReplacement[] = [];
   const groupedByLine = groupBy(file.modifiedLines, (l) => l.lineNumber);
   for (const [lineNo, changes] of groupedByLine) {
-    // Look for note removal
-    if (changes.length === 1 && changes[0].added === false) {
-      const line = changes[0].line;
-      if (line.match(/\*\*note:?\*\*/i)) {
-        fileReplacements.push({ old: line });
-        usedLineNumbers.add(changes[0].lineNumber);
-      }
-    }
-
     // Look for a TF mention replacement
     if (changes.length === 2 && changes[0].added !== changes[1].added) {
       const [lineA, lineB] = changes;
@@ -58,7 +49,6 @@ function getDocsReplacements(file: GitPatchFile) {
 
   // Look for contiguous blocks of removal
   const removalBlocks = findRemovalBlocks(groupedByLine);
-
   if (removalBlocks.length > 0) {
     for (const block of removalBlocks) {
       // Ignore whitespace-only removals
@@ -67,6 +57,21 @@ function getDocsReplacements(file: GitPatchFile) {
         init({ from: block.start, to: block.end }).forEach((n) =>
           usedLineNumbers.add(n)
         );
+      }
+    }
+  }
+
+  // Look for note removal
+  for (const [lineNo, changes] of groupedByLine) {
+    // Skip changes we've already captured
+    if (usedLineNumbers.has(lineNo)) {
+      continue;
+    }
+    if (changes.length === 1 && changes[0].added === false) {
+      const line = changes[0].line;
+      if (line.match(/\*\*note:?\*\*/i)) {
+        fileReplacements.push({ old: line });
+        usedLineNumbers.add(changes[0].lineNumber);
       }
     }
   }
