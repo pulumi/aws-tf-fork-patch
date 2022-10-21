@@ -17,7 +17,7 @@ Applies a set of automated changes to a AWS TF fork working directory.
 ## Generating replacements from diffs
 
 1. Generate a diff `git diff v4.35.0..upstream-v4.35.0 > upstream.patch`
-2. Convert diff to replacements `yarn start parse-patch upstream.patch`
+2. Convert diff to replacements `yarn start parse-patch upstream.patch --outFile patches/patchReplacements.json`
 3. Copy output `patchReplacements.json` into `patches/replace_docs_terraform.ts`
 
 Approximate method:

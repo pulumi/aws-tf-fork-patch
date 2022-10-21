@@ -1,6 +1,6 @@
 import { GitPatch, GitPatchFile, GitPatchModifiedLine } from "./parseGitPatch";
 import { DocsReplacements, LineReplacement } from "./patches";
-import { groupBy, distinctBy, distinct, sortBy } from "array-fns";
+import { groupBy, distinctBy, distinct, sortBy, init, sort } from "array-fns";
 import { EOL } from "os";
 
 export function extractDocsReplacements(patch: GitPatch): DocsReplacements {
@@ -62,19 +62,33 @@ function getDocsReplacements(file: GitPatchFile) {
   if (removalBlocks.length > 0) {
     for (const block of removalBlocks) {
       // Ignore whitespace-only removals
-      if (block.trim() !== "") {
-        fileReplacements.push({ old: block });
+      if (block.content.trim() !== "") {
+        fileReplacements.push({ old: block.content });
+        init({ from: block.start, to: block.end }).forEach((n) =>
+          usedLineNumbers.add(n)
+        );
       }
     }
-  } else {
-    const unusedLines = distinct(file.modifiedLines.map((l) => l.lineNumber))
-      .filter((n) => !usedLineNumbers.has(n))
-      .sort();
-
-    if (unusedLines.length > 2) {
-      console.log(`${file.afterName}: unused lines: ${unusedLines.join(",")}`);
-    }
   }
+
+  // // Show unused lines from diff
+  // const unusedLines = new Set(
+  //   sort(
+  //     distinct(file.modifiedLines.map((l) => l.lineNumber)).filter(
+  //       (n) => !usedLineNumbers.has(n)
+  //     )
+  //   )
+  // );
+  // if (unusedLines.size > 0) {
+  //   console.log("diff for", file.afterName);
+  //   for (const [lineNo, line] of groupedByLine) {
+  //     if (unusedLines.has(lineNo)) {
+  //       for (const change of line) {
+  //         console.log(change.added ? "+" : "-", change.line);
+  //       }
+  //     }
+  //   }
+  // }
 
   if (fileReplacements.length === 0) {
     return undefined;
@@ -84,7 +98,7 @@ function getDocsReplacements(file: GitPatchFile) {
 
 function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
   const sorted = sortBy(lineChanges, ([n]) => n);
-  const removalBlocks: string[] = [];
+  const removalBlocks: { content: string; start: number; end: number }[] = [];
   let state:
     | { name: "initial" }
     | { name: "mixed"; start: number; last: number }
@@ -103,6 +117,18 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
     last: change.lineNumber,
     content: [change.line],
   });
+  const finishBlock = (state: {
+    name: "block";
+    start: number;
+    last: number;
+    content: string[];
+  }) => {
+    removalBlocks.push({
+      content: state.content.join(EOL),
+      start: state.start,
+      end: state.last,
+    });
+  };
 
   for (const [lineNo, changes] of sorted) {
     if (changes.length !== 1 || changes[0].added !== false) {
@@ -122,7 +148,7 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
           if (state.last === lineNo - 1) {
             state = { name: "mixed", start: state.start, last: lineNo };
           } else {
-            removalBlocks.push(state.content.join(EOL));
+            finishBlock(state);
             state = { name: "mixed", start: lineNo, last: lineNo };
           }
           break;
@@ -148,7 +174,7 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
               content: [...state.content, changes[0].line],
             };
           } else {
-            removalBlocks.push(state.content.join(EOL));
+            finishBlock(state);
             state = newBlock(changes[0]);
           }
           continue;

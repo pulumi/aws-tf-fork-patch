@@ -4,7 +4,7 @@ import { readFile, writeFile } from "fs/promises";
 import { join, relative } from "path";
 import { EOL } from "os";
 
-export async function applyDocsTerraformReplace(ctx: PatchContext) {
+export async function applyDocsReplacements(ctx: PatchContext) {
   const replacements = await readReplacements();
   const suggestions: DocsReplacements = {};
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
@@ -56,8 +56,8 @@ function tryReplace(
     for (const replacement of fileReplacements) {
       const newReplacement =
         replacement.new !== undefined
-          ? replaced.replace(replacement.old, replacement.new) // Simple find/replace
-          : replaced.replace(EOL + replacement.old, ""); // Remove whole line
+          ? replaced.replaceAll(replacement.old, replacement.new) // Simple find/replace
+          : replaced.replaceAll(EOL + replacement.old, ""); // Remove whole line
       if (replaced === newReplacement) {
         console.warn("Replacement not matched:", file, "\n", replacement.old);
       }

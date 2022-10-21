@@ -27,8 +27,8 @@ yargs(hideBin(process.argv))
 
       console.log("Applying patches ");
       await patches.applyTagsAll(config);
+      await patches.applyDocsReplacements(config);
       await patches.applyStripDocLinks(config);
-      await patches.applyDocsTerraformReplace(config);
     }
   )
   .command(
