@@ -61,7 +61,10 @@ function getDocsReplacements(file: GitPatchFile) {
 
   if (removalBlocks.length > 0) {
     for (const block of removalBlocks) {
-      fileReplacements.push({ old: block });
+      // Ignore whitespace-only removals
+      if (block.trim() !== "") {
+        fileReplacements.push({ old: block });
+      }
     }
   } else {
     const unusedLines = distinct(file.modifiedLines.map((l) => l.lineNumber))
@@ -119,9 +122,7 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
           if (state.last === lineNo - 1) {
             state = { name: "mixed", start: state.start, last: lineNo };
           } else {
-            if (state.last > state.start) {
-              removalBlocks.push(state.content.join(EOL));
-            }
+            removalBlocks.push(state.content.join(EOL));
             state = { name: "mixed", start: lineNo, last: lineNo };
           }
           break;
@@ -147,9 +148,7 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
               content: [...state.content, changes[0].line],
             };
           } else {
-            if (state.last > state.start) {
-              removalBlocks.push(state.content.join(EOL));
-            }
+            removalBlocks.push(state.content.join(EOL));
             state = newBlock(changes[0]);
           }
           continue;
