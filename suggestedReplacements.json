@@ -35,12 +35,6 @@
       "new": "With this data source, you can apply default tags to resources not _directly_ managed by a Terraform resource, such as the instances underneath an Auto Scaling group or the volumes created for an EC2 instance."
     }
   ],
-  "website/docs/d/eks_cluster_auth.html.markdown": [
-    {
-      "old": "~> **NOTE:** Dynamically configuring a Terraform Provider via data sources currently has implications on [resource import support](https://github.com/hashicorp/terraform/issues/13018).",
-      "new": "~> **NOTE:** Dynamically configuring a Terraform Provider via data sources currently has implications on [resource import support](https://github.com/hashicorp/terraform/issues/13018)."
-    }
-  ],
   "website/docs/d/iam_policy_document.html.markdown": [
     {
       "old": "~> **NOTE:** AWS's IAM policy document syntax allows for replacement of [policy variables](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html) within a statement using `${...}`-style notation, which conflicts with Terraform's interpolation syntax. In order to use AWS policy variables with this data source, use `&{...}` notation for interpolations that should be processed by AWS rather than by Terraform.",
@@ -105,12 +99,6 @@
       "new": "* `account_id` - (Optional) AWS account ID to configure. Defaults to automatically determined account ID of the Terraform AWS provider."
     }
   ],
-  "website/docs/d/s3_bucket_objects.html.markdown": [
-    {
-      "old": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect Terraform's performance.",
-      "new": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect Terraform's performance."
-    }
-  ],
   "website/docs/d/s3_object.html.markdown": [
     {
       "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`.",
@@ -157,6 +145,10 @@
   ],
   "website/docs/r/acm_certificate.html.markdown": [
     {
+      "old": "Domain validation through email is also supported but should be avoided as it requires a manual step outside of Terraform.",
+      "new": "Domain validation through email is also supported but should be avoided as it requires a manual step outside of Terraform."
+    },
+    {
       "old": "    * `validation_method` - (Required) Which method to use for validation. `DNS` or `EMAIL` are valid, `NONE` can be used for certificates that were imported into ACM and then into Terraform.",
       "new": "    * `validation_method` - (Required) Which method to use for validation. `DNS` or `EMAIL` are valid, `NONE` can be used for certificates that were imported into ACM and then into Terraform."
     }
@@ -181,6 +173,10 @@
       "new": "* When the REST API configuration involves other Terraform resources (`aws_api_gateway_integration` resource, etc.), the dependency setup can be done with implicit resource references in the `triggers` argument or explicit resource references using the resource `depends_on` meta-argument. The `triggers` argument should be preferred over `depends_on`, since `depends_on` can only capture dependency ordering and will not cause the resource to recreate (redeploy the REST API) with upstream configuration changes."
     },
     {
+      "old": "!> **WARNING:** We recommend using the `aws_api_gateway_stage` resource instead of managing an API Gateway Stage via the `stage_name` argument of this resource. When this resource is recreated (REST API redeployment) with the `stage_name` configured, the stage is deleted and recreated. This will cause a temporary service interruption, increase Terraform plan differences, and can require a second Terraform apply to recreate any downstream stage configuration such as associated `aws_api_method_settings` resources.",
+      "new": "!> **WARNING:** We recommend using the `aws_api_gateway_stage` resource instead of managing an API Gateway Stage via the `stage_name` argument of this resource. When this resource is recreated (REST API redeployment) with the `stage_name` configured, the stage is deleted and recreated. This will cause a temporary service interruption, increase Terraform plan differences, and can require a second Terraform apply to recreate any downstream stage configuration such as associated `aws_api_method_settings` resources."
+    },
+    {
       "old": "~> **NOTE:** Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform. Without enabling `create_before_destroy`, API Gateway can return errors such as `BadRequestException: Active stages pointing to this deployment must be moved or deleted` on recreation.",
       "new": "~> **NOTE:** Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform. Without enabling `create_before_destroy`, API Gateway can return errors such as `BadRequestException: Active stages pointing to this deployment must be moved or deleted` on recreation."
     },
@@ -194,6 +190,10 @@
     }
   ],
   "website/docs/r/api_gateway_rest_api.html.markdown": [
+    {
+      "old": "Manages an API Gateway REST API. The REST API can be configured via [importing an OpenAPI specification](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api.html) in the `body` argument (with other arguments serving as overrides) or via other Terraform resources to manage the resources (`aws_api_gateway_resource` resource), methods (`aws_api_gateway_method` resource), integrations (`aws_api_gateway_integration` resource), etc. of the REST API. Once the REST API is configured, the `aws_api_gateway_deployment` resource can be used along with the `aws_api_gateway_stage` resource to publish the REST API.",
+      "new": "Manages an API Gateway REST API. The REST API can be configured via [importing an OpenAPI specification](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-import-api.html) in the `body` argument (with other arguments serving as overrides) or via other Terraform resources to manage the resources (`aws_api_gateway_resource` resource), methods (`aws_api_gateway_method` resource), integrations (`aws_api_gateway_integration` resource), etc. of the REST API. Once the REST API is configured, the `aws_api_gateway_deployment` resource can be used along with the `aws_api_gateway_stage` resource to publish the REST API."
+    },
     {
       "old": "### Terraform Resources",
       "new": "### Terraform Resources"
@@ -215,6 +215,16 @@
     {
       "old": "-> **NOTE:** This is an optional and Terraform 0.12 (or later) advanced configuration that shows calculating a hash of the API's Terraform resources to determine changes that should trigger a new deployment. This value will change after the first Terraform apply of new resources, triggering an immediate redeployment, however it will stabilize afterwards except for resource changes. The `triggers` map can also be configured in other, more complex ways to fit the environment, avoiding the immediate redeployment issue.",
       "new": "-> **NOTE:** This is an optional and Terraform 0.12 (or later) advanced configuration that shows calculating a hash of the API's Terraform resources to determine changes that should trigger a new deployment. This value will change after the first Terraform apply of new resources, triggering an immediate redeployment, however it will stabilize afterwards except for resource changes. The `triggers` map can also be configured in other, more complex ways to fit the environment, avoiding the immediate redeployment issue."
+    }
+  ],
+  "website/docs/r/apigatewayv2_stage.html.markdown": [
+    {
+      "old": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. Terraform will only perform drift detection of its value when present in a configuration.",
+      "new": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. Terraform will only perform drift detection of its value when present in a configuration."
+    },
+    {
+      "old": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. Terraform will only perform drift detection of its value when present in a configuration.",
+      "new": "Valid values: `ERROR`, `INFO`, `OFF`. Defaults to `OFF`. Supported only for WebSocket APIs. Terraform will only perform drift detection of its value when present in a configuration."
     }
   ],
   "website/docs/r/athena_database.html.markdown": [
@@ -293,6 +303,10 @@
       "new": "Terraform moves on. If new instances don't pass the ELB's health checks for any"
     },
     {
+      "old": "reason, the Terraform apply will time out, and the ASG will be marked as",
+      "new": "reason, the Terraform apply will time out, and the ASG will be marked as"
+    },
+    {
       "old": "As with ASG Capacity, Terraform will wait for up to `wait_for_capacity_timeout`",
       "new": "As with ASG Capacity, Terraform will wait for up to `wait_for_capacity_timeout`"
     }
@@ -307,12 +321,6 @@
       "new": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_autoscaling_group` and `aws_autoscaling_group_tag` to manage tags of the same ASG will cause a perpetual difference where the `aws_autoscaling_group` resource will try to remove the tag being added by the `aws_autoscaling_group_tag` resource."
     }
   ],
-  "website/docs/r/autoscaling_lifecycle_hook.html.markdown": [
-    {
-      "old": "~> **NOTE:** Terraform has two types of ways you can add lifecycle hooks - via",
-      "new": "~> **NOTE:** Terraform has two types of ways you can add lifecycle hooks - via"
-    }
-  ],
   "website/docs/r/batch_compute_environment.html.markdown": [
     {
       "old": "* `compute_environment_name` - (Optional, Forces new resource) The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed. If omitted, Terraform will assign a random, unique name.",
@@ -323,12 +331,6 @@
     {
       "old": "* `desired_state` - (Required) JSON string matching the CloudFormation resource type schema with desired configuration. Terraform configuration expressions can be converted into JSON using the `jsonencode()` function.",
       "new": "* `desired_state` - (Required) JSON string matching the CloudFormation resource type schema with desired configuration. Terraform configuration expressions can be converted into JSON using the `jsonencode()` function."
-    }
-  ],
-  "website/docs/r/cloudformation_stack_set_instance.html.markdown": [
-    {
-      "old": "~> **NOTE:** To retain the Stack during Terraform resource destroy, ensure `retain_stack = true` has been successfully applied into the Terraform state first. This must be completed _before_ an apply that would destroy the resource.",
-      "new": "~> **NOTE:** To retain the Stack during Terraform resource destroy, ensure `retain_stack = true` has been successfully applied into the Terraform state first. This must be completed _before_ an apply that would destroy the resource."
     }
   ],
   "website/docs/r/cloudformation_type.html.markdown": [
@@ -379,26 +381,10 @@
       "new": "* `id` - Name (if imported via `name`) or ARN (if created via Terraform or imported via ARN) of the CodeBuild project."
     }
   ],
-  "website/docs/r/codebuild_webhook.html.markdown": [
-    {
-      "old": "When working with [Bitbucket](https://bitbucket.org) and [GitHub](https://github.com) source CodeBuild webhooks, the CodeBuild service will automatically create (on `aws_codebuild_webhook` resource creation) and delete (on `aws_codebuild_webhook` resource deletion) the Bitbucket/GitHub repository webhook using its granted OAuth permissions. This behavior cannot be controlled by Terraform.",
-      "new": "When working with [Bitbucket](https://bitbucket.org) and [GitHub](https://github.com) source CodeBuild webhooks, the CodeBuild service will automatically create (on `aws_codebuild_webhook` resource creation) and delete (on `aws_codebuild_webhook` resource deletion) the Bitbucket/GitHub repository webhook using its granted OAuth permissions. This behavior cannot be controlled by Terraform."
-    },
-    {
-      "old": "~> **Note:** The AWS account that Terraform uses to create this resource *must* have authorized CodeBuild to access Bitbucket/GitHub's OAuth API in each applicable region. This is a manual step that must be done *before* creating webhooks with this resource. If OAuth is not configured, AWS will return an error similar to `ResourceNotFoundException: Could not find access token for server type github`. More information can be found in the CodeBuild User Guide for [Bitbucket](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-bitbucket-pull-request.html) and [GitHub](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-github-pull-request.html).",
-      "new": "~> **Note:** The AWS account that Terraform uses to create this resource *must* have authorized CodeBuild to access Bitbucket/GitHub's OAuth API in each applicable region. This is a manual step that must be done *before* creating webhooks with this resource. If OAuth is not configured, AWS will return an error similar to `ResourceNotFoundException: Could not find access token for server type github`. More information can be found in the CodeBuild User Guide for [Bitbucket](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-bitbucket-pull-request.html) and [GitHub](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-github-pull-request.html)."
-    }
-  ],
   "website/docs/r/codecommit_trigger.html.markdown": [
     {
       "old": "~> **NOTE:** Terraform currently can create only one trigger per repository, even if multiple aws_codecommit_trigger resources are defined. Moreover, creating triggers with Terraform will delete all other triggers in the repository (also manually-created triggers).",
       "new": "~> **NOTE:** Terraform currently can create only one trigger per repository, even if multiple aws_codecommit_trigger resources are defined. Moreover, creating triggers with Terraform will delete all other triggers in the repository (also manually-created triggers)."
-    }
-  ],
-  "website/docs/r/cognito_user_pool.markdown": [
-    {
-      "old": "~> **NOTE:** When defining an `attribute_data_type` of `String` or `Number`, the respective attribute constraints configuration block (e.g `string_attribute_constraints` or `number_attribute_constraints`) is **required** to prevent recreation of the Terraform resource. This requirement is true for both standard (e.g., name, email) and custom schema attributes.",
-      "new": "~> **NOTE:** When defining an `attribute_data_type` of `String` or `Number`, the respective attribute constraints configuration block (e.g `string_attribute_constraints` or `number_attribute_constraints`) is **required** to prevent recreation of the Terraform resource. This requirement is true for both standard (e.g., name, email) and custom schema attributes."
     }
   ],
   "website/docs/r/comprehend_document_classifier.html.markdown": [
@@ -457,17 +443,11 @@
       "new": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow Module source specified with `filename`. The usual way to set this is filebase64sha256(\"contact_flow_module.json\") (Terraform 0.11.12 and later) or base64sha256(file(\"contact_flow_module.json\")) (Terraform 0.11.11 and earlier), where \"contact_flow_module.json\" is the local filename of the Contact Flow Module source."
     }
   ],
-  "website/docs/r/datasync_agent.html.markdown": [
-    {
-      "old": "~> **NOTE:** One of `activation_key` or `ip_address` must be provided for resource creation (agent activation). Neither is required for resource import. If using `ip_address`, Terraform must be able to make an HTTP (port 80) GET request to the specified IP address from where it is running. The agent will turn off that HTTP server after activation.",
-      "new": "~> **NOTE:** One of `activation_key` or `ip_address` must be provided for resource creation (agent activation). Neither is required for resource import. If using `ip_address`, Terraform must be able to make an HTTP (port 80) GET request to the specified IP address from where it is running. The agent will turn off that HTTP server after activation."
-    },
-    {
-      "old": "* `activation_key` - (Optional) DataSync Agent activation key during resource creation. Conflicts with `ip_address`. If an `ip_address` is provided instead, Terraform will retrieve the `activation_key` as part of the resource creation.",
-      "new": "* `activation_key` - (Optional) DataSync Agent activation key during resource creation. Conflicts with `ip_address`. If an `ip_address` is provided instead, Terraform will retrieve the `activation_key` as part of the resource creation."
-    }
-  ],
   "website/docs/r/db_instance.html.markdown": [
+    {
+      "old": "of this, Terraform may report a difference in its planning phase because a",
+      "new": "of this, Terraform may report a difference in its planning phase because a"
+    },
     {
       "old": "To enable Storage Autoscaling with instances that support the feature, define the `max_allocated_storage` argument higher than the `allocated_storage` argument. Terraform will automatically hide differences with the `allocated_storage` argument value if autoscaling occurs.",
       "new": "To enable Storage Autoscaling with instances that support the feature, define the `max_allocated_storage` argument higher than the `allocated_storage` argument. Terraform will automatically hide differences with the `allocated_storage` argument value if autoscaling occurs."
@@ -481,16 +461,6 @@
       "new": "Replicate database managed by Terraform will promote the database to a fully"
     }
   ],
-  "website/docs/r/db_option_group.html.markdown": [
-    {
-      "old": "  option_group_description = \"Terraform Option Group\"",
-      "new": "  option_group_description = \"Terraform Option Group\""
-    },
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the option group. If omitted, Terraform will assign a random, unique name. Must be lowercase, to match as it is stored in AWS.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the option group. If omitted, Terraform will assign a random, unique name. Must be lowercase, to match as it is stored in AWS."
-    }
-  ],
   "website/docs/r/db_parameter_group.html.markdown": [
     {
       "old": "~> **NOTE:** After applying your changes, you may encounter a perpetual diff in your Terraform plan",
@@ -499,62 +469,20 @@
     {
       "old": "* `name` - (Optional, Forces new resource) The name of the DB parameter group. If omitted, Terraform will assign a random, unique name.",
       "new": "* `name` - (Optional, Forces new resource) The name of the DB parameter group. If omitted, Terraform will assign a random, unique name."
+    },
+    {
+      "old": "* `description` - (Optional, Forces new resource) The description of the DB parameter group. Defaults to \"Managed by Terraform\".",
+      "new": "* `description` - (Optional, Forces new resource) The description of the DB parameter group. Defaults to \"Managed by Terraform\"."
     }
   ],
   "website/docs/r/db_security_group.html.markdown": [
     {
       "old": "!> **WARNING:** With the retirement of EC2-Classic the `aws_db_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command.",
       "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_db_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command."
-    }
-  ],
-  "website/docs/r/db_subnet_group.html.markdown": [
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the DB subnet group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the DB subnet group. If omitted, Terraform will assign a random, unique name."
-    }
-  ],
-  "website/docs/r/default_network_acl.html.markdown": [
-    {
-      "old": "~> **NOTE:** This is an advanced resource with special caveats. Please read this document in its entirety before using this resource. The `aws_default_network_acl` behaves differently from normal resources. Terraform does not _create_ this resource but instead attempts to \"adopt\" it into management.",
-      "new": "~> **NOTE:** This is an advanced resource with special caveats. Please read this document in its entirety before using this resource. The `aws_default_network_acl` behaves differently from normal resources. Terraform does not _create_ this resource but instead attempts to \"adopt\" it into management."
     },
     {
-      "old": "Every VPC has a default network ACL that can be managed but not destroyed. When Terraform first adopts the Default Network ACL, it **immediately removes all rules in the ACL**. It then proceeds to create any rules specified in the configuration. This step is required so that only the rules specified in the configuration are created.",
-      "new": "Every VPC has a default network ACL that can be managed but not destroyed. When Terraform first adopts the Default Network ACL, it **immediately removes all rules in the ACL**. It then proceeds to create any rules specified in the configuration. This step is required so that only the rules specified in the configuration are created."
-    },
-    {
-      "old": "The following config gives the Default Network ACL the same rules that AWS includes but pulls the resource under management by Terraform. This means that any ACL rules added or changed will be detected as drift.",
-      "new": "The following config gives the Default Network ACL the same rules that AWS includes but pulls the resource under management by Terraform. This means that any ACL rules added or changed will be detected as drift."
-    }
-  ],
-  "website/docs/r/default_route_table.html.markdown": [
-    {
-      "old": "~> **NOTE:** This is an advanced resource with special caveats. Please read this document in its entirety before using this resource. The `aws_default_route_table` resource behaves differently from normal resources. Terraform does not _create_ this resource but instead attempts to \"adopt\" it into management. **Do not** use both `aws_default_route_table` to manage a default route table **and** `aws_main_route_table_association` with the same VPC due to possible route conflicts. See [aws_main_route_table_association][tf-main-route-table-association] documentation for more details.",
-      "new": "~> **NOTE:** This is an advanced resource with special caveats. Please read this document in its entirety before using this resource. The `aws_default_route_table` resource behaves differently from normal resources. Terraform does not _create_ this resource but instead attempts to \"adopt\" it into management. **Do not** use both `aws_default_route_table` to manage a default route table **and** `aws_main_route_table_association` with the same VPC due to possible route conflicts. See [aws_main_route_table_association][tf-main-route-table-association] documentation for more details."
-    },
-    {
-      "old": "Every VPC has a default route table that can be managed but not destroyed. When Terraform first adopts a default route table, it **immediately removes all defined routes**. It then proceeds to create any routes specified in the configuration. This step is required so that only the routes specified in the configuration exist in the default route table.",
-      "new": "Every VPC has a default route table that can be managed but not destroyed. When Terraform first adopts a default route table, it **immediately removes all defined routes**. It then proceeds to create any routes specified in the configuration. This step is required so that only the routes specified in the configuration exist in the default route table."
-    }
-  ],
-  "website/docs/r/default_security_group.html.markdown": [
-    {
-      "old": "~> **NOTE:** This is an advanced resource with special caveats. Please read this document in its entirety before using this resource. The `aws_default_security_group` resource behaves differently from normal resources. Terraform does not _create_ this resource but instead attempts to \"adopt\" it into management.",
-      "new": "~> **NOTE:** This is an advanced resource with special caveats. Please read this document in its entirety before using this resource. The `aws_default_security_group` resource behaves differently from normal resources. Terraform does not _create_ this resource but instead attempts to \"adopt\" it into management."
-    },
-    {
-      "old": "When Terraform first begins managing the default security group, it **immediately removes all ingress and egress rules in the Security Group**. It then creates any rules specified in the configuration. This way only the rules specified in the configuration are created.",
-      "new": "When Terraform first begins managing the default security group, it **immediately removes all ingress and egress rules in the Security Group**. It then creates any rules specified in the configuration. This way only the rules specified in the configuration are created."
-    }
-  ],
-  "website/docs/r/default_subnet.html.markdown": [
-    {
-      "old": "The `aws_default_subnet` resource behaves differently from normal resources in that if a default subnet exists in the specified Availability Zone, Terraform does not _create_ this resource, but instead \"adopts\" it into management.",
-      "new": "The `aws_default_subnet` resource behaves differently from normal resources in that if a default subnet exists in the specified Availability Zone, Terraform does not _create_ this resource, but instead \"adopts\" it into management."
-    },
-    {
-      "old": "If no default subnet exists, Terraform creates a new default subnet.",
-      "new": "If no default subnet exists, Terraform creates a new default subnet."
+      "old": "* `description` - (Optional) The description of the DB security group. Defaults to \"Managed by Terraform\".",
+      "new": "* `description` - (Optional) The description of the DB security group. Defaults to \"Managed by Terraform\"."
     }
   ],
   "website/docs/r/default_vpc.html.markdown": [
@@ -565,24 +493,20 @@
     {
       "old": "If no default VPC exists, Terraform creates a new default VPC, which leads to the implicit creation of [other resources](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html#default-vpc-components).",
       "new": "If no default VPC exists, Terraform creates a new default VPC, which leads to the implicit creation of [other resources](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html#default-vpc-components)."
-    }
-  ],
-  "website/docs/r/default_vpc_dhcp_options.html.markdown": [
+    },
     {
-      "old": "Terraform does not _create_ this resource, but instead \"adopts\" it",
-      "new": "Terraform does not _create_ this resource, but instead \"adopts\" it"
+      "old": "By default, `terraform destroy` does not delete the default VPC but does remove the resource from Terraform state.",
+      "new": "By default, `terraform destroy` does not delete the default VPC but does remove the resource from Terraform state."
     }
   ],
   "website/docs/r/docdb_cluster.html.markdown": [
     {
+      "old": "window. Because of this, Terraform may report a difference in its planning",
+      "new": "window. Because of this, Terraform may report a difference in its planning"
+    },
+    {
       "old": "* `cluster_identifier` - (Optional, Forces new resources) The cluster identifier. If omitted, Terraform will assign a random, unique identifier.",
       "new": "* `cluster_identifier` - (Optional, Forces new resources) The cluster identifier. If omitted, Terraform will assign a random, unique identifier."
-    }
-  ],
-  "website/docs/r/docdb_cluster_parameter_group.html.markdown": [
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the documentDB cluster parameter group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the documentDB cluster parameter group. If omitted, Terraform will assign a random, unique name."
     }
   ],
   "website/docs/r/docdb_event_subscription.html.markdown": [
@@ -613,12 +537,6 @@
       "new": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g."
     }
   ],
-  "website/docs/r/docdb_subnet_group.html.markdown": [
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the docDB subnet group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the docDB subnet group. If omitted, Terraform will assign a random, unique name."
-    }
-  ],
   "website/docs/r/dynamodb_tag.html.markdown": [
     {
       "old": "Manages an individual DynamoDB resource tag. This resource should only be used in cases where DynamoDB resources are created outside Terraform (e.g., Table replicas in other regions).",
@@ -633,12 +551,6 @@
     {
       "old": "* `kms_key_id` - (Optional) The ARN for the KMS encryption key. When specifying `kms_key_id`, `encrypted` needs to be set to true. Note: Terraform must be running with credentials which have the `GenerateDataKeyWithoutPlaintext` permission on the specified KMS key as required by the [EBS KMS CMK volume provisioning process](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html#ebs-cmk) to prevent a volume from being created and almost immediately deleted.",
       "new": "* `kms_key_id` - (Optional) The ARN for the KMS encryption key. When specifying `kms_key_id`, `encrypted` needs to be set to true. Note: Terraform must be running with credentials which have the `GenerateDataKeyWithoutPlaintext` permission on the specified KMS key as required by the [EBS KMS CMK volume provisioning process](https://docs.aws.amazon.com/kms/latest/developerguide/services-ebs.html#ebs-cmk) to prevent a volume from being created and almost immediately deleted."
-    }
-  ],
-  "website/docs/r/ec2_client_vpn_endpoint.html.markdown": [
-    {
-      "old": "~> **NOTE on Client VPN endpoint target network security groups:** Terraform provides both a standalone Client VPN endpoint network association resource with a (deprecated) `security_groups` argument and a Client VPN endpoint resource with a `security_group_ids` argument. Do not specify security groups in both resources. Doing so will cause a conflict and will overwrite the target network security group association.",
-      "new": "~> **NOTE on Client VPN endpoint target network security groups:** Terraform provides both a standalone Client VPN endpoint network association resource with a (deprecated) `security_groups` argument and a Client VPN endpoint resource with a `security_group_ids` argument. Do not specify security groups in both resources. Doing so will cause a conflict and will overwrite the target network security group association."
     }
   ],
   "website/docs/r/ec2_client_vpn_network_association.html.markdown": [
@@ -665,12 +577,6 @@
       "new": "~> **NOTE:** Removing this Terraform resource disables serial console access."
     }
   ],
-  "website/docs/r/ec2_tag.html.markdown": [
-    {
-      "old": "Manages an individual EC2 resource tag. This resource should only be used in cases where EC2 resources are created outside Terraform (e.g., AMIs), being shared via Resource Access Manager (RAM), or implicitly created by other means (e.g., Transit Gateway VPN Attachments).",
-      "new": "Manages an individual EC2 resource tag. This resource should only be used in cases where EC2 resources are created outside Terraform (e.g., AMIs), being shared via Resource Access Manager (RAM), or implicitly created by other means (e.g., Transit Gateway VPN Attachments)."
-    }
-  ],
   "website/docs/r/ecr_registry_policy.html.markdown": [
     {
       "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
@@ -687,20 +593,6 @@
     {
       "old": "~> **NOTE on Clusters and Cluster Capacity Providers:** Terraform provides both a standalone `aws_ecs_cluster_capacity_providers` resource, as well as allowing the capacity providers and default strategies to be managed in-line by the `aws_ecs_cluster` resource. You cannot use a Cluster with in-line capacity providers in conjunction with the Capacity Providers resource, nor use more than one Capacity Providers resource with a single Cluster, as doing so will cause a conflict and will lead to mutual overwrites.",
       "new": "~> **NOTE on Clusters and Cluster Capacity Providers:** Terraform provides both a standalone `aws_ecs_cluster_capacity_providers` resource, as well as allowing the capacity providers and default strategies to be managed in-line by the `aws_ecs_cluster` resource. You cannot use a Cluster with in-line capacity providers in conjunction with the Capacity Providers resource, nor use more than one Capacity Providers resource with a single Cluster, as doing so will cause a conflict and will lead to mutual overwrites."
-    }
-  ],
-  "website/docs/r/ecs_service.html.markdown": [
-    {
-      "old": "You can utilize the generic Terraform resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g., Application Autoscaling).",
-      "new": "You can utilize the generic Terraform resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g., Application Autoscaling)."
-    },
-    {
-      "old": "  # Optional: Allow external changes without Terraform plan difference",
-      "new": "  # Optional: Allow external changes without Terraform plan difference"
-    },
-    {
-      "old": "* `wait_for_steady_state` - (Optional) If `true`, Terraform will wait for the service to reach a steady state (like [`aws ecs wait services-stable`](https://docs.aws.amazon.com/cli/latest/reference/ecs/wait/services-stable.html)) before continuing. Default `false`.",
-      "new": "* `wait_for_steady_state` - (Optional) If `true`, Terraform will wait for the service to reach a steady state (like [`aws ecs wait services-stable`](https://docs.aws.amazon.com/cli/latest/reference/ecs/wait/services-stable.html)) before continuing. Default `false`."
     }
   ],
   "website/docs/r/ecs_tag.html.markdown": [
@@ -751,6 +643,10 @@
       "new": "* `ami_type` - (Optional) Type of Amazon Machine Image (AMI) associated with the EKS Node Group. See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/APIReference/API_Nodegroup.html#AmazonEKS-Type-Nodegroup-amiType) for valid values. Terraform will only perform drift detection if a configuration value is provided."
     },
     {
+      "old": "* `capacity_type` - (Optional) Type of capacity associated with the EKS Node Group. Valid values: `ON_DEMAND`, `SPOT`. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `capacity_type` - (Optional) Type of capacity associated with the EKS Node Group. Valid values: `ON_DEMAND`, `SPOT`. Terraform will only perform drift detection if a configuration value is provided."
+    },
+    {
       "old": "* `disk_size` - (Optional) Disk size in GiB for worker nodes. Defaults to `20`. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `disk_size` - (Optional) Disk size in GiB for worker nodes. Defaults to `20`. Terraform will only perform drift detection if a configuration value is provided."
     },
@@ -773,26 +669,22 @@
   ],
   "website/docs/r/elasticache_global_replication_group.html.markdown": [
     {
+      "old": "The global replication group depends on the primary group existing. Secondary replication groups depend on the global replication group. Terraform dependency management will handle this transparently using resource value references.",
+      "new": "The global replication group depends on the primary group existing. Secondary replication groups depend on the global replication group. Terraform dependency management will handle this transparently using resource value references."
+    },
+    {
       "old": "or Terraform will always return a diff.",
       "new": "or Terraform will always return a diff."
-    }
-  ],
-  "website/docs/r/elasticache_parameter_group.html.markdown": [
-    {
-      "old": "~> **NOTE:** Attempting to remove the `reserved-memory` parameter when `family` is set to `redis2.6` or `redis2.8` may show a perpetual difference in Terraform due to an ElastiCache API limitation. Leave that parameter configured with any value to workaround the issue.",
-      "new": "~> **NOTE:** Attempting to remove the `reserved-memory` parameter when `family` is set to `redis2.6` or `redis2.8` may show a perpetual difference in Terraform due to an ElastiCache API limitation. Leave that parameter configured with any value to workaround the issue."
-    }
-  ],
-  "website/docs/r/elasticache_replication_group.html.markdown": [
-    {
-      "old": "of this, Terraform may report a difference in its planning phase because the",
-      "new": "of this, Terraform may report a difference in its planning phase because the"
     }
   ],
   "website/docs/r/elasticache_security_group.html.markdown": [
     {
       "old": "!> **WARNING:** With the retirement of EC2-Classic the `aws_elasticache_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command.",
       "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_elasticache_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command."
+    },
+    {
+      "old": "* `description` – (Optional) description for the cache security group. Defaults to \"Managed by Terraform\".",
+      "new": "* `description` – (Optional) description for the cache security group. Defaults to \"Managed by Terraform\"."
     }
   ],
   "website/docs/r/elasticache_user_group_association.html.markdown": [
@@ -805,6 +697,10 @@
     {
       "old": "  Terraform resource for managing an AWS Elasticsearch Domain.",
       "new": "  Terraform resource for managing an AWS Elasticsearch Domain."
+    },
+    {
+      "old": "  description = \"Managed by Terraform\"",
+      "new": "  description = \"Managed by Terraform\""
     },
     {
       "old": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing Terraform to want to recreate your Elasticsearch domain on every apply.",
@@ -831,12 +727,6 @@
     {
       "old": "  Terraform resource for managing SAML authentication options for an AWS Elasticsearch Domain.",
       "new": "  Terraform resource for managing SAML authentication options for an AWS Elasticsearch Domain."
-    }
-  ],
-  "website/docs/r/elb.html.markdown": [
-    {
-      "old": "~> **NOTE on ELB Instances and ELB Attachments:** Terraform currently",
-      "new": "~> **NOTE on ELB Instances and ELB Attachments:** Terraform currently"
     }
   ],
   "website/docs/r/emr_cluster.html.markdown": [
@@ -877,6 +767,10 @@
       "new": "* `kdc_admin_password` - (Required) Password used within the cluster for the kadmin service on the cluster-dedicated KDC, which maintains Kerberos principals, password policies, and keytabs for the cluster. Terraform cannot perform drift detection of this configuration."
     },
     {
+      "old": "* `instance_count` - (Optional) Target number of instances for the instance group. Must be 1 or 3. Defaults to 1. Launching with multiple master nodes is only supported in EMR version 5.23.0+, and requires this resource's `core_instance_group` to be configured. Public (Internet accessible) instances must be created in VPC subnets that have map public IP on launch enabled. Termination protection is automatically enabled when launched with multiple master nodes and Terraform must have the `termination_protection = false` configuration applied before destroying this resource.",
+      "new": "* `instance_count` - (Optional) Target number of instances for the instance group. Must be 1 or 3. Defaults to 1. Launching with multiple master nodes is only supported in EMR version 5.23.0+, and requires this resource's `core_instance_group` to be configured. Public (Internet accessible) instances must be created in VPC subnets that have map public IP on launch enabled. Termination protection is automatically enabled when launched with multiple master nodes and Terraform must have the `termination_protection = false` configuration applied before destroying this resource."
+    },
+    {
       "old": "Since the API does not return the actual values for Kerberos configurations, environments with those Terraform configurations will need to use the `lifecycle` configuration block `ignore_changes` argument available to all Terraform resources to prevent perpetual differences, e.g.,",
       "new": "Since the API does not return the actual values for Kerberos configurations, environments with those Terraform configurations will need to use the `lifecycle` configuration block `ignore_changes` argument available to all Terraform resources to prevent perpetual differences, e.g.,"
     }
@@ -897,30 +791,6 @@
     {
       "old": "Certain resource arguments, like `security_group_ids`, do not have a FSx API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
       "new": "Certain resource arguments, like `security_group_ids`, do not have a FSx API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,"
-    }
-  ],
-  "website/docs/r/glacier_vault_lock.html.markdown": [
-    {
-      "old": "~> **NOTE:** This resource allows you to test Glacier Vault Lock policies by setting the `complete_lock` argument to `false`. When testing policies in this manner, the Glacier Vault Lock automatically expires after 24 hours and Terraform will show this resource as needing recreation after that time. To permanently apply the policy, set the `complete_lock` argument to `true`. When changing `complete_lock` to `true`, it is expected the resource will show as recreating.",
-      "new": "~> **NOTE:** This resource allows you to test Glacier Vault Lock policies by setting the `complete_lock` argument to `false`. When testing policies in this manner, the Glacier Vault Lock automatically expires after 24 hours and Terraform will show this resource as needing recreation after that time. To permanently apply the policy, set the `complete_lock` argument to `true`. When changing `complete_lock` to `true`, it is expected the resource will show as recreating."
-    },
-    {
-      "old": "!> **WARNING:** Once a Glacier Vault Lock is completed, it is immutable. The deletion of the Glacier Vault Lock is not be possible and attempting to remove it from Terraform will return an error. Set the `ignore_deletion_error` argument to `true` and apply this configuration before attempting to delete this resource via Terraform or use `terraform state rm` to remove this resource from Terraform management.",
-      "new": "!> **WARNING:** Once a Glacier Vault Lock is completed, it is immutable. The deletion of the Glacier Vault Lock is not be possible and attempting to remove it from Terraform will return an error. Set the `ignore_deletion_error` argument to `true` and apply this configuration before attempting to delete this resource via Terraform or use `terraform state rm` to remove this resource from Terraform management."
-    },
-    {
-      "old": "* `complete_lock` - (Required) Boolean whether to permanently apply this Glacier Lock Policy. Once completed, this cannot be undone. If set to `false`, the Glacier Lock Policy remains in a testing mode for 24 hours. After that time, the Glacier Lock Policy is automatically removed by Glacier and the Terraform resource will show as needing recreation. Changing this from `false` to `true` will show as resource recreation, which is expected. Changing this from `true` to `false` is not possible unless the Glacier Vault is recreated at the same time.",
-      "new": "* `complete_lock` - (Required) Boolean whether to permanently apply this Glacier Lock Policy. Once completed, this cannot be undone. If set to `false`, the Glacier Lock Policy remains in a testing mode for 24 hours. After that time, the Glacier Lock Policy is automatically removed by Glacier and the Terraform resource will show as needing recreation. Changing this from `false` to `true` will show as resource recreation, which is expected. Changing this from `true` to `false` is not possible unless the Glacier Vault is recreated at the same time."
-    }
-  ],
-  "website/docs/r/globalaccelerator_endpoint_group.html.markdown": [
-    {
-      "old": "* `health_check_path` - (Optional) If the protocol is HTTP/S, then this specifies the path that is the destination for health check targets. The default value is slash (`/`). Terraform will only perform drift detection of its value when present in a configuration.",
-      "new": "* `health_check_path` - (Optional) If the protocol is HTTP/S, then this specifies the path that is the destination for health check targets. The default value is slash (`/`). Terraform will only perform drift detection of its value when present in a configuration."
-    },
-    {
-      "old": "Terraform will only perform drift detection of its value when present in a configuration.",
-      "new": "Terraform will only perform drift detection of its value when present in a configuration."
     }
   ],
   "website/docs/r/iam_group.html.markdown": [
@@ -965,12 +835,6 @@
       "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide"
     }
   ],
-  "website/docs/r/iam_policy_attachment.html.markdown": [
-    {
-      "old": "!> **WARNING:** The aws_iam_policy_attachment resource creates **exclusive** attachments of IAM policies. Across the entire AWS account, all of the users/roles/groups to which a single policy is attached must be declared by a single aws_iam_policy_attachment resource. This means that even any users/roles/groups that have the attached policy via any other mechanism (including other Terraform resources) will have that attached policy revoked by this resource. Consider `aws_iam_role_policy_attachment`, `aws_iam_user_policy_attachment`, or `aws_iam_group_policy_attachment` instead. These resources do not enforce exclusive attachment of an IAM policy.",
-      "new": "!> **WARNING:** The aws_iam_policy_attachment resource creates **exclusive** attachments of IAM policies. Across the entire AWS account, all of the users/roles/groups to which a single policy is attached must be declared by a single aws_iam_policy_attachment resource. This means that even any users/roles/groups that have the attached policy via any other mechanism (including other Terraform resources) will have that attached policy revoked by this resource. Consider `aws_iam_role_policy_attachment`, `aws_iam_user_policy_attachment`, or `aws_iam_group_policy_attachment` instead. These resources do not enforce exclusive attachment of an IAM policy."
-    }
-  ],
   "website/docs/r/iam_role.html.markdown": [
     {
       "old": "  # Terraform's \"jsonencode\" function converts a",
@@ -1001,6 +865,10 @@
       "new": "* `inline_policy` - (Optional) Configuration block defining an exclusive set of IAM inline policies associated with the IAM role. See below. If no blocks are configured, Terraform will not manage any inline policies in this resource. Configuring one empty block (i.e., `inline_policy {}`) will cause Terraform to remove _all_ inline policies added out of band on `apply`."
     },
     {
+      "old": "* `managed_policy_arns` - (Optional) Set of exclusive IAM managed policy ARNs to attach to the IAM role. If this attribute is not configured, Terraform will ignore policy attachments to this resource. When configured, Terraform will align the role's managed policy attachments with this set by attaching or detaching managed policies. Configuring an empty set (i.e., `managed_policy_arns = []`) will cause Terraform to remove _all_ managed policy attachments.",
+      "new": "* `managed_policy_arns` - (Optional) Set of exclusive IAM managed policy ARNs to attach to the IAM role. If this attribute is not configured, Terraform will ignore policy attachments to this resource. When configured, Terraform will align the role's managed policy attachments with this set by attaching or detaching managed policies. Configuring an empty set (i.e., `managed_policy_arns = []`) will cause Terraform to remove _all_ managed policy attachments."
+    },
+    {
       "old": "* `name` - (Optional, Forces new resource) Friendly name of the role. If omitted, Terraform will assign a random, unique name. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) for more information.",
       "new": "* `name` - (Optional, Forces new resource) Friendly name of the role. If omitted, Terraform will assign a random, unique name. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) for more information."
     },
@@ -1014,6 +882,10 @@
     }
   ],
   "website/docs/r/iam_role_policy.html.markdown": [
+    {
+      "old": "~> **NOTE:** For a given role, this resource is incompatible with using the `aws_iam_role` resource `inline_policy` argument. When using that argument and this resource, both will attempt to manage the role's inline policies and Terraform will show a permanent difference.",
+      "new": "~> **NOTE:** For a given role, this resource is incompatible with using the `aws_iam_role` resource `inline_policy` argument. When using that argument and this resource, both will attempt to manage the role's inline policies and Terraform will show a permanent difference."
+    },
     {
       "old": "  # Terraform's \"jsonencode\" function converts a",
       "new": "  # Terraform's \"jsonencode\" function converts a"
@@ -1045,12 +917,6 @@
       "new": "  path in this value. If omitted, Terraform will assign a random, unique name."
     }
   ],
-  "website/docs/r/iam_user.html.markdown": [
-    {
-      "old": "  has non-Terraform-managed IAM access keys, login profile or MFA devices. Without `force_destroy`",
-      "new": "  has non-Terraform-managed IAM access keys, login profile or MFA devices. Without `force_destroy`"
-    }
-  ],
   "website/docs/r/iam_user_login_profile.html.markdown": [
     {
       "old": "Manages an IAM User Login Profile with limited support for password creation during Terraform resource creation. Uses PGP to encrypt the password for safe transport to the user. PGP keys can be obtained from Keybase.",
@@ -1067,6 +933,10 @@
     {
       "old": "* `encrypted_password` - The encrypted password, base64 encoded. Only available if password was handled on Terraform resource creation, not import.",
       "new": "* `encrypted_password` - The encrypted password, base64 encoded. Only available if password was handled on Terraform resource creation, not import."
+    },
+    {
+      "old": "Since Terraform has no method to read the PGP or password information during import, use the Terraform resource `lifecycle` configuration block `ignore_changes` argument to ignore them unless password recreation is desiredE.g.,",
+      "new": "Since Terraform has no method to read the PGP or password information during import, use the Terraform resource `lifecycle` configuration block `ignore_changes` argument to ignore them unless password recreation is desiredE.g.,"
     }
   ],
   "website/docs/r/iam_user_policy.html.markdown": [
@@ -1077,6 +947,10 @@
     {
       "old": "  # Terraform expression result to valid JSON syntax.",
       "new": "  # Terraform expression result to valid JSON syntax."
+    },
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide."
     },
     {
       "old": "* `name` - (Optional) The name of the policy. If omitted, Terraform will assign a random, unique name.",
@@ -1109,12 +983,6 @@
       "new": "  Terraform resource for managing an AWS Identity Store User."
     }
   ],
-  "website/docs/r/imagebuilder_component.html.markdown": [
-    {
-      "old": "* `data` - (Optional) Inline YAML string with data of the component. Exactly one of `data` and `uri` can be specified. Terraform will only perform drift detection of its value when present in a configuration.",
-      "new": "* `data` - (Optional) Inline YAML string with data of the component. Exactly one of `data` and `uri` can be specified. Terraform will only perform drift detection of its value when present in a configuration."
-    }
-  ],
   "website/docs/r/inspector2_delegated_admin_account.html.markdown": [
     {
       "old": "  Terraform resource for managing an AWS Inspector V2 Delegated Admin Account.",
@@ -1133,12 +1001,6 @@
     {
       "old": "Terraform resource for managing an AWS Inspector V2 Organization Configuration.",
       "new": "Terraform resource for managing an AWS Inspector V2 Organization Configuration."
-    }
-  ],
-  "website/docs/r/instance.html.markdown": [
-    {
-      "old": "* `credit_specification` - (Optional) Configuration block for customizing the credit specification of the instance. See [Credit Specification](#credit-specification) below for more details. Terraform will only perform drift detection of its value when present in a configuration. Removing this configuration on existing instances will only stop managing it. It will not change the configuration back to the default for the instance type.",
-      "new": "* `credit_specification` - (Optional) Configuration block for customizing the credit specification of the instance. See [Credit Specification](#credit-specification) below for more details. Terraform will only perform drift detection of its value when present in a configuration. Removing this configuration on existing instances will only stop managing it. It will not change the configuration back to the default for the instance type."
     }
   ],
   "website/docs/r/iot_policy.html.markdown": [
@@ -1275,6 +1137,10 @@
   ],
   "website/docs/r/lambda_function.html.markdown": [
     {
+      "old": "~> **NOTE:** Due to [AWS Lambda improved VPC networking changes that began deploying in September 2019](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/), EC2 subnets and security groups associated with Lambda Functions can take up to 45 minutes to successfully delete. Terraform AWS Provider version 2.31.0 and later automatically handles this increased timeout, however prior versions require setting the customizable deletion timeouts of those Terraform resources to 45 minutes (`delete = \"45m\"`). AWS and HashiCorp are working together to reduce the amount of time required for resource deletion and updates can be tracked in this [GitHub issue](https://github.com/hashicorp/terraform-provider-aws/issues/10329).",
+      "new": "~> **NOTE:** Due to [AWS Lambda improved VPC networking changes that began deploying in September 2019](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/), EC2 subnets and security groups associated with Lambda Functions can take up to 45 minutes to successfully delete. Terraform AWS Provider version 2.31.0 and later automatically handles this increased timeout, however prior versions require setting the customizable deletion timeouts of those Terraform resources to 45 minutes (`delete = \"45m\"`). AWS and HashiCorp are working together to reduce the amount of time required for resource deletion and updates can be tracked in this [GitHub issue](https://github.com/hashicorp/terraform-provider-aws/issues/10329)."
+    },
+    {
       "old": "  # The filebase64sha256() function is available in Terraform 0.11.12 and later",
       "new": "  # The filebase64sha256() function is available in Terraform 0.11.12 and later"
     },
@@ -1331,38 +1197,10 @@
       "new": "* `statement_id_prefix` - (Optional) A statement identifier prefix. Terraform will generate a unique suffix. Conflicts with `statement_id`."
     }
   ],
-  "website/docs/r/launch_configuration.html.markdown": [
-    {
-      "old": "Web Service API. In order to update a Launch Configuration, Terraform will",
-      "new": "Web Service API. In order to update a Launch Configuration, Terraform will"
-    },
-    {
-      "old": "With this setup Terraform generates a unique name for your Launch",
-      "new": "With this setup Terraform generates a unique name for your Launch"
-    },
-    {
-      "old": "for more information or how to launch [Spot Instances][3] with Terraform.",
-      "new": "for more information or how to launch [Spot Instances][3] with Terraform."
-    },
-    {
-      "old": "  this blank, Terraform will auto-generate a unique name. Conflicts with `name_prefix`.",
-      "new": "  this blank, Terraform will auto-generate a unique name. Conflicts with `name_prefix`."
-    },
-    {
-      "old": "cannot currently be detected by Terraform. After updating to block device",
-      "new": "cannot currently be detected by Terraform. After updating to block device"
-    }
-  ],
   "website/docs/r/launch_template.html.markdown": [
     {
       "old": "* `name` - (Optional) The name of the launch template. If you leave this blank, Terraform will auto-generate a unique name.",
       "new": "* `name` - (Optional) The name of the launch template. If you leave this blank, Terraform will auto-generate a unique name."
-    }
-  ],
-  "website/docs/r/lb.html.markdown": [
-    {
-      "old": "Terraform will autogenerate a name beginning with `tf-lb`.",
-      "new": "Terraform will autogenerate a name beginning with `tf-lb`."
     }
   ],
   "website/docs/r/lightsail_container_service_deployment_version.html.markdown": [
@@ -1497,34 +1335,10 @@
       "new": "* `description` - (Optional) Description for the subnet group. Defaults to `\"Managed by Terraform\"`."
     }
   ],
-  "website/docs/r/msk_cluster.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS Managed Streaming for Kafka cluster.",
-      "new": "  Terraform resource for managing an AWS Managed Streaming for Kafka cluster."
-    }
-  ],
   "website/docs/r/msk_serverless_cluster.html.markdown": [
     {
       "old": "  Terraform resource for managing an Amazon MSK Serverless cluster.",
       "new": "  Terraform resource for managing an Amazon MSK Serverless cluster."
-    }
-  ],
-  "website/docs/r/neptune_cluster.html.markdown": [
-    {
-      "old": "window. Because of this, Terraform may report a difference in its planning",
-      "new": "window. Because of this, Terraform may report a difference in its planning"
-    }
-  ],
-  "website/docs/r/neptune_cluster_parameter_group.html.markdown": [
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the neptune cluster parameter group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the neptune cluster parameter group. If omitted, Terraform will assign a random, unique name."
-    }
-  ],
-  "website/docs/r/neptune_subnet_group.html.markdown": [
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the neptune subnet group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the neptune subnet group. If omitted, Terraform will assign a random, unique name."
     }
   ],
   "website/docs/r/network_acl.html.markdown": [
@@ -1543,13 +1357,11 @@
       "new": "~> **NOTE on Network ACLs and Network ACL Associations:** Terraform provides both a standalone network ACL association resource"
     }
   ],
-  "website/docs/r/network_acl_rule.html.markdown": [
-    {
-      "old": "~> **NOTE on Network ACLs and Network ACL Rules:** Terraform currently",
-      "new": "~> **NOTE on Network ACLs and Network ACL Rules:** Terraform currently"
-    }
-  ],
   "website/docs/r/network_interface_sg_attachment.html.markdown": [
+    {
+      "old": "~> **NOTE on instances, interfaces, and security groups:** Terraform currently",
+      "new": "~> **NOTE on instances, interfaces, and security groups:** Terraform currently"
+    },
     {
       "old": "fetching an external instance, possibly not managed by Terraform.",
       "new": "fetching an external instance, possibly not managed by Terraform."
@@ -1611,16 +1423,14 @@
       "new": "  Terraform resource for managing SAML authentication options for an AWS OpenSearch Domain."
     }
   ],
-  "website/docs/r/opsworks_application.html.markdown": [
-    {
-      "old": "* `password` - (Optional) Password to use when authenticating to the source. Terraform cannot perform drift detection of this configuration.",
-      "new": "* `password` - (Optional) Password to use when authenticating to the source. Terraform cannot perform drift detection of this configuration."
-    }
-  ],
   "website/docs/r/opsworks_stack.html.markdown": [
     {
       "old": "* `password` - (Optional) Password to use when authenticating to the source. Terraform cannot perform drift detection of this configuration.",
       "new": "* `password` - (Optional) Password to use when authenticating to the source. Terraform cannot perform drift detection of this configuration."
+    },
+    {
+      "old": "* `ssh_key` - (Optional) SSH key to use when authenticating to the source. Terraform cannot perform drift detection of this configuration.",
+      "new": "* `ssh_key` - (Optional) SSH key to use when authenticating to the source. Terraform cannot perform drift detection of this configuration."
     }
   ],
   "website/docs/r/organizations_account.html.markdown": [
@@ -1635,9 +1445,17 @@
     {
       "old": "* `role_name` - (Optional) The name of an IAM role that Organizations automatically preconfigures in the new member account. This role trusts the root account, allowing users in the root account to assume the role, as permitted by the root account administrator. The role has administrator permissions in the new member account. The Organizations API provides no method for reading this information after account creation, so Terraform cannot perform drift detection on its value and will always show a difference for a configured value after import unless `ignore_changes` is used.",
       "new": "* `role_name` - (Optional) The name of an IAM role that Organizations automatically preconfigures in the new member account. This role trusts the root account, allowing users in the root account to assume the role, as permitted by the root account administrator. The role has administrator permissions in the new member account. The Organizations API provides no method for reading this information after account creation, so Terraform cannot perform drift detection on its value and will always show a difference for a configured value after import unless `ignore_changes` is used."
+    },
+    {
+      "old": "Certain resource arguments, like `role_name`, do not have an Organizations API method for reading the information after account creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
+      "new": "Certain resource arguments, like `role_name`, do not have an Organizations API method for reading the information after account creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,"
     }
   ],
   "website/docs/r/qldb_ledger.html.markdown": [
+    {
+      "old": "~> **NOTE:** Deletion protection is enabled by default. To successfully delete this resource via Terraform, `deletion_protection = false` must be applied before attempting deletion.",
+      "new": "~> **NOTE:** Deletion protection is enabled by default. To successfully delete this resource via Terraform, `deletion_protection = false` must be applied before attempting deletion."
+    },
     {
       "old": "* `deletion_protection` - (Optional) The deletion protection for the QLDB Ledger instance. By default it is `true`. To delete this resource via Terraform, this value must be configured to `false` and applied first before attempting deletion.",
       "new": "* `deletion_protection` - (Optional) The deletion protection for the QLDB Ledger instance. By default it is `true`. To delete this resource via Terraform, this value must be configured to `false` and applied first before attempting deletion."
@@ -1648,6 +1466,10 @@
     }
   ],
   "website/docs/r/rds_cluster.html.markdown": [
+    {
+      "old": "window. Because of this, Terraform may report a difference in its planning",
+      "new": "window. Because of this, Terraform may report a difference in its planning"
+    },
     {
       "old": "~> **NOTE on RDS Clusters and RDS Cluster Role Associations:** Terraform provides both a standalone RDS Cluster Role Association - (an association between an RDS Cluster and a single IAM Role) and",
       "new": "~> **NOTE on RDS Clusters and RDS Cluster Role Associations:** Terraform provides both a standalone RDS Cluster Role Association - (an association between an RDS Cluster and a single IAM Role) and"
@@ -1673,18 +1495,6 @@
     {
       "old": "~> **Note:** This resource always calls the RDS [`StartActivityStream`][2] API with the `ApplyImmediately` parameter set to `true`. This is because the Terraform needs the activity stream to be started in order for it to get the associated attributes.",
       "new": "~> **Note:** This resource always calls the RDS [`StartActivityStream`][2] API with the `ApplyImmediately` parameter set to `true`. This is because the Terraform needs the activity stream to be started in order for it to get the associated attributes."
-    }
-  ],
-  "website/docs/r/rds_cluster_instance.html.markdown": [
-    {
-      "old": "~> **NOTE:** Deletion Protection from the RDS service can only be enabled at the cluster level, not for individual cluster instances. You can still add the `prevent_destroy` lifecycle behavior to your Terraform resource configuration if you desire protection from accidental deletion.",
-      "new": "~> **NOTE:** Deletion Protection from the RDS service can only be enabled at the cluster level, not for individual cluster instances. You can still add the `prevent_destroy` lifecycle behavior to your Terraform resource configuration if you desire protection from accidental deletion."
-    }
-  ],
-  "website/docs/r/rds_cluster_parameter_group.markdown": [
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the DB cluster parameter group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional, Forces new resource) The name of the DB cluster parameter group. If omitted, Terraform will assign a random, unique name."
     }
   ],
   "website/docs/r/rds_global_cluster.html.markdown": [
@@ -1715,18 +1525,20 @@
     {
       "old": "Certain resource arguments, like `force_destroy`, only exist within Terraform. If the argument is set in the Terraform configuration on an imported resource, Terraform will show a difference on the first plan after import to update the state value. This change is safe to apply immediately so the state matches the desired configuration.",
       "new": "Certain resource arguments, like `force_destroy`, only exist within Terraform. If the argument is set in the Terraform configuration on an imported resource, Terraform will show a difference on the first plan after import to update the state value. This change is safe to apply immediately so the state matches the desired configuration."
-    }
-  ],
-  "website/docs/r/redshift_parameter_group.html.markdown": [
+    },
     {
-      "old": "* `description` - (Optional) The description of the Redshift parameter group. Defaults to \"Managed by Terraform\".",
-      "new": "* `description` - (Optional) The description of the Redshift parameter group. Defaults to \"Managed by Terraform\"."
+      "old": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
+      "new": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,"
     }
   ],
   "website/docs/r/redshift_security_group.html.markdown": [
     {
       "old": "!> **WARNING:** With the retirement of EC2-Classic the `aws_redshift_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command.",
       "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_redshift_security_group` resource has been deprecated and will be removed in a future version. Any existing resources can be removed from Terraform state using the `terraform state rm` command."
+    },
+    {
+      "old": "* `description` - (Optional) The description of the Redshift security group. Defaults to \"Managed by Terraform\".",
+      "new": "* `description` - (Optional) The description of the Redshift security group. Defaults to \"Managed by Terraform\"."
     }
   ],
   "website/docs/r/rolesanywhere_profile.html.markdown": [
@@ -1743,6 +1555,10 @@
   ],
   "website/docs/r/route.html.markdown": [
     {
+      "old": "~> **NOTE on Route Tables and Routes:** Terraform currently provides both a standalone Route resource and a Route Table resource with routes defined in-line. At this time you cannot use a Route Table with in-line routes in conjunction with any Route resources. Doing so will cause a conflict of rule settings and will overwrite rules.",
+      "new": "~> **NOTE on Route Tables and Routes:** Terraform currently provides both a standalone Route resource and a Route Table resource with routes defined in-line. At this time you cannot use a Route Table with in-line routes in conjunction with any Route resources. Doing so will cause a conflict of rule settings and will overwrite rules."
+    },
+    {
       "old": "~> **NOTE on `gateway_id` attribute:** The AWS API is very forgiving with the resource ID passed in the `gateway_id` attribute. For example an `aws_route` resource can be created with an `aws_nat_gateway` or `aws_egress_only_internet_gateway` ID specified for the `gateway_id` attribute. Specifying anything other than an `aws_internet_gateway` or `aws_vpn_gateway` ID will lead to Terraform reporting a permanent diff between your configuration and recorded state, as the AWS API returns the more-specific attribute. If you are experiencing constant diffs with an `aws_route` resource, the first thing to check is that the correct attribute is being specified.",
       "new": "~> **NOTE on `gateway_id` attribute:** The AWS API is very forgiving with the resource ID passed in the `gateway_id` attribute. For example an `aws_route` resource can be created with an `aws_nat_gateway` or `aws_egress_only_internet_gateway` ID specified for the `gateway_id` attribute. Specifying anything other than an `aws_internet_gateway` or `aws_vpn_gateway` ID will lead to Terraform reporting a permanent diff between your configuration and recorded state, as the AWS API returns the more-specific attribute. If you are experiencing constant diffs with an `aws_route` resource, the first thing to check is that the correct attribute is being specified."
     }
@@ -1755,44 +1571,16 @@
     {
       "old": "* `records` - (Required for non-alias records) A string list of records. To specify a single record value longer than 255 characters such as a TXT record for DKIM, add `\\\"\\\"` inside the Terraform configuration string (e.g., `\"first255characters\\\"\\\"morecharacters\"`).",
       "new": "* `records` - (Required for non-alias records) A string list of records. To specify a single record value longer than 255 characters such as a TXT record for DKIM, add `\\\"\\\"` inside the Terraform configuration string (e.g., `\"first255characters\\\"\\\"morecharacters\"`)."
-    }
-  ],
-  "website/docs/r/route53_zone.html.markdown": [
-    {
-      "old": "~> **NOTE:** Terraform provides both exclusive VPC associations defined in-line in this resource via `vpc` configuration blocks and a separate Zone VPC Association resource. At this time, you cannot use in-line VPC associations in conjunction with any `aws_route53_zone_association` resources with the same zone ID otherwise it will cause a perpetual difference in plan output. You can optionally use the generic Terraform resource lifecycle configuration block with `ignore_changes` to manage additional associations via the `aws_route53_zone_association` resource.",
-      "new": "~> **NOTE:** Terraform provides both exclusive VPC associations defined in-line in this resource via `vpc` configuration blocks and a separate Zone VPC Association resource. At this time, you cannot use in-line VPC associations in conjunction with any `aws_route53_zone_association` resources with the same zone ID otherwise it will cause a perpetual difference in plan output. You can optionally use the generic Terraform resource lifecycle configuration block with `ignore_changes` to manage additional associations via the `aws_route53_zone_association` resource."
     },
     {
-      "old": "* `comment` - (Optional) A comment for the hosted zone. Defaults to 'Managed by Terraform'.",
-      "new": "* `comment` - (Optional) A comment for the hosted zone. Defaults to 'Managed by Terraform'."
-    }
-  ],
-  "website/docs/r/route53_zone_association.html.markdown": [
-    {
-      "old": "~> **NOTE:** Terraform provides both this standalone Zone VPC Association resource and exclusive VPC associations defined in-line in the `aws_route53_zone` resource via `vpc` configuration blocks. At this time, you cannot use those in-line VPC associations in conjunction with this resource and the same zone ID otherwise it will cause a perpetual difference in plan output. You can optionally use the generic Terraform resource lifecycle configuration block with `ignore_changes` in the `aws_route53_zone` resource to manage additional associations via this resource.",
-      "new": "~> **NOTE:** Terraform provides both this standalone Zone VPC Association resource and exclusive VPC associations defined in-line in the `aws_route53_zone` resource via `vpc` configuration blocks. At this time, you cannot use those in-line VPC associations in conjunction with this resource and the same zone ID otherwise it will cause a perpetual difference in plan output. You can optionally use the generic Terraform resource lifecycle configuration block with `ignore_changes` in the `aws_route53_zone` resource to manage additional associations via this resource."
+      "old": "* `allow_overwrite` - (Optional) Allow creation of this record in Terraform to overwrite an existing record, if any. This does not affect the ability to update the record in Terraform and does not prevent other resources within Terraform or manual Route 53 changes outside Terraform from overwriting this record. `false` by default. This configuration is not recommended for most environments.",
+      "new": "* `allow_overwrite` - (Optional) Allow creation of this record in Terraform to overwrite an existing record, if any. This does not affect the ability to update the record in Terraform and does not prevent other resources within Terraform or manual Route 53 changes outside Terraform from overwriting this record. `false` by default. This configuration is not recommended for most environments."
     }
   ],
   "website/docs/r/route53domains_registered_domain.html.markdown": [
     {
       "old": "The `aws_route53domains_registered_domain` resource behaves differently from normal resources in that if a domain has been registered, Terraform does not _register_ this domain, but instead \"adopts\" it into management. `terraform destroy` does not delete the domain but does remove the resource from Terraform state.",
       "new": "The `aws_route53domains_registered_domain` resource behaves differently from normal resources in that if a domain has been registered, Terraform does not _register_ this domain, but instead \"adopts\" it into management. `terraform destroy` does not delete the domain but does remove the resource from Terraform state."
-    }
-  ],
-  "website/docs/r/s3_access_point.html.markdown": [
-    {
-      "old": "~> **NOTE on Access Points and Access Point Policies:** Terraform provides both a standalone Access Point Policy resource and an Access Point resource with a resource policy defined in-line. You cannot use an Access Point with in-line resource policy in conjunction with an Access Point Policy resource. Doing so will cause a conflict of policies and will overwrite the access point's resource policy.",
-      "new": "~> **NOTE on Access Points and Access Point Policies:** Terraform provides both a standalone Access Point Policy resource and an Access Point resource with a resource policy defined in-line. You cannot use an Access Point with in-line resource policy in conjunction with an Access Point Policy resource. Doing so will cause a conflict of policies and will overwrite the access point's resource policy."
-    },
-    {
-      "old": "-> Advanced usage: To use a custom API endpoint for this Terraform resource, use the `s3control` endpoint provider configuration, not the `s3` endpoint provider configuration.",
-      "new": "-> Advanced usage: To use a custom API endpoint for this Terraform resource, use the `s3control` endpoint provider configuration, not the `s3` endpoint provider configuration."
-    }
-  ],
-  "website/docs/r/s3_account_public_access_block.html.markdown": [
-    {
-      "old": "-> Advanced usage: To use a custom API endpoint for this Terraform resource, use the `s3control` endpoint provider configuration, not the `s3` endpoint provider configuration.",
-      "new": "-> Advanced usage: To use a custom API endpoint for this Terraform resource, use the `s3control` endpoint provider configuration, not the `s3` endpoint provider configuration."
     }
   ],
   "website/docs/r/s3_bucket.html.markdown": [
@@ -1847,6 +1635,10 @@
     {
       "old": "  Terraform will only perform drift detection if a configuration value is provided.",
       "new": "  Terraform will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "* `versioning` - (Optional, **Deprecated**) A configuration of the [S3 bucket versioning state](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html). See [Versioning](#versioning) below for details. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_versioning` instead.",
+      "new": "* `versioning` - (Optional, **Deprecated**) A configuration of the [S3 bucket versioning state](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html). See [Versioning](#versioning) below for details. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_versioning` instead."
     },
     {
       "old": "* `website` - (Optional, **Deprecated**) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. Terraform will only perform drift detection if a configuration value is provided.",
@@ -1983,6 +1775,10 @@
       "new": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:"
     },
     {
+      "old": "* `etag` - (Optional) Triggers updates when the value changes. The only meaningful value is `filemd5(\"path/to/file\")` (Terraform 0.11.12 or later) or `${md5(file(\"path/to/file\"))}` (Terraform 0.11.11 or earlier). This attribute is not compatible with KMS encryption, `kms_key_id` or `server_side_encryption = \"aws:kms\"` (see `source_hash` instead).",
+      "new": "* `etag` - (Optional) Triggers updates when the value changes. The only meaningful value is `filemd5(\"path/to/file\")` (Terraform 0.11.12 or later) or `${md5(file(\"path/to/file\"))}` (Terraform 0.11.11 or earlier). This attribute is not compatible with KMS encryption, `kms_key_id` or `server_side_encryption = \"aws:kms\"` (see `source_hash` instead)."
+    },
+    {
       "old": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. Terraform will only perform drift detection if a configuration value is provided."
     },
@@ -2075,12 +1871,6 @@
       "new": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
     }
   ],
-  "website/docs/r/s3_object_copy.html.markdown": [
-    {
-      "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`.",
-      "new": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
-    }
-  ],
   "website/docs/r/s3control_access_point_policy.html.markdown": [
     {
       "old": "~> **NOTE on Access Points and Access Point Policies:** Terraform provides both a standalone Access Point Policy resource and an Access Point resource with a resource policy defined in-line. You cannot use an Access Point with in-line resource policy in conjunction with an Access Point Policy resource. Doing so will cause a conflict of policies and will overwrite the access point's resource policy.",
@@ -2117,13 +1907,11 @@
       "new": "* `name` - (Optional) The name of the endpoint. If omitted, Terraform will assign a random, unique name."
     }
   ],
-  "website/docs/r/sagemaker_endpoint_configuration.html.markdown": [
-    {
-      "old": "* `name` - (Optional) The name of the endpoint configuration. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional) The name of the endpoint configuration. If omitted, Terraform will assign a random, unique name."
-    }
-  ],
   "website/docs/r/secretsmanager_secret_version.html.markdown": [
+    {
+      "old": "~> **NOTE:** If the `AWSCURRENT` staging label is present on this version during resource deletion, that label cannot be removed and will be skipped to prevent errors when fully deleting the secret. That label will leave this secret version active even after the resource is deleted from Terraform unless the secret itself is deleted. Move the `AWSCURRENT` staging label before or after deleting this resource from Terraform to fully trigger version deprecation if necessary.",
+      "new": "~> **NOTE:** If the `AWSCURRENT` staging label is present on this version during resource deletion, that label cannot be removed and will be skipped to prevent errors when fully deleting the secret. That label will leave this secret version active even after the resource is deleted from Terraform unless the secret itself is deleted. Move the `AWSCURRENT` staging label before or after deleting this resource from Terraform to fully trigger version deprecation if necessary."
+    },
     {
       "old": "-> **Note:** In Terraform 0.14 and later, use `sensitive = true` to protect the values of the variable from being printed in logs and console output (see Protect Sensitive Input Variables).",
       "new": "-> **Note:** In Terraform 0.14 and later, use `sensitive = true` to protect the values of the variable from being printed in logs and console output (see Protect Sensitive Input Variables)."
@@ -2159,6 +1947,10 @@
       "new": "You must invert the default behavior of Terraform. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:"
     },
     {
+      "old": "* `description` - (Optional, Forces new resource) Security group description. Defaults to `Managed by Terraform`. Cannot be `\"\"`. **NOTE**: This field maps to the AWS `GroupDescription` attribute, for which there is no Update API. If you'd like to classify your security groups in a way that can be updated, use `tags`.",
+      "new": "* `description` - (Optional, Forces new resource) Security group description. Defaults to `Managed by Terraform`. Cannot be `\"\"`. **NOTE**: This field maps to the AWS `GroupDescription` attribute, for which there is no Update API. If you'd like to classify your security groups in a way that can be updated, use `tags`."
+    },
+    {
       "old": "* `name` - (Optional, Forces new resource) Name of the security group. If omitted, Terraform will assign a random, unique name.",
       "new": "* `name` - (Optional, Forces new resource) Name of the security group. If omitted, Terraform will assign a random, unique name."
     },
@@ -2173,22 +1965,6 @@
     {
       "old": "* `protocol` - (Required) Protocol. If you select a protocol of `-1` (semantically equivalent to `all`, which is not a valid value here), you must specify a `from_port` and `to_port` equal to 0.  The supported values are defined in the `IpProtocol` argument in the [IpPermission](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_IpPermission.html) API reference. This argument is normalized to a lowercase value to match the AWS API requirement when using Terraform 0.12.x and above. Please make sure that the value of the protocol is specified as lowercase when used with older version of Terraform to avoid issues during upgrade.",
       "new": "* `protocol` - (Required) Protocol. If you select a protocol of `-1` (semantically equivalent to `all`, which is not a valid value here), you must specify a `from_port` and `to_port` equal to 0.  The supported values are defined in the `IpProtocol` argument in the [IpPermission](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_IpPermission.html) API reference. This argument is normalized to a lowercase value to match the AWS API requirement when using Terraform 0.12.x and above. Please make sure that the value of the protocol is specified as lowercase when used with older version of Terraform to avoid issues during upgrade."
-    }
-  ],
-  "website/docs/r/security_group_rule.html.markdown": [
-    {
-      "old": "~> **NOTE on Security Groups and Security Group Rules:** Terraform currently",
-      "new": "~> **NOTE on Security Groups and Security Group Rules:** Terraform currently"
-    },
-    {
-      "old": "~> **NOTE:** Setting `protocol = \"all\"` or `protocol = -1` with `from_port` and `to_port` will result in the EC2 API creating a security group rule with all ports open. This API behavior cannot be controlled by Terraform and may generate warnings in the future.",
-      "new": "~> **NOTE:** Setting `protocol = \"all\"` or `protocol = -1` with `from_port` and `to_port` will result in the EC2 API creating a security group rule with all ports open. This API behavior cannot be controlled by Terraform and may generate warnings in the future."
-    }
-  ],
-  "website/docs/r/securityhub_organization_configuration.markdown": [
-    {
-      "old": "~> **NOTE:** This resource requires an `aws_securityhub_organization_admin_account` to be configured (not necessarily with Terraform). More information about managing Security Hub in an organization can be found in the [Managing administrator and member accounts](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-accounts.html) documentation",
-      "new": "~> **NOTE:** This resource requires an `aws_securityhub_organization_admin_account` to be configured (not necessarily with Terraform). More information about managing Security Hub in an organization can be found in the [Managing administrator and member accounts](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-accounts.html) documentation"
     }
   ],
   "website/docs/r/securityhub_standards_control.markdown": [
@@ -2211,24 +1987,6 @@
       "new": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Configuration Set."
     }
   ],
-  "website/docs/r/signer_signing_profile.html.markdown": [
-    {
-      "old": "* `name` - (Optional) A unique signing profile name. By default generated by Terraform. Signing profile names are immutable and cannot be reused after canceled.",
-      "new": "* `name` - (Optional) A unique signing profile name. By default generated by Terraform. Signing profile names are immutable and cannot be reused after canceled."
-    }
-  ],
-  "website/docs/r/signer_signing_profile_permission.html.markdown": [
-    {
-      "old": "* `statement_id` - (Optional) A unique statement identifier. By default generated by Terraform.",
-      "new": "* `statement_id` - (Optional) A unique statement identifier. By default generated by Terraform."
-    }
-  ],
-  "website/docs/r/sns_platform_application.html.markdown": [
-    {
-      "old": "* `platform_credential` - (Required) Application Platform credential. See [Credential][1] for type of credential required for platform. The value of this attribute when stored into the Terraform state is only a hash of the real value, so therefore it is not practical to use this as an attribute for other resources.",
-      "new": "* `platform_credential` - (Required) Application Platform credential. See [Credential][1] for type of credential required for platform. The value of this attribute when stored into the Terraform state is only a hash of the real value, so therefore it is not practical to use this as an attribute for other resources."
-    }
-  ],
   "website/docs/r/sns_topic.html.markdown": [
     {
       "old": "* `name` - (Optional) The name of the topic. Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 256 characters long. For a FIFO (first-in-first-out) topic, the name must end with the `.fifo` suffix. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`",
@@ -2237,54 +1995,6 @@
     {
       "old": "* `policy` - (Optional) The fully-formed AWS policy as JSON. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
       "new": "* `policy` - (Optional) The fully-formed AWS policy as JSON. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide."
-    }
-  ],
-  "website/docs/r/sns_topic_subscription.html.markdown": [
-    {
-      "old": "Provides a resource for subscribing to SNS topics. Requires that an SNS topic exist for the subscription to attach to. This resource allows you to automatically place messages sent to SNS topics in SQS queues, send them as HTTP(S) POST requests to a given endpoint, send SMS messages, or notify devices / applications. The most likely use case for Terraform users will probably be SQS queues.",
-      "new": "Provides a resource for subscribing to SNS topics. Requires that an SNS topic exist for the subscription to attach to. This resource allows you to automatically place messages sent to SNS topics in SQS queues, send them as HTTP(S) POST requests to a given endpoint, send SMS messages, or notify devices / applications. The most likely use case for Terraform users will probably be SQS queues."
-    },
-    {
-      "old": "~> **NOTE:** If the SNS topic and SQS queue are in different AWS regions, the `aws_sns_topic_subscription` must use an AWS provider that is in the same region as the SNS topic. If the `aws_sns_topic_subscription` uses a provider with a different region than the SNS topic, Terraform will fail to create the subscription.",
-      "new": "~> **NOTE:** If the SNS topic and SQS queue are in different AWS regions, the `aws_sns_topic_subscription` must use an AWS provider that is in the same region as the SNS topic. If the `aws_sns_topic_subscription` uses a provider with a different region than the SNS topic, Terraform will fail to create the subscription."
-    },
-    {
-      "old": "~> **NOTE:** Setup of cross-account subscriptions from SNS topics to SQS queues requires Terraform to have access to BOTH accounts.",
-      "new": "~> **NOTE:** Setup of cross-account subscriptions from SNS topics to SQS queues requires Terraform to have access to BOTH accounts."
-    },
-    {
-      "old": "~> **NOTE:** If an SNS topic and SQS queue are in different AWS accounts but the same region, the `aws_sns_topic_subscription` must use the AWS provider for the account with the SQS queue. If `aws_sns_topic_subscription` uses a Provider with a different account than the SQS queue, Terraform creates the subscription but does not keep state and tries to re-create the subscription at every `apply`.",
-      "new": "~> **NOTE:** If an SNS topic and SQS queue are in different AWS accounts but the same region, the `aws_sns_topic_subscription` must use the AWS provider for the account with the SQS queue. If `aws_sns_topic_subscription` uses a Provider with a different account than the SQS queue, Terraform creates the subscription but does not keep state and tries to re-create the subscription at every `apply`."
-    },
-    {
-      "old": "~> **NOTE:** You cannot unsubscribe to a subscription that is pending confirmation. If you use `email`, `email-json`, or `http`/`https` (without auto-confirmation enabled), until the subscription is confirmed (e.g., outside of Terraform), AWS does not allow Terraform to delete / unsubscribe the subscription. If you `destroy` an unconfirmed subscription, Terraform will remove the subscription from its state but the subscription will still exist in AWS. However, if you delete an SNS topic, SNS [deletes all the subscriptions](https://docs.aws.amazon.com/sns/latest/dg/sns-delete-subscription-topic.html) associated with the topic. Also, you can import a subscription after confirmation and then have the capability to delete it.",
-      "new": "~> **NOTE:** You cannot unsubscribe to a subscription that is pending confirmation. If you use `email`, `email-json`, or `http`/`https` (without auto-confirmation enabled), until the subscription is confirmed (e.g., outside of Terraform), AWS does not allow Terraform to delete / unsubscribe the subscription. If you `destroy` an unconfirmed subscription, Terraform will remove the subscription from its state but the subscription will still exist in AWS. However, if you delete an SNS topic, SNS [deletes all the subscriptions](https://docs.aws.amazon.com/sns/latest/dg/sns-delete-subscription-topic.html) associated with the topic. Also, you can import a subscription after confirmation and then have the capability to delete it."
-    }
-  ],
-  "website/docs/r/spot_fleet_request.html.markdown": [
-    {
-      "old": "~> **NOTE:** Terraform does not support the functionality where multiple `subnet_id` or `availability_zone` parameters can be specified in the same",
-      "new": "~> **NOTE:** Terraform does not support the functionality where multiple `subnet_id` or `availability_zone` parameters can be specified in the same"
-    }
-  ],
-  "website/docs/r/spot_instance_request.html.markdown": [
-    {
-      "old": "By default Terraform creates Spot Instance Requests with a `persistent` type,",
-      "new": "By default Terraform creates Spot Instance Requests with a `persistent` type,"
-    },
-    {
-      "old": "On destruction, Terraform will make an attempt to terminate the associated Spot",
-      "new": "On destruction, Terraform will make an attempt to terminate the associated Spot"
-    },
-    {
-      "old": "differently than other Terraform resources. Most importantly: there is __no",
-      "new": "differently than other Terraform resources. Most importantly: there is __no"
-    }
-  ],
-  "website/docs/r/sqs_queue.html.markdown": [
-    {
-      "old": "* `name` - (Optional) The name of the queue. Queue names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 80 characters long. For a FIFO (first-in-first-out) queue, the name must end with the `.fifo` suffix. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`",
-      "new": "* `name` - (Optional) The name of the queue. Queue names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 80 characters long. For a FIFO (first-in-first-out) queue, the name must end with the `.fifo` suffix. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`"
     }
   ],
   "website/docs/r/ssm_parameter.html.markdown": [
@@ -2299,38 +2009,6 @@
     {
       "old": "* `value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. This value is always marked as sensitive in the Terraform plan output, regardless of `type`. In Terraform CLI version 0.15 and later, this may require additional configuration handling for certain scenarios. For more information, see the Terraform v0.15 Upgrade Guide.",
       "new": "* `value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. This value is always marked as sensitive in the Terraform plan output, regardless of `type`. In Terraform CLI version 0.15 and later, this may require additional configuration handling for certain scenarios. For more information, see the Terraform v0.15 Upgrade Guide."
-    }
-  ],
-  "website/docs/r/storagegateway_gateway.html.markdown": [
-    {
-      "old": "~> **NOTE:** One of `activation_key` or `gateway_ip_address` must be provided for resource creation (gateway activation). Neither is required for resource import. If using `gateway_ip_address`, Terraform must be able to make an HTTP (port 80) GET request to the specified IP address from where it is running.",
-      "new": "~> **NOTE:** One of `activation_key` or `gateway_ip_address` must be provided for resource creation (gateway activation). Neither is required for resource import. If using `gateway_ip_address`, Terraform must be able to make an HTTP (port 80) GET request to the specified IP address from where it is running."
-    },
-    {
-      "old": "* `gateway_ip_address` - (Optional) Gateway IP address to retrieve activation key during resource creation. Conflicts with `activation_key`. Gateway must be accessible on port 80 from where Terraform is running. Additional information is available in the [Storage Gateway User Guide](https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html).",
-      "new": "* `gateway_ip_address` - (Optional) Gateway IP address to retrieve activation key during resource creation. Conflicts with `activation_key`. Gateway must be accessible on port 80 from where Terraform is running. Additional information is available in the [Storage Gateway User Guide](https://docs.aws.amazon.com/storagegateway/latest/userguide/get-activation-key.html)."
-    },
-    {
-      "old": "* `medium_changer_type` - (Optional) Type of medium changer to use for tape gateway. Terraform cannot detect drift of this argument. Valid values: `STK-L700`, `AWS-Gateway-VTL`, `IBM-03584L32-0402`.",
-      "new": "* `medium_changer_type` - (Optional) Type of medium changer to use for tape gateway. Terraform cannot detect drift of this argument. Valid values: `STK-L700`, `AWS-Gateway-VTL`, `IBM-03584L32-0402`."
-    },
-    {
-      "old": "* `smb_guest_password` - (Optional) Guest password for Server Message Block (SMB) file shares. Only valid for `FILE_S3` and `FILE_FSX_SMB` gateway types. Must be set before creating `GuestAccess` authentication SMB file shares. Terraform can only detect drift of the existence of a guest password, not its actual value from the gateway. Terraform can however update the password with changing the argument.",
-      "new": "* `smb_guest_password` - (Optional) Guest password for Server Message Block (SMB) file shares. Only valid for `FILE_S3` and `FILE_FSX_SMB` gateway types. Must be set before creating `GuestAccess` authentication SMB file shares. Terraform can only detect drift of the existence of a guest password, not its actual value from the gateway. Terraform can however update the password with changing the argument."
-    },
-    {
-      "old": "* `tape_drive_type` - (Optional) Type of tape drive to use for tape gateway. Terraform cannot detect drift of this argument. Valid values: `IBM-ULT3580-TD5`.",
-      "new": "* `tape_drive_type` - (Optional) Type of tape drive to use for tape gateway. Terraform cannot detect drift of this argument. Valid values: `IBM-ULT3580-TD5`."
-    },
-    {
-      "old": "~> **NOTE** It is not possible to unconfigure this setting without recreating the gateway. Also, Terraform can only detect drift of the `domain_name` argument from the gateway.",
-      "new": "~> **NOTE** It is not possible to unconfigure this setting without recreating the gateway. Also, Terraform can only detect drift of the `domain_name` argument from the gateway."
-    }
-  ],
-  "website/docs/r/swf_domain.html.markdown": [
-    {
-      "old": "  description                                 = \"Terraform SWF Domain\"",
-      "new": "  description                                 = \"Terraform SWF Domain\""
     }
   ],
   "website/docs/r/transcribe_language_model.html.markdown": [
@@ -2389,12 +2067,6 @@
       "new": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_transfer_server` and `aws_transfer_tag` to manage tags of the same server will cause a perpetual difference where the `aws_transfer_server` resource will try to remove the tag being added by the `aws_transfer_tag` resource."
     }
   ],
-  "website/docs/r/volume_attachment.html.markdown": [
-    {
-      "old": "~> **NOTE on EBS block devices:** If you use `ebs_block_device` on an `aws_instance`, Terraform will assume management over the full set of non-root EBS block devices for the instance, and treats additional block devices as drift. For this reason, `ebs_block_device` cannot be mixed with external `aws_ebs_volume` + `aws_volume_attachment` resources for a given instance.",
-      "new": "~> **NOTE on EBS block devices:** If you use `ebs_block_device` on an `aws_instance`, Terraform will assume management over the full set of non-root EBS block devices for the instance, and treats additional block devices as drift. For this reason, `ebs_block_device` cannot be mixed with external `aws_ebs_volume` + `aws_volume_attachment` resources for a given instance."
-    }
-  ],
   "website/docs/r/vpc_endpoint.html.markdown": [
     {
       "old": "~> **NOTE on VPC Endpoints and VPC Endpoint Associations:** Terraform provides both standalone VPC Endpoint Associations for",
@@ -2403,6 +2075,10 @@
     {
       "old": "~> **NOTE The `dns_entry` output is a list of maps:** Terraform interpolation support for lists of maps requires the `lookup` and `[]` until full support of lists of maps is available",
       "new": "~> **NOTE The `dns_entry` output is a list of maps:** Terraform interpolation support for lists of maps requires the `lookup` and `[]` until full support of lists of maps is available"
+    },
+    {
+      "old": "* `policy` - (Optional) A policy to attach to the endpoint that controls access to the service. This is a JSON formatted string. Defaults to full access. All `Gateway` and some `Interface` endpoints support policies - see the [relevant AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) for more details. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
+      "new": "* `policy` - (Optional) A policy to attach to the endpoint that controls access to the service. This is a JSON formatted string. Defaults to full access. All `Gateway` and some `Interface` endpoints support policies - see the [relevant AWS documentation](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-access.html) for more details. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide."
     }
   ],
   "website/docs/r/vpc_endpoint_policy.html.markdown": [
@@ -2415,12 +2091,6 @@
     {
       "old": "~> **NOTE on VPC Endpoints and VPC Endpoint Security Group Associations:** Terraform provides",
       "new": "~> **NOTE on VPC Endpoints and VPC Endpoint Security Group Associations:** Terraform provides"
-    }
-  ],
-  "website/docs/r/vpc_peering_connection_accepter.html.markdown": [
-    {
-      "old": "However, Terraform only allows the VPC Peering Connection to be deleted from the requester's side",
-      "new": "However, Terraform only allows the VPC Peering Connection to be deleted from the requester's side"
     }
   ]
 }

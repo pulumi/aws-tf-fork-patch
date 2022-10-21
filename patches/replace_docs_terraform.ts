@@ -50,19 +50,21 @@ function tryReplace(
   file: string,
   content: string
 ): string {
+  let replaced = content;
   if (file in replacements) {
-    let replaced = content;
     const fileReplacements = replacements[file];
     for (const replacement of fileReplacements) {
-      const newReplacement = content.replace(replacement.old, replacement.new);
+      const newReplacement =
+        replacement.new !== undefined
+          ? replaced.replace(replacement.old, replacement.new) // Simple find/replace
+          : replaced.replace(EOL + replacement.old, ""); // Remove whole line
       if (replaced === newReplacement) {
         console.warn("Replacement not matched:", file, "\n", replacement.old);
       }
       replaced = newReplacement;
     }
-    return replaced;
   }
-  return content;
+  return replaced;
 }
 
 function buildSuggestion(line: string): string {
@@ -83,7 +85,7 @@ function buildSuggestion(line: string): string {
 
 export type LineReplacement = {
   old: string;
-  new: string;
+  new?: string;
 };
 
 export type DocsReplacements = Record<string, LineReplacement[]>;

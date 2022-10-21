@@ -6,7 +6,7 @@ export function extractDocsReplacements(patch: GitPatch): DocsReplacements {
   const replacements: DocsReplacements = {};
 
   for (const file of patch.files) {
-    const fileReplacements = getFileReplacements(file);
+    const fileReplacements = getTfMentionReplacements(file);
     if (fileReplacements !== undefined) {
       replacements[file.afterName] = fileReplacements;
     }
@@ -15,7 +15,7 @@ export function extractDocsReplacements(patch: GitPatch): DocsReplacements {
   return replacements;
 }
 
-function getFileReplacements(file: GitPatchFile) {
+function getTfMentionReplacements(file: GitPatchFile) {
   if (!file.afterName.startsWith("website/docs/")) {
     return undefined;
   }
@@ -26,28 +26,29 @@ function getFileReplacements(file: GitPatchFile) {
   const fileReplacements: LineReplacement[] = [];
   const groupedByLine = groupBy(file.modifiedLines, (l) => l.lineNumber);
   for (const [lineNo, changes] of groupedByLine) {
-    if (changes.length === 1) {
-      const action = changes[0].added ? "add" : "remove";
-      console.info(`${file.afterName}:${lineNo} ${action} only`);
-      continue;
+    // Look for note removal
+    if (changes.length === 1 && changes[0].added === false) {
+      const line = changes[0].line;
+      if (line.match(/\*\*note:?\*\*/i)) {
+        fileReplacements.push({ old: line });
+      }
     }
-    if (changes.length !== 2) {
-      console.warn(
-        `${file.afterName}:${lineNo} ${changes.length} changes for line`
-      );
-      continue;
-    }
-    const [lineA, lineB] = changes;
-    if (lineA.added === lineB.added) {
-      console.warn(file.afterName, ":", lineNo, "not a +/- pairing");
-      continue;
-    }
-    const added = lineA.added ? lineA : lineB;
-    const removed = lineA.added ? lineB : lineA;
-    if (removed.line.match(/(terraform)|(hashicorp)/i) !== null) {
-      fileReplacements.push({ old: removed.line, new: added.line });
-    } else {
-      console.log(file.afterName, ":", lineNo, "non-tf replace");
+
+    // Look for a "+/-" pairing
+    if (changes.length === 2 && changes[0].added !== changes[1].added) {
+      const [lineA, lineB] = changes;
+      const added = lineA.added ? lineA : lineB;
+      const removed = lineA.added ? lineB : lineA;
+      // Only include if the removed line mentioned something
+      if (
+        removed.line.match(/(terraform)|(hashicorp)|(jsondecode)/i) !== null
+      ) {
+        fileReplacements.push({ old: removed.line, new: added.line });
+      } else {
+        // console.log(file.afterName, ":", lineNo, "non-tf replace:");
+        // console.log("-", removed.line);
+        // console.log("+", added.line);
+      }
     }
   }
   if (fileReplacements.length === 0) {

@@ -17,10 +17,21 @@
       "new": "for the effective account in which this provider is working.  "
     }
   ],
+  "website/docs/d/cloudcontrolapi_resource.html.markdown": [
+    {
+      "old": "* `properties` - JSON string matching the CloudFormation resource type schema with current configuration. Underlying attributes can be referenced via the `jsondecode()` function, for example, `jsondecode(data.aws_cloudcontrolapi_resource.example.properties)[\"example\"]`.",
+      "new": "* `properties` - JSON string matching the CloudFormation resource type schema with current configuration."
+    }
+  ],
   "website/docs/d/cloudformation_export.html.markdown": [
     {
       "old": " -> Note: If you are trying to use a value from a Cloudformation Stack in the same Terraform run please use normal interpolation or Cloudformation Outputs.",
       "new": " -> Note: If you are trying to use a value from a Cloudformation Stack in the same deployment please use normal interpolation or Cloudformation Outputs."
+    }
+  ],
+  "website/docs/d/eks_cluster_auth.html.markdown": [
+    {
+      "old": "~> **NOTE:** Dynamically configuring a Terraform Provider via data sources currently has implications on [resource import support](https://github.com/hashicorp/terraform/issues/13018)."
     }
   ],
   "website/docs/d/elastic_beanstalk_solution_stack.html.markdown": [
@@ -41,6 +52,14 @@
       "new": "for the effective account in which this provider is working."
     }
   ],
+  "website/docs/d/iam_policy_document.html.markdown": [
+    {
+      "old": "~> **NOTE:** AWS's IAM policy document syntax allows for replacement of [policy variables](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html) within a statement using `${...}`-style notation, which conflicts with Terraform's interpolation syntax. In order to use AWS policy variables with this data source, use `&{...}` notation for interpolations that should be processed by AWS rather than by Terraform."
+    },
+    {
+      "old": "~> **NOTE:** Even though the [IAM Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html) states that `\"Principal\": \"*\"` and `\"Principal\": {\"AWS\": \"*\"}` are equivalent, those principal elements have different behavior in some situations, e.g., IAM Role Trust Policy. To have Terraform render JSON containing `\"Principal\": \"*\"`, use `type = \"*\"` and `identifiers = [\"*\"]`. To have Terraform render JSON containing `\"Principal\": {\"AWS\": \"*\"}`, use `type = \"AWS\"` and `identifiers = [\"*\"]`."
+    }
+  ],
   "website/docs/d/iam_server_certificate.html.markdown": [
     {
       "old": "The terraform import function will read in certificate body, certificate chain (if it exists), id, name, path, and arn.",
@@ -53,10 +72,25 @@
       "new": "this call will fail. Ensure that your search is specific enough to return"
     }
   ],
+  "website/docs/d/instances.html.markdown": [
+    {
+      "old": "-> **Note:** It's a best practice to expose instance details via outputs"
+    }
+  ],
   "website/docs/d/ip_ranges.html.markdown": [
     {
       "old": "CIDR blocks, Terraform will fail.",
       "new": "CIDR blocks, this call will fail."
+    }
+  ],
+  "website/docs/d/kms_ciphertext.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the plaintext be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/d/kms_secrets.html.markdown": [
+    {
+      "old": "~> **NOTE:** Using this data provider will allow you to conceal secret data within your resource definitions but does not take care of protecting that data in all Terraform logging and state output. Please take care to secure your secret data beyond just the Terraform configuration."
     }
   ],
   "website/docs/d/networkmanager_core_network_policy_document.html.markdown": [
@@ -97,6 +131,11 @@
     {
       "old": "  name = \"example.terraform.local\"",
       "new": "  name = \"example.service.local\""
+    }
+  ],
+  "website/docs/d/ssm_parameter.html.markdown": [
+    {
+      "old": "~> **Note:** The data source is currently following the behavior of the [SSM API](https://docs.aws.amazon.com/sdk-for-go/api/service/ssm/#Parameter) to return a string value, regardless of parameter type. For type `StringList`, we can use the built-in split() function to get values in a list. Example: `split(\",\", data.aws_ssm_parameter.subnets.value)`"
     }
   ],
   "website/docs/index.html.markdown": [
@@ -169,6 +208,14 @@
     {
       "old": "!> **WARNING:** We recommend using the `aws_api_gateway_stage` resource instead of managing an API Gateway Stage via the `stage_name` argument of this resource. When this resource is recreated (REST API redeployment) with the `stage_name` configured, the stage is deleted and recreated. This will cause a temporary service interruption, increase Terraform plan differences, and can require a second Terraform apply to recreate any downstream stage configuration such as associated `aws_api_method_settings` resources.",
       "new": "!> **WARNING:** It is recommended to use the `aws_api_gateway_stage` resource instead of managing an API Gateway Stage via the `stage_name` argument of this resource. When this resource is recreated (REST API redeployment) with the `stage_name` configured, the stage is deleted and recreated. This will cause a temporary service interruption, increase provide plan differences, and can require a second apply to recreate any downstream stage configuration such as associated `aws_api_method_settings` resources."
+    },
+    {
+      "old": "~> **NOTE:** Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform. Without enabling `create_before_destroy`, API Gateway can return errors such as `BadRequestException: Active stages pointing to this deployment must be moved or deleted` on recreation."
+    }
+  ],
+  "website/docs/r/api_gateway_domain_name.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the private key will be stored in the raw state as plain-text."
     }
   ],
   "website/docs/r/api_gateway_rest_api.html.markdown": [
@@ -193,6 +240,11 @@
     {
       "old": "Further more, the `name`, `description`, `cors_configuration`, `tags` and `version` fields should be specified in the Terraform configuration and the values will override any values specified in the OpenAPI document.",
       "new": "Further more, the `name`, `description`, `cors_configuration`, `tags` and `version` fields should be specified in the provider configuration and the values will override any values specified in the OpenAPI document."
+    }
+  ],
+  "website/docs/r/apigatewayv2_deployment.html.markdown": [
+    {
+      "old": "-> **NOTE:** This is an optional and Terraform 0.12 (or later) advanced configuration that shows calculating a hash of the API's Terraform resources to determine changes that should trigger a new deployment. This value will change after the first Terraform apply of new resources, triggering an immediate redeployment, however it will stabilize afterwards except for resource changes. The `triggers` map can also be configured in other, more complex ways to fit the environment, avoiding the immediate redeployment issue."
     }
   ],
   "website/docs/r/apigatewayv2_integration.html.markdown": [
@@ -263,6 +315,12 @@
       "new": "  this provider to skip all Capacity Waiting behavior."
     },
     {
+      "old": "~> **NOTE:** Other AWS APIs may automatically add special tags to their associated Auto Scaling Group for management purposes, such as ECS Capacity Providers adding the `AmazonECSManaged` tag. These generally should be included in the configuration so Terraform does not attempt to remove them and so if the `min_size` was greater than zero on creation, that these tag(s) are applied to any initial EC2 Instances in the Auto Scaling Group. If these tag(s) were missing in the Auto Scaling Group configuration on creation, affected EC2 Instances missing the tags may require manual intervention of adding the tags to ensure they work properly with the other AWS service."
+    },
+    {
+      "old": "~> **NOTE:** Terraform has two types of ways you can add lifecycle hooks - via"
+    },
+    {
       "old": "Terraform will also wait for the correct number of healthy instances before",
       "new": "This provider considers an instance \"healthy\" when the ASG reports `HealthStatus:"
     },
@@ -315,6 +373,10 @@
     {
       "old": "* `desired_state` - (Required) JSON string matching the CloudFormation resource type schema with desired configuration. Terraform configuration expressions can be converted into JSON using the `jsonencode()` function.",
       "new": "* `desired_state` - (Required) JSON string matching the CloudFormation resource type schema with desired configuration. Terraform configuration expressions can be converted into JSON using the [`jsonencode()` function](https://www.terraform.io/docs/language/functions/jsonencode.html)."
+    },
+    {
+      "old": "* `properties` - JSON string matching the CloudFormation resource type schema with current configuration. Underlying attributes can be referenced via the `jsondecode()` function, for example, `jsondecode(data.aws_cloudcontrolapi_resource.example.properties)[\"example\"]`.",
+      "new": "* `properties` - JSON string matching the CloudFormation resource type schema with current configuration. Underlying attributes can be referenced via the [`jsondecode()` function](https://www.terraform.io/docs/language/functions/jsondecode.html), for example, `jsondecode(data.aws_cloudcontrolapi_resource.example.properties)[\"example\"]`."
     }
   ],
   "website/docs/r/cloudformation_stack_set_instance.html.markdown": [
@@ -471,6 +533,9 @@
     {
       "old": "of this, Terraform may report a difference in its planning phase because a",
       "new": "of this, this provider may report a difference in its planning phase because a"
+    },
+    {
+      "old": "~> **Note:** All arguments including the username and password will be stored in"
     }
   ],
   "website/docs/r/db_option_group.html.markdown": [
@@ -611,16 +676,34 @@
       "new": "but this provider cannot destroy it. Removing this resource from your configuration"
     }
   ],
+  "website/docs/r/directory_service_directory.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the password and customer username will be stored in the raw state as plain-text."
+    }
+  ],
   "website/docs/r/dlm_lifecycle_policy.markdown": [
     {
       "old": "~> Note: You cannot have overlapping lifecycle policies that share the same `target_tags`. Terraform is unable to detect this at plan time but it will fail during apply.",
       "new": "~> Note: You cannot have overlapping lifecycle policies that share the same `target_tags`. This provider is unable to detect this at plan time but it will fail during apply."
     }
   ],
+  "website/docs/r/dms_certificate.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the PEM encoded certificate will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/dms_endpoint.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the password will be stored in the raw state as plain-text."
+    }
+  ],
   "website/docs/r/docdb_cluster.html.markdown": [
     {
       "old": "window. Because of this, Terraform may report a difference in its planning",
       "new": "window. Because of this, this provider may report a difference in its planning"
+    },
+    {
+      "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text."
     }
   ],
   "website/docs/r/docdb_cluster_instance.html.markdown": [
@@ -715,6 +798,9 @@
     {
       "old": "~> **NOTE:** This tagging resource should not be combined with the Terraform resource for managing the parent resource. For example, using `aws_vpc` and `aws_ec2_tag` to manage tags of the same VPC will cause a perpetual difference where the `aws_vpc` resource will try to remove the tag being added by the `aws_ec2_tag` resource.",
       "new": "~> **NOTE:** This tagging resource should not be combined with the providers resource for managing the parent resource. For example, using `aws_vpc` and `aws_ec2_tag` to manage tags of the same VPC will cause a perpetual difference where the `aws_vpc` resource will try to remove the tag being added by the `aws_ec2_tag` resource."
+    },
+    {
+      "old": "~> **NOTE:** This tagging resource does not use the provider `ignore_tags` configuration."
     }
   ],
   "website/docs/r/ec2_traffic_mirror_filter.html.markdown": [
@@ -1097,6 +1183,9 @@
   ],
   "website/docs/r/iam_role.html.markdown": [
     {
+      "old": "~> **NOTE:** The `assume_role_policy` is very similar to but slightly different than a standard IAM policy and cannot use an `aws_iam_policy` resource.  However, it _can_ use an `aws_iam_policy_document` data source. See the example above of how this works."
+    },
+    {
       "old": "* `managed_policy_arns` - (Optional) Set of exclusive IAM managed policy ARNs to attach to the IAM role. If this attribute is not configured, Terraform will ignore policy attachments to this resource. When configured, Terraform will align the role's managed policy attachments with this set by attaching or detaching managed policies. Configuring an empty set (i.e., `managed_policy_arns = []`) will cause Terraform to remove _all_ managed policy attachments.",
       "new": "* `name` - (Optional, Forces new resource) Friendly name of the role. If omitted, the provider will assign a random, unique name. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) for more information."
     }
@@ -1111,6 +1200,14 @@
     {
       "old": "~> **NOTE:** For a given role, this resource is incompatible with using the `aws_iam_role` resource `managed_policy_arns` argument. When using that argument and this resource, both will attempt to manage the role's managed policy attachments and Terraform will show a permanent difference.",
       "new": "~> **NOTE:** For a given role, this resource is incompatible with using the `aws_iam_role` resource `managed_policy_arns` argument. When using that argument and this resource, both will attempt to manage the role's managed policy attachments and the provider will show a permanent difference."
+    }
+  ],
+  "website/docs/r/iam_server_certificate.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the private key will be stored in the raw state as plain-text."
+    },
+    {
+      "old": "~> **NOTE:** AWS performs behind-the-scenes modifications to some certificate files if they do not adhere to a specific format. These modifications will result in terraform forever believing that it needs to update the resources since the local and AWS file contents will not match after theses modifications occur. In order to prevent this from happening you must ensure that all your PEM-encoded files use UNIX line-breaks and that `certificate_body` contains only one certificate. All other certificates should go in `certificate_chain`. It is common for some Certificate Authorities to issue certificate files that have DOS line-breaks and that are actually multiple certificates concatenated together in order to form a full certificate chain."
     }
   ],
   "website/docs/r/iam_user.html.markdown": [
@@ -1221,6 +1318,16 @@
       "new": "but API (hence this provider too) allows you to create as many aliases as"
     }
   ],
+  "website/docs/r/kms_ciphertext.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the plaintext be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/kms_external_key.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the key material will be stored in the raw state as plain-text. Read more about sensitive data in state."
+    }
+  ],
   "website/docs/r/kms_grant.html.markdown": [
     {
       "old": "* `grantee_principal` - (Required, Forces new resources) The principal that is given permission to perform the operations that the grant permits in ARN format. Note that due to eventual consistency issues around IAM principals, terraform's state may not always be refreshed to reflect what is true in AWS.",
@@ -1253,6 +1360,9 @@
     {
       "old": "~> **NOTE:** Due to [AWS Lambda improved VPC networking changes that began deploying in September 2019](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/), EC2 subnets and security groups associated with Lambda Functions can take up to 45 minutes to successfully delete. Terraform AWS Provider version 2.31.0 and later automatically handles this increased timeout, however prior versions require setting the customizable deletion timeouts of those Terraform resources to 45 minutes (`delete = \"45m\"`). AWS and HashiCorp are working together to reduce the amount of time required for resource deletion and updates can be tracked in this [GitHub issue](https://github.com/hashicorp/terraform-provider-aws/issues/10329).",
       "new": "~> **NOTE:** Due to [AWS Lambda improved VPC networking changes that began deploying in September 2019](https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/), EC2 subnets and security groups associated with Lambda Functions can take up to 45 minutes to successfully delete."
+    },
+    {
+      "old": "~> **NOTE:** The `aws_lambda_layer_version` attribute values for `arn` and `layer_arn` were swapped in version 2.0.0 of the Terraform AWS Provider. For version 1.x, use `layer_arn` references. For version 2.x, use `arn` references."
     }
   ],
   "website/docs/r/lambda_function_event_invoke_config.html.markdown": [
@@ -1345,6 +1455,9 @@
     {
       "old": "~> **NOTE:** Changes to an MQ Broker can occur when you change a parameter, such as `configuration` or `user`, and are reflected in the next maintenance window. Because of this, Terraform may report a difference in its planning phase because a modification has not yet taken place. You can use the `apply_immediately` flag to instruct the service to apply the change immediately (see documentation below). Using `apply_immediately` can result in a brief downtime as the broker reboots.",
       "new": "~> **NOTE:** Changes to an MQ Broker can occur when you change a parameter, such as `configuration` or `user`, and are reflected in the next maintenance window. Because of this, the provider may report a difference in its planning phase because a modification has not yet taken place. You can use the `apply_immediately` flag to instruct the service to apply the change immediately (see documentation below). Using `apply_immediately` can result in a brief downtime as the broker reboots."
+    },
+    {
+      "old": "~> **NOTE:** All arguments including the username and password will be stored in the raw state as plain-text. Read more about sensitive data in state."
     }
   ],
   "website/docs/r/msk_cluster.html.markdown": [
@@ -1453,6 +1566,16 @@
       "new": "resources cannot be automatically detected by this provider. After making updates"
     }
   ],
+  "website/docs/r/opsworks_mysql_layer.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the root password will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/opsworks_rds_db_instance.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text."
+    }
+  ],
   "website/docs/r/opsworks_stack.html.markdown": [
     {
       "old": "    Name = \"foobar-terraform-stack\"",
@@ -1483,10 +1606,45 @@
       "new": "!> **WARNING:** When migrating from a `feature_set` of `CONSOLIDATED_BILLING` to `ALL`, the Organization account owner will received an email stating the following: \"You started the process to enable all features for your AWS organization. As part of that process, all member accounts that joined your organization by invitation must approve the change. You don’t need approval from member accounts that you directly created from within your AWS organization.\" After all member accounts have accepted the invitation, the Organization account owner must then finalize the changes via the [AWS Console](https://console.aws.amazon.com/organizations/home#/organization/settings/migration-progress). Until these steps are performed, the provider will perpetually show a difference, and the `DescribeOrganization` API will continue to show the `FeatureSet` as `CONSOLIDATED_BILLING`. See the [AWS Organizations documentation](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html) for more information."
     }
   ],
+  "website/docs/r/pinpoint_adm_channel.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the Client ID and Client Secret will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/pinpoint_apns_channel.markdown": [
+    {
+      "old": "~> **Note:** All arguments, including certificates and tokens, will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/pinpoint_apns_sandbox_channel.markdown": [
+    {
+      "old": "~> **Note:** All arguments, including certificates and tokens, will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/pinpoint_apns_voip_channel.markdown": [
+    {
+      "old": "~> **Note:** All arguments, including certificates and tokens, will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/pinpoint_apns_voip_sandbox_channel.markdown": [
+    {
+      "old": "~> **Note:** All arguments, including certificates and tokens, will be stored in the raw state as plain-text."
+    }
+  ],
   "website/docs/r/pinpoint_app.markdown": [
     {
       "old": "* `name` - (Optional) The application name. By default generated by Terraform",
       "new": "* `name` - (Optional) The application name. By default generated by this provider"
+    }
+  ],
+  "website/docs/r/pinpoint_baidu_channel.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the Api Key and Secret Key will be stored in the raw state as plain-text."
+    }
+  ],
+  "website/docs/r/pinpoint_gcm_channel.markdown": [
+    {
+      "old": "~> **Note:** Api Key argument will be stored in the raw state as plain-text."
     }
   ],
   "website/docs/r/qldb_ledger.html.markdown": [
@@ -1505,6 +1663,9 @@
     {
       "old": "window. Because of this, Terraform may report a difference in its planning",
       "new": "window. Because of this, this provider may report a difference in its planning"
+    },
+    {
+      "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text."
     }
   ],
   "website/docs/r/rds_cluster_instance.html.markdown": [
@@ -1547,6 +1708,14 @@
     {
       "old": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
       "new": "Certain resource arguments, like `source_db_cluster_identifier`, do not have an API method for reading the information after creation. If the argument is set in the provider configuration on an imported resource, the provider will always show a difference. To workaround this behavior, either omit the argument from the the provider configuration or use `ignore_changes` to hide the difference, e.g."
+    }
+  ],
+  "website/docs/r/redshift_cluster.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text."
+    },
+    {
+      "old": "~> **NOTE:** A Redshift cluster's default IAM role can be managed both by this resource's `default_iam_role_arn` argument and the `aws_redshift_cluster_iam_roles` resource's `default_iam_role_arn` argument. Do not configure different values for both arguments. Doing so will cause a conflict of default IAM roles."
     }
   ],
   "website/docs/r/redshift_parameter_group.html.markdown": [
@@ -1677,6 +1846,30 @@
   ],
   "website/docs/r/s3_bucket.html.markdown": [
     {
+      "old": "-> **NOTE:** The parameter `website` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `cors_rule` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `versioning` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `logging` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `lifecycle_rule` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `object_lock_configuration` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `replication_configuration` is deprecated."
+    },
+    {
+      "old": "-> **NOTE:** The parameter `server_side_encryption_configuration` is deprecated."
+    },
+    {
       "old": "* `bucket` - (Optional, Forces new resource) The name of the bucket. If omitted, Terraform will assign a random, unique name. Must be lowercase and less than or equal to 63 characters in length. A full list of bucket naming rules [may be found here](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html).",
       "new": "* `website` - (Optional) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. This provider will only perform drift detection if a configuration value is provided."
     },
@@ -1687,18 +1880,56 @@
     {
       "old": "* `versioning` - (Optional, **Deprecated**) A configuration of the [S3 bucket versioning state](https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html). See [Versioning](#versioning) below for details. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_versioning` instead.",
       "new": "~> **NOTE:** Currently, changes to the `lifecycle_rule` configuration of _existing_ resources cannot be automatically detected by this provider. To manage changes of Lifecycle rules to an S3 bucket, use the `aws_s3_bucket_lifecycle_configuration` resource instead. If you use `lifecycle_rule` on an `aws_s3_bucket`, this provider will assume management over the full set of Lifecycle rules for the S3 bucket, treating additional Lifecycle rules as drift. For this reason, `lifecycle_rule` cannot be mixed with the external `aws_s3_bucket_lifecycle_configuration` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `cors_rule` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes of CORS rules to an S3 bucket, use the `aws_s3_bucket_cors_configuration` resource instead. If you use `cors_rule` on an `aws_s3_bucket`, Terraform will assume management over the full set of CORS rules for the S3 bucket, treating additional CORS rules as drift. For this reason, `cors_rule` cannot be mixed with the external `aws_s3_bucket_cors_configuration` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `grant` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes of ACL grants to an S3 bucket, use the `aws_s3_bucket_acl` resource instead. If you use `grant` on an `aws_s3_bucket`, Terraform will assume management over the full set of ACL grants for the S3 bucket, treating additional ACL grants as drift. For this reason, `grant` cannot be mixed with the external `aws_s3_bucket_acl` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `lifecycle_rule` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes of Lifecycle rules to an S3 bucket, use the `aws_s3_bucket_lifecycle_configuration` resource instead. If you use `lifecycle_rule` on an `aws_s3_bucket`, Terraform will assume management over the full set of Lifecycle rules for the S3 bucket, treating additional Lifecycle rules as drift. For this reason, `lifecycle_rule` cannot be mixed with the external `aws_s3_bucket_lifecycle_configuration` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `logging` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes of logging parameters to an S3 bucket, use the `aws_s3_bucket_logging` resource instead. If you use `logging` on an `aws_s3_bucket`, Terraform will assume management over the full set of logging parameters for the S3 bucket, treating additional logging parameters as drift. For this reason, `logging` cannot be mixed with the external `aws_s3_bucket_logging` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `object_lock_configuration` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes of Object Lock settings to an S3 bucket, use the `aws_s3_bucket_object_lock_configuration` resource instead. If you use `object_lock_configuration` on an `aws_s3_bucket`, Terraform will assume management over the full set of Object Lock configuration parameters for the S3 bucket, treating additional Object Lock configuration parameters as drift. For this reason, `object_lock_configuration` cannot be mixed with the external `aws_s3_bucket_object_lock_configuration` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `replication_configuration` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage replication configuration changes to an S3 bucket, use the `aws_s3_bucket_replication_configuration` resource instead. If you use `replication_configuration` on an `aws_s3_bucket`, Terraform will assume management over the full replication configuration for the S3 bucket, treating additional replication configuration rules as drift. For this reason, `replication_configuration` cannot be mixed with the external `aws_s3_bucket_replication_configuration` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `server_side_encryption_configuration` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes in encryption of an S3 bucket, use the `aws_s3_bucket_server_side_encryption_configuration` resource instead. If you use `server_side_encryption_configuration` on an `aws_s3_bucket`, Terraform will assume management over the encryption configuration for the S3 bucket, treating additional encryption changes as drift. For this reason, `server_side_encryption_configuration` cannot be mixed with the external `aws_s3_bucket_server_side_encryption_configuration` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `versioning` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes of versioning state to an S3 bucket, use the `aws_s3_bucket_versioning` resource instead. If you use `versioning` on an `aws_s3_bucket`, Terraform will assume management over the versioning state of the S3 bucket, treating additional versioning state changes as drift. For this reason, `versioning` cannot be mixed with the external `aws_s3_bucket_versioning` resource for a given S3 bucket."
+    },
+    {
+      "old": "~> **NOTE:** Currently, changes to the `website` configuration of _existing_ resources cannot be automatically detected by Terraform. To manage changes to the website configuration of an S3 bucket, use the `aws_s3_bucket_website_configuration` resource instead. If you use `website` on an `aws_s3_bucket`, Terraform will assume management over the configuration of the website of the S3 bucket, treating additional website configuration changes as drift. For this reason, `website` cannot be mixed with the external `aws_s3_bucket_website_configuration` resource for a given S3 bucket."
     }
   ],
   "website/docs/r/s3_bucket_object.html.markdown": [
     {
+      "old": "~> **NOTE:** The `aws_s3_bucket_object` resource is DEPRECATED and will be removed in a future version! Use `aws_s3_object` instead, where new features and fixes will be added. When replacing `aws_s3_bucket_object` with `aws_s3_object` in your configuration, on the next apply, Terraform will recreate the object. If you prefer to not have Terraform recreate the object, import the object using `aws_s3_object`."
+    },
+    {
       "old": "* `etag` - (Optional) Triggers updates when the value changes. The only meaningful value is `filemd5(\"path/to/file\")` (Terraform 0.11.12 or later) or `${md5(file(\"path/to/file\"))}` (Terraform 0.11.11 or earlier). This attribute is not compatible with KMS encryption, `kms_key_id` or `server_side_encryption = \"aws:kms\"` (see `source_hash` instead).",
       "new": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. This provider will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
     }
   ],
   "website/docs/r/s3_bucket_policy.html.markdown": [
     {
       "old": "* `policy` - (Required) The text of the policy. Although this is a bucket policy rather than an IAM policy, the `aws_iam_policy_document` data source may be used, so long as it specifies a principal. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide. Note: Bucket policies are limited to 20 KB in size.",
       "new": "* `policy` - (Required) The text of the policy. Although this is a bucket policy rather than an IAM policy, the `aws_iam_policy_document` data source may be used, so long as it specifies a principal. Note: Bucket policies are limited to 20 KB in size."
+    }
+  ],
+  "website/docs/r/s3_object_copy.html.markdown": [
+    {
+      "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
     }
   ],
   "website/docs/r/s3control_access_point_policy.html.markdown": [
@@ -1763,6 +1994,12 @@
     {
       "old": "~> **NOTE:** If the `AWSCURRENT` staging label is present on this version during resource deletion, that label cannot be removed and will be skipped to prevent errors when fully deleting the secret. That label will leave this secret version active even after the resource is deleted from Terraform unless the secret itself is deleted. Move the `AWSCURRENT` staging label before or after deleting this resource from Terraform to fully trigger version deprecation if necessary.",
       "new": "~> **NOTE:** If the `AWSCURRENT` staging label is present on this version during resource deletion, that label cannot be removed and will be skipped to prevent errors when fully deleting the secret. That label will leave this secret version active even after the resource is deleted from this provider unless the secret itself is deleted. Move the `AWSCURRENT` staging label before or after deleting this resource from this provider to fully trigger version deprecation if necessary."
+    },
+    {
+      "old": "-> **Note:** In Terraform 0.14 and later, use `sensitive = true` to protect the values of the variable from being printed in logs and console output (see Protect Sensitive Input Variables)."
+    },
+    {
+      "old": "~> **NOTE:** If `version_stages` is configured, you must include the `AWSCURRENT` staging label if this secret version is the only version or if the label is currently present on this secret version, otherwise Terraform will show a perpetual difference."
     }
   ],
   "website/docs/r/security_group.html.markdown": [
@@ -2005,6 +2242,9 @@
   ],
   "website/docs/r/ssm_parameter.html.markdown": [
     {
+      "old": "~> **Note:** The unencrypted value of a SecureString will be stored in the raw state as plain-text."
+    },
+    {
       "old": "* `overwrite` - (Optional) Overwrite an existing parameter. If not specified, will default to `false` if the resource has not been created by terraform to avoid overwrite of existing resource and will default to `true` otherwise (terraform lifecycle rules should then be used to manage the update behavior).",
       "new": "* `value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. This value is always marked as sensitive in the plan output, regardless of `type`."
     }
@@ -2165,6 +2405,11 @@
     {
       "old": "~> **NOTE on VPC Peering Connections and VPC Peering Connection Options:** Terraform provides",
       "new": "~> **NOTE on VPC Peering Connections and VPC Peering Connection Options:** This provider provides"
+    }
+  ],
+  "website/docs/r/vpn_connection.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including `tunnel1_preshared_key` and `tunnel2_preshared_key` will be stored in the raw state as plain-text."
     }
   ],
   "website/docs/r/worklink_fleet.html.markdown": [
