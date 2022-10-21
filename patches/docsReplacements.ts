@@ -68,5 +68,24 @@ export type DocsReplacements = Record<string, LineReplacement[]>;
 
 async function readReplacements(): Promise<DocsReplacements> {
   const patchReplacements = await import("./patchReplacements.json");
-  return patchReplacements.default;
+  const manualReplacements = await import("./manualReplacements.json");
+  return mergeReplacements(
+    patchReplacements.default,
+    manualReplacements.default
+  );
+}
+
+function mergeReplacements(
+  a: DocsReplacements,
+  b: DocsReplacements
+): DocsReplacements {
+  const result = { ...a };
+  for (const [k, v] of Object.entries(b)) {
+    if (k in result) {
+      result[k] = [...result[k], ...v];
+    } else {
+      result[k] = v;
+    }
+  }
+  return result;
 }
