@@ -22,6 +22,8 @@ Applies a set of automated changes to a AWS TF fork working directory.
 
 Approximate method:
 
-1. Parse diff for docs files (ignore renames)
-2. Find diffs where the same line has a removal and addition (rewrite)
-3. Create replacements for where "terraform" or "hashicorp" has been removed
+Parse diff for `website/docs` files (ignore renames and `internal/service`)
+
+1. Find diffs where the same line has a removal and addition (rewrite). Create replacements for where "terraform" or "hashicorp" has been removed.
+2. Find diffs where a single note has been removed.
+3. Find diffs where a block of text has been removed.

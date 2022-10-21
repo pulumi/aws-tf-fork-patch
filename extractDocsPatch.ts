@@ -89,10 +89,16 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
     name: "initial",
   };
 
-  const newMixedBlock = (lineNo: number): typeof state => ({
+  const newMixed = (lineNo: number): typeof state => ({
     name: "mixed",
     start: lineNo,
     last: lineNo,
+  });
+  const newBlock = (change: GitPatchModifiedLine): typeof state => ({
+    name: "block",
+    start: change.lineNumber,
+    last: change.lineNumber,
+    content: [change.line],
   });
 
   for (const [lineNo, changes] of sorted) {
@@ -100,13 +106,13 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
       // Not pure removals
       switch (state.name) {
         case "initial":
-          state = newMixedBlock(lineNo);
+          state = newMixed(lineNo);
           continue;
         case "mixed":
           if (state.last === lineNo - 1) {
             state = { ...state, last: lineNo };
           } else {
-            state = newMixedBlock(lineNo);
+            state = newMixed(lineNo);
           }
           continue;
         case "block":
@@ -124,26 +130,17 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
       // Just a removal
       switch (state.name) {
         case "initial":
-          state = {
-            name: "block",
-            start: lineNo,
-            last: lineNo,
-            content: [changes[0].line],
-          };
+          state = newBlock(changes[0]);
           continue;
         case "mixed":
           state =
             state.last === lineNo - 1
               ? { ...state, last: lineNo } // continue mixed
-              : {
-                  name: "block",
-                  start: lineNo,
-                  last: lineNo,
-                  content: [changes[0].line],
-                }; // new block
+              : newBlock(changes[0]);
           continue;
         case "block":
           if (state.last === lineNo - 1) {
+            // append to block
             state = {
               ...state,
               last: lineNo,
@@ -153,12 +150,7 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
             if (state.last > state.start) {
               removalBlocks.push(state.content.join(EOL));
             }
-            state = {
-              name: "block",
-              start: lineNo,
-              last: lineNo,
-              content: [changes[0].line],
-            };
+            state = newBlock(changes[0]);
           }
           continue;
       }
