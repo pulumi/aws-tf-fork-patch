@@ -28,11 +28,17 @@ yargs(hideBin(process.argv))
         dir,
       };
 
-      console.log("Applying patches ");
+      // Fix tags_all fields
       await patches.applyTagsAll(config);
+      // Special set of replacements derived from the original git diff
       await patches.applyDocsPatchReplacements(config);
+      // Auto-strip TF & relative links
       await patches.applyStripDocLinks(config);
+      // Apply manual replacements - anything the automated steps can't handle
+      // These are generated using the suggest command
       await patches.applyDocsManualReplacements(config);
+      // Apply overlays last as they shouldn't be modified
+      await patches.applyOverlays(config);
     }
   )
   .command(
