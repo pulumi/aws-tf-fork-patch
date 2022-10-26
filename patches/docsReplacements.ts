@@ -76,10 +76,15 @@ function tryReplace(
   if (file in replacements) {
     const fileReplacements = replacements[file];
     for (const replacement of fileReplacements) {
-      const newReplacement =
-        replacement.new !== undefined
-          ? replaced.replaceAll(replacement.old, replacement.new) // Simple find/replace
-          : replaced.replaceAll(EOL + replacement.old, ""); // Remove whole line
+      const matcher = replacement.regExp
+        ? new RegExp(replacement.old, replacement.regExpFlags ?? "g") // Regex
+        : replacement.new !== undefined
+        ? replacement.old // Simple find/replace
+        : EOL + replacement.old; // Remove whole line
+      const newReplacement = replaced.replaceAll(
+        matcher,
+        replacement.new ?? ""
+      );
       if (replaced === newReplacement) {
         unmatched.push(replacement);
       }
@@ -90,6 +95,8 @@ function tryReplace(
 }
 
 export type LineReplacement = {
+  regExp?: boolean;
+  regExpFlags?: string;
   old: string;
   new?: string;
 };

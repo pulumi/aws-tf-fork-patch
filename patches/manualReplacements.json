@@ -116,7 +116,9 @@
   ],
   "website/docs/d/secretsmanager_secret_version.html.markdown": [
     {
-      "old": "### Handling Key-Value Secret Strings in JSON\n\nReading key-value pairs from JSON back into a native Terraform map can be accomplished in Terraform 0.12 and later with the [`jsondecode()` function](https://www.terraform.io/docs/configuration/functions/jsondecode.html):\n\n```terraform\noutput \"example\" {\n  value = jsondecode(data.aws_secretsmanager_secret_version.example.secret_string)[\"key1\"]\n}\n```"
+      "regExp": true,
+      "regExpFlags": "gi",
+      "old": "### Handling Key-Value Secret Strings in JSON\n[^#]+"
     }
   ],
   "website/docs/d/ssm_parameter.html.markdown": [
