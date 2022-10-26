@@ -64,11 +64,7 @@ export async function applyStripDocLinks(ctx: PatchContext) {
             // Check Github org
             case "github.com":
               if (url.pathname.startsWith("/hashicorp")) {
-                // Allow issue links
-                if (url.pathname.indexOf("issues") > -1) {
-                  return source;
-                }
-                // Remove every other hashicorp org link
+                // Remove hashicorp org links
                 return linkText;
               }
               return source;

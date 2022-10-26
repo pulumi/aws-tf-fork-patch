@@ -550,6 +550,10 @@
     {
       "old": "or Terraform will always return a diff.",
       "new": "or the provider will always return a diff."
+    },
+    {
+      "old": "The member replication groups must have [`lifecycle.ignore_changes[engine_version]`](https://www.terraform.io/language/meta-arguments/lifecycle) set,",
+      "new": "The member replication groups must have `lifecycle.ignore_changes[engine_version]` set,"
     }
   ],
   "website/docs/r/elasticache_security_group.html.markdown": [
@@ -914,6 +918,10 @@
   "website/docs/r/launch_configuration.html.markdown": [
     {
       "old": "[2]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html"
+    },
+    {
+      "old": "-> **Note** When using `aws_launch_configuration` with `aws_autoscaling_group`, it is recommended to use the `name_prefix` (Optional) instead of the `name` (Optional) attribute. This will allow Terraform lifecycles to detect changes to the launch configuration and update the autoscaling group correctly.",
+      "new": "-> **Note** When using `aws_launch_configuration` with `aws_autoscaling_group`, it is recommended to use the `name_prefix` (Optional) instead of the `name` (Optional) attribute."
     }
   ],
   "website/docs/r/launch_template.html.markdown": [
@@ -1562,6 +1570,10 @@
     {
       "old": "  name                    = \"terraform-example-queue\"",
       "new": "  name                    = \"example-queue\""
+    },
+    {
+      "old": "* `sqs_managed_sse_enabled` - (Optional) Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys. See [Encryption at rest](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html). Terraform will only perform drift detection of its value when present in a configuration.",
+      "new": "* `sqs_managed_sse_enabled` - (Optional) Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys. See [Encryption at rest](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html). The provider will only perform drift detection of its value when present in a configuration."
     }
   ],
   "website/docs/r/ssm_parameter.html.markdown": [
@@ -1656,6 +1668,30 @@
     {
       "old": "    Name = \"terraform_ipsec_vpn_example\"",
       "new": "    Name = \"example_ipsec_vpn_example\""
+    },
+    {
+      "old": "  description     = \"terraform_ipsec_vpn_example\"",
+      "new": "  description     = \"example_ipsec_vpn_example\""
+    }
+  ],
+  "website/docs/d/sesv2_dedicated_ip_pool.html.markdown": [
+    {
+      "old": "  Terraform data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "  Data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    },
+    {
+      "old": "Terraform data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "Data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    }
+  ],
+  "website/docs/r/sesv2_dedicated_ip_pool.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "  Tesource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
     }
   ]
 }

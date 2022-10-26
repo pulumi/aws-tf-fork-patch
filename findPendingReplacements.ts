@@ -29,7 +29,10 @@ export function findFileReplacements(content: string): LineReplacement[] {
       (line) =>
         line.match(/(terraform)|(hashicorp)/i) !== null &&
         !line.startsWith("```terraform") &&
-        !line.startsWith("$ terraform import")
+        !line.startsWith(" ```terraform") &&
+        !line.startsWith("$ terraform import") &&
+        !line.startsWith("terraform import") &&
+        !line.startsWith("`$ terraform import")
     )
     .map((line) => ({
       old: line,

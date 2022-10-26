@@ -10,6 +10,8 @@ import * as patches from "./patches";
 import { parseGitPatch } from "./parseGitPatch";
 import { extractDocsReplacements } from "./extractDocsPatch";
 import { findPendingReplacements } from "./findPendingReplacements";
+import { mergeReplacements } from "./mergeReplacements";
+import { sumBy } from "array-fns";
 
 yargs(hideBin(process.argv))
   .command(
@@ -57,16 +59,23 @@ yargs(hideBin(process.argv))
       cwd: { desc: "Target directory", default: "." },
       outFile: {
         desc: "Output suggestions file path",
-        default: "patches/suggestions.json",
+        default: "patches/manualReplacements.json",
       },
     },
     async (args) => {
       const replacements = await findPendingReplacements({ dir: args.cwd });
       if (Object.keys(replacements).length === 0) {
         console.log("No replacements needed");
-      } else {
-        await writeFile(args.outFile, JSON.stringify(replacements, null, 2));
+        return;
       }
+      const existing = await readFile(args.outFile, "utf-8");
+      const output = mergeReplacements(JSON.parse(existing), replacements);
+      await writeFile(args.outFile, JSON.stringify(output, null, 2));
+      const totalReplacements = sumBy(
+        Object.entries(replacements),
+        ([_, v]) => v.length
+      );
+      console.log(totalReplacements, "new replacements added to", args.outFile);
     }
   )
   .demandCommand()

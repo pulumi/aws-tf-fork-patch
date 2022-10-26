@@ -4,7 +4,9 @@ Applies a set of automated changes to a AWS TF fork working directory.
 
 1. `yarn` - restore packages
 2. `yarn apply --cwd [DIR]` - apply patches to a directory
-3. `yarn suggest --cwd [DIR]` - generate suggestions for pending replacements
+3. `yarn suggest --cwd [DIR]` - generate suggestions for pending replacements and write into the manual replacements.
+4. Search for "TODO" in [`patches/manualReplacements.json`](patches/manualReplacements.json) for pending docs fixes.
+5. Re-apply patches once edited.
 
 ## Design Notes
 
@@ -19,7 +21,6 @@ Applies a set of automated changes to a AWS TF fork working directory.
 
 1. Generate a diff `git diff v4.35.0..upstream-v4.35.0 > upstream.patch`
 2. Convert diff to replacements `yarn start parse-patch upstream.patch --outFile patches/patchReplacements.json`
-3. Copy output `patchReplacements.json` into `patches/replace_docs_terraform.ts`
 
 Approximate method:
 
