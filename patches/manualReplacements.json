@@ -344,19 +344,11 @@
       "new": "    \"Application\" = \"Example\","
     },
     {
-      "old": "    \"Application\" = \"Terraform\",",
-      "new": "    \"Application\" = \"Example\","
-    },
-    {
       "old": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow source specified with `filename`. The usual way to set this is filebase64sha256(\"mycontact_flow.json\") (Terraform 0.11.12 and later) or base64sha256(file(\"mycontact_flow.json\")) (Terraform 0.11.11 and earlier), where \"mycontact_flow.json\" is the local filename of the Contact Flow source.",
       "new": "* `content_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the Contact Flow source specified with `filename`."
     }
   ],
   "website/docs/r/connect_contact_flow_module.html.markdown": [
-    {
-      "old": "    \"Application\" = \"Terraform\",",
-      "new": "    \"Application\" = \"Example\","
-    },
     {
       "old": "    \"Application\" = \"Terraform\",",
       "new": "    \"Application\" = \"Example\","
@@ -1234,10 +1226,6 @@
       "new": "  bucket = \"s3-website-test.domain.example\""
     },
     {
-      "old": "  bucket = \"s3-website-test.hashicorp.com\"",
-      "new": "  bucket = \"s3-website-test.domain.example\""
-    },
-    {
       "old": "    allowed_origins = [\"https://s3-website-test.hashicorp.com\"]",
       "new": "    allowed_origins = [\"https://s3-website-test.domain.example\"]"
     },
@@ -1272,14 +1260,6 @@
     {
       "old": "* `replication_configuration` - (Optional, **Deprecated**) A configuration of [replication configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html). See [Replication Configuration](#replication-configuration) below for details. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `replication_configuration` - (Optional, **Deprecated**) A configuration of [replication configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html). See [Replication Configuration](#replication-configuration) below for details. The provider will only perform drift detection if a configuration value is provided."
-    },
-    {
-      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
-      "new": "  The provider will only perform drift detection if a configuration value is provided."
-    },
-    {
-      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
-      "new": "  The provider will only perform drift detection if a configuration value is provided."
     },
     {
       "old": "* `website` - (Optional, **Deprecated**) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. Terraform will only perform drift detection if a configuration value is provided.",
@@ -1494,10 +1474,6 @@
     {
       "old": "    repository_url = \"https://github.com/hashicorp/terraform-provider-aws.git\"",
       "new": "    repository_url = \"https://github.com/github/docs.git\""
-    },
-    {
-      "old": "    repository_url = \"https://github.com/hashicorp/terraform-provider-aws.git\"",
-      "new": "    repository_url = \"https://github.com/github/docs.git\""
     }
   ],
   "website/docs/r/sagemaker_endpoint.html.markdown": [
@@ -1674,14 +1650,6 @@
     {
       "old": "  name            = \"terraform_ipsec_vpn_example\"",
       "new": "  name            = \"example_ipsec_vpn_example\""
-    },
-    {
-      "old": "  description     = \"terraform_ipsec_vpn_example\"",
-      "new": "  description     = \"example_ipsec_vpn_example\""
-    },
-    {
-      "old": "    Name = \"terraform_ipsec_vpn_example\"",
-      "new": "    Name = \"example_ipsec_vpn_example\""
     },
     {
       "old": "    Name = \"terraform_ipsec_vpn_example\"",
