@@ -28,6 +28,7 @@ yargs(hideBin(process.argv))
         dir,
       };
 
+      await patches.applyFileEdits(config);
       // Fix tags_all fields
       await patches.applyTagsAll(config);
       // Special set of replacements derived from the original git diff
