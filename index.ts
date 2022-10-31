@@ -12,6 +12,8 @@ import { extractDocsReplacements } from "./extractDocsPatch";
 import { findPendingReplacements } from "./findPendingReplacements";
 import { mergeReplacements } from "./mergeReplacements";
 import { sumBy } from "array-fns";
+import { promisify } from "util";
+import { exec, spawn } from "child_process";
 
 yargs(hideBin(process.argv))
   .command(
@@ -40,6 +42,8 @@ yargs(hideBin(process.argv))
       await patches.applyDocsManualReplacements(config);
       // Apply overlays last as they shouldn't be modified
       await patches.applyOverlays(config);
+      // Reformat internal code
+      await patches.applyGoFmt(config);
     }
   )
   .command(

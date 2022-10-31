@@ -14,7 +14,7 @@ export async function applyFileEdits(context: PatchContext) {
       ),
       addLineAfter(
         /^\s*"aws_ecr_repository":\s*ecr\.DataSourceRepository\(\),$/im,
-        `\t\t\t"aws_ecr_credentials": ecr.DataSourceCredentials(),`
+        `\t\t\t"aws_ecr_credentials":         ecr.DataSourceCredentials(),`
       ),
       addLineAfter(
         /^\s*"aws_fsx_openzfs_snapshot":\s*fsx.DataSourceOpenzfsSnapshot\(\),$/im,
@@ -53,7 +53,38 @@ export async function applyFileEdits(context: PatchContext) {
         EOL + `\t\t\t"aws_simpledb_domain": simpledb.ResourceDomain(),`
       )
     ),
+    edit(
+      context,
+      "internal/conns/conns.go",
+      replace(/PartnerName: "\w+"/, `PartnerName: "Pulumi"`),
+      replace(
+        `{Name: "Terraform", Version: terraformVersion, Comment: "+https://www.terraform.io"}`,
+        `{Name: "Pulumi", Version: "1.0"}`
+      ),
+      replace(
+        `{Name: "terraform-provider-aws", Version: version.ProviderVersion, Comment: "+https://registry.terraform.io/providers/hashicorp/aws"}`,
+        `{Name: "Pulumi-Aws", Version: terraformVersion, Comment: "+https://www.pulumi.com"}`
+      )
+    ),
   ]);
+}
+
+function replace(matcher: string | RegExp, replacement: string) {
+  return (content: string) => {
+    const found =
+      typeof matcher === "string"
+        ? content.includes(matcher)
+        : content.match(matcher) !== null;
+    if (!found) {
+      if (content.includes(replacement)) {
+        // Already replaced
+        return content;
+      }
+      throw new UnmatchedError(`can't find ${matcher}`);
+    }
+    const replaced = content.replace(matcher, replacement);
+    return replaced;
+  };
 }
 
 function addLineAfter(matchLine: string | RegExp, extraContent: string) {
