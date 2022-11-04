@@ -57,6 +57,7 @@ export async function applyStripDocLinks(ctx: PatchContext) {
             case "www.w3.org":
               return source;
             // Disallow hashicorp links
+            case "developer.hashicorp.com":
             case "learn.hashicorp.com":
             case "registry.terraform.io":
             case "www.terraform.io":

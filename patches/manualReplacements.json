@@ -23,12 +23,7 @@
       "new": "    Data source for managing an AWS AppConfig Environments."
     }
   ],
-  "website/docs/d/cloudfront_origin_access_identity.html.markdown": [
-    {
-      "old": "[`aws_s3_bucket`][4] bucket policy, causing spurious diffs in Terraform. If",
-      "new": "[`aws_s3_bucket`][4] bucket policy, causing spurious diffs. If"
-    }
-  ],
+  "website/docs/d/cloudfront_origin_access_identity.html.markdown": [],
   "website/docs/d/default_tags.markdown": [
     {
       "old": "With this data source, you can apply default tags to resources not _directly_ managed by a Terraform resource, such as the instances underneath an Auto Scaling group or the volumes created for an EC2 instance.",
@@ -1692,6 +1687,86 @@
     {
       "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
       "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    }
+  ],
+  "website/docs/d/dx_router_configuration.html.markdown": [
+    {
+      "old": "  Terraform data source for managing an AWS Direct Connect Router Configuration.",
+      "new": "  Data source for managing an AWS Direct Connect Router Configuration."
+    },
+    {
+      "old": "Terraform data source for retrieving Router Configuration instructions for a given AWS Direct Connect Virtual Interface and Router Type.",
+      "new": "Data source for retrieving Router Configuration instructions for a given AWS Direct Connect Virtual Interface and Router Type."
+    }
+  ],
+  "website/docs/r/fsx_file_cache.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS FSx File Cache.",
+      "new": "  Resource for managing an AWS FSx File Cache."
+    },
+    {
+      "old": "Terraform resource for managing an AWS FSx File Cache.",
+      "new": "Resource for managing an AWS FSx File Cache."
+    }
+  ],
+  "website/docs/r/inspector2_enabler.html.markdown": [
+    {
+      "old": "  Terraform resource for enabling AWS Inspector V2 resource scans.",
+      "new": "  Resource for enabling AWS Inspector V2 resource scans."
+    },
+    {
+      "old": "Terraform resource for enabling AWS Inspector V2 resource scans.",
+      "new": "Resource for enabling AWS Inspector V2 resource scans."
+    },
+    {
+      "old": "* `resource_types` - (Required) Type of resources to scan. Valid values are `EC2` and `ECR`. If you only use one type, Terraform will ignore the status of the other type.",
+      "new": "* `resource_types` - (Required) Type of resources to scan. Valid values are `EC2` and `ECR`. If you only use one type, the provider will ignore the status of the other type."
+    }
+  ],
+  "website/docs/r/sesv2_dedicated_ip_assignment.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment.",
+      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment."
+    }
+  ],
+  "website/docs/r/sesv2_email_identity.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity.",
+      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Email Identity."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Email Identity."
+    }
+  ],
+  "website/docs/r/sesv2_email_identity_feedback_attributes.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes.",
+      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes."
+    }
+  ],
+  "website/docs/r/sfn_state_machine.html.markdown": [
+    {
+      "old": "* `name` - (Optional) The name of the state machine. The name should only contain `0`-`9`, `A`-`Z`, `a`-`z`, `-` and `_`. If omitted, Terraform will assign a random, unique name.",
+      "new": "* `name` - (Optional) The name of the state machine. The name should only contain `0`-`9`, `A`-`Z`, `a`-`z`, `-` and `_`. If omitted, the provider will assign a random, unique name."
+    }
+  ],
+  "website/docs/r/ssm_default_patch_baseline.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Systems Manager Default Patch Baseline.",
+      "new": "  Resource for managing an AWS Systems Manager Default Patch Baseline."
+    },
+    {
+      "old": "Terraform resource for registering an AWS Systems Manager Default Patch Baseline.",
+      "new": "Resource for registering an AWS Systems Manager Default Patch Baseline."
     }
   ]
 }
