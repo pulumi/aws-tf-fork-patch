@@ -13,7 +13,7 @@ import { findPendingReplacements } from "./findPendingReplacements";
 import { mergeReplacements } from "./mergeReplacements";
 import { sumBy } from "array-fns";
 import { promisify } from "util";
-import { exec, spawn } from "child_process";
+import { exec, execSync, spawn } from "child_process";
 
 yargs(hideBin(process.argv))
   .command(
@@ -44,6 +44,11 @@ yargs(hideBin(process.argv))
       await patches.applyOverlays(config);
       // Reformat internal code
       await patches.applyGoFmt(config);
+
+      // Generate replacements
+      // Format replacements
+      // TODO: make better suggestions - e.g. 3 words each side
+      // TODO: Apply replacements ignoring line breaks
     }
   )
   .command(
@@ -61,6 +66,50 @@ yargs(hideBin(process.argv))
       const patch = parseGitPatch(content);
       const replacement = extractDocsReplacements(patch);
       await writeFile(args.outFile, JSON.stringify(replacement, null, 2));
+    }
+  )
+  .command(
+    "format-replacements",
+    "Sort and de-duplicate a replacements file",
+    {
+      path: {
+        desc: "Output suggestions file path",
+        default: "patches/manualReplacements.json",
+      },
+    },
+    async (args) => {
+      const existing = await readFile(args.path, "utf-8");
+      const output = mergeReplacements(JSON.parse(existing), {});
+      await writeFile(args.path, JSON.stringify(output, null, 2));
+    }
+  )
+  .command(
+    "add-working-docs",
+    "Adopt changes from working directory",
+    {
+      cwd: { desc: "Target directory", default: "." },
+      outFile: {
+        desc: "Output suggestions file path",
+        default: "patches/manualReplacements.json",
+      },
+    },
+    async (args) => {
+      const content = execSync("git diff website", {
+        cwd: args.cwd,
+        encoding: "utf-8",
+      });
+      const patch = parseGitPatch(content);
+      const replacements = extractDocsReplacements(patch, {
+        includeAllChanges: true,
+      });
+      const existing = await readFile(args.outFile, "utf-8");
+      const output = mergeReplacements(JSON.parse(existing), replacements);
+      await writeFile(args.outFile, JSON.stringify(output, null, 2));
+      const totalReplacements = sumBy(
+        Object.entries(replacements),
+        ([_, v]) => v.length
+      );
+      console.log(totalReplacements, "new replacements added to", args.outFile);
     }
   )
   .command(

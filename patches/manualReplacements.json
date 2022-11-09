@@ -30,6 +30,16 @@
       "new": "With this data source, you can apply default tags to resources not _directly_ managed by a resource, such as the instances underneath an Auto Scaling group or the volumes created for an EC2 instance."
     }
   ],
+  "website/docs/d/dx_router_configuration.html.markdown": [
+    {
+      "old": "  Terraform data source for managing an AWS Direct Connect Router Configuration.",
+      "new": "  Data source for managing an AWS Direct Connect Router Configuration."
+    },
+    {
+      "old": "Terraform data source for retrieving Router Configuration instructions for a given AWS Direct Connect Virtual Interface and Router Type.",
+      "new": "Data source for retrieving Router Configuration instructions for a given AWS Direct Connect Virtual Interface and Router Type."
+    }
+  ],
   "website/docs/d/ec2_transit_gateway_vpc_attachments.html.markdown": [
     {
       "old": "[2]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ec2_transit_gateway_vpc_attachment"
@@ -47,13 +57,18 @@
   ],
   "website/docs/d/instances.html.markdown": [
     {
-      "old": "and remote state and"
-    },
-    {
       "old": "**use `terraform_remote_state`"
     },
     {
+      "old": "and remote state and"
+    },
+    {
       "old": "data source instead** if you manage referenced instances via Terraform."
+    }
+  ],
+  "website/docs/d/kms_ciphertext.html.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
     }
   ],
   "website/docs/d/kms_secret.html.markdown": [
@@ -100,12 +115,12 @@
   ],
   "website/docs/d/s3_objects.html.markdown": [
     {
-      "old": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect Terraform's performance.",
-      "new": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect the provider's performance."
-    },
-    {
       "old": "The following example retrieves a list of all object keys in an S3 bucket and creates corresponding Terraform object data sources:",
       "new": "The following example retrieves a list of all object keys in an S3 bucket and creates corresponding object data sources:"
+    },
+    {
+      "old": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect Terraform's performance.",
+      "new": "~> **NOTE on `max_keys`:** Retrieving very large numbers of keys can adversely affect the provider's performance."
     }
   ],
   "website/docs/d/secretsmanager_secret_version.html.markdown": [
@@ -113,6 +128,16 @@
       "regExp": true,
       "regExpFlags": "gi",
       "old": "### Handling Key-Value Secret Strings in JSON\n[^#]+"
+    }
+  ],
+  "website/docs/d/sesv2_dedicated_ip_pool.html.markdown": [
+    {
+      "old": "  Terraform data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "  Data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    },
+    {
+      "old": "Terraform data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "Data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
     }
   ],
   "website/docs/d/ssm_parameter.html.markdown": [
@@ -154,12 +179,12 @@
   ],
   "website/docs/r/api_gateway_rest_api.html.markdown": [
     {
-      "old": "### Terraform Resources",
-      "new": "### Resources"
-    },
-    {
       "old": "    #       Terraform configuration file(s) or removing the .id references to",
       "new": "    #       configuration file(s) or removing the .id references to"
+    },
+    {
+      "old": "### Terraform Resources",
+      "new": "### Resources"
     },
     {
       "old": "* `policy` - (Optional) JSON formatted policy document that controls access to the API Gateway. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide. Terraform will only perform drift detection of its value when present in a configuration. We recommend using the `aws_api_gateway_rest_api_policy` resource instead. If importing an OpenAPI specification via the `body` argument, this corresponds to the [`x-amazon-apigateway-policy` extension](https://docs.aws.amazon.com/apigateway/latest/developerguide/openapi-extensions-policy.html). If the argument value is provided and is different than the OpenAPI value, the argument value will override the OpenAPI value.",
@@ -168,12 +193,12 @@
   ],
   "website/docs/r/apigatewayv2_deployment.html.markdown": [
     {
-      "old": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform.",
-      "new": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments."
-    },
-    {
       "old": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a redeployment. To force a redeployment without changing these keys/values, use the `terraform taint` command.",
       "new": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a redeployment."
+    },
+    {
+      "old": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform.",
+      "new": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments."
     }
   ],
   "website/docs/r/athena_database.html.markdown": [
@@ -184,9 +209,6 @@
   ],
   "website/docs/r/autoscaling_group.html.markdown": [
     {
-      "old": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on HashiCorp Learn."
-    },
-    {
       "old": "  Terraform to skip all Capacity Waiting behavior.",
       "new": "  the provider to skip all Capacity Waiting behavior."
     },
@@ -195,16 +217,19 @@
       "new": "* `min_elb_capacity` - (Optional) Setting this causes the provider to wait for"
     },
     {
-      "old": "The `min_elb_capacity` parameter causes Terraform to wait for at least the",
-      "new": "The `min_elb_capacity` parameter causes the provider to wait for at least the"
+      "old": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on HashiCorp Learn."
+    },
+    {
+      "old": "As with ASG Capacity, Terraform will wait for up to `wait_for_capacity_timeout`",
+      "new": "As with ASG Capacity, the provider will wait for up to `wait_for_capacity_timeout`"
     },
     {
       "old": "Terraform moves on. If new instances don't pass the ELB's health checks for any",
       "new": "the provider moves on. If new instances don't pass the ELB's health checks for any"
     },
     {
-      "old": "As with ASG Capacity, Terraform will wait for up to `wait_for_capacity_timeout`",
-      "new": "As with ASG Capacity, the provider will wait for up to `wait_for_capacity_timeout`"
+      "old": "The `min_elb_capacity` parameter causes Terraform to wait for at least the",
+      "new": "The `min_elb_capacity` parameter causes the provider to wait for at least the"
     }
   ],
   "website/docs/r/autoscaling_group_tag.html.markdown": [
@@ -294,19 +319,23 @@
   ],
   "website/docs/r/cognito_user.html.markdown": [
     {
+      "old": "    email          = \"no-reply@hashicorp.com\"",
+      "new": "    email          = \"no-reply@domain.example\""
+    },
+    {
       "old": "    name                     = \"terraform\"",
       "new": "    name                     = \"example\""
     },
     {
       "old": "    terraform      = true",
       "new": "    example        = true"
-    },
-    {
-      "old": "    email          = \"no-reply@hashicorp.com\"",
-      "new": "    email          = \"no-reply@domain.example\""
     }
   ],
   "website/docs/r/comprehend_document_classifier.html.markdown": [
+    {
+      "old": "  If omitted, Terraform will assign a random, unique version name.",
+      "new": "  If omitted, the provider will assign a random, unique version name."
+    },
     {
       "old": "  Terraform resource for managing an AWS Comprehend Document Classifier.",
       "new": "  Resource for managing an AWS Comprehend Document Classifier."
@@ -314,13 +343,13 @@
     {
       "old": "Terraform resource for managing an AWS Comprehend Document Classifier.",
       "new": "Resource for managing an AWS Comprehend Document Classifier."
-    },
-    {
-      "old": "  If omitted, Terraform will assign a random, unique version name.",
-      "new": "  If omitted, the provider will assign a random, unique version name."
     }
   ],
   "website/docs/r/comprehend_entity_recognizer.html.markdown": [
+    {
+      "old": "  If omitted, Terraform will assign a random, unique version name.",
+      "new": "  If omitted, the provider will assign a random, unique version name."
+    },
     {
       "old": "  Terraform resource for managing an AWS Comprehend Entity Recognizer.",
       "new": "  Resource for managing an AWS Comprehend Entity Recognizer."
@@ -328,10 +357,6 @@
     {
       "old": "Terraform resource for managing an AWS Comprehend Entity Recognizer.",
       "new": "Resource for managing an AWS Comprehend Entity Recognizer."
-    },
-    {
-      "old": "  If omitted, Terraform will assign a random, unique version name.",
-      "new": "  If omitted, the provider will assign a random, unique version name."
     }
   ],
   "website/docs/r/connect_contact_flow.html.markdown": [
@@ -496,10 +521,6 @@
   ],
   "website/docs/r/ecs_task_set.html.markdown": [
     {
-      "old": "You can utilize the generic Terraform resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling).",
-      "new": "You can utilize the generic resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling)."
-    },
-    {
       "old": "  # Optional: Allow external changes without Terraform plan difference",
       "new": "  # Optional: Allow external changes without preview difference"
     },
@@ -510,6 +531,10 @@
     {
       "old": "* `wait_until_stable` - (Optional) Whether `terraform` should wait until the task set has reached `STEADY_STATE`.",
       "new": "* `wait_until_stable` - (Optional) Whether the provider should wait until the task set has reached `STEADY_STATE`."
+    },
+    {
+      "old": "You can utilize the generic Terraform resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling).",
+      "new": "You can utilize the generic resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling)."
     }
   ],
   "website/docs/r/eks_cluster.html.markdown": [
@@ -532,22 +557,22 @@
       "new": "* `node_group_name` – (Optional) Name of the EKS Node Group. If omitted, the provider will assign a random, unique name. Conflicts with `node_group_name_prefix`."
     },
     {
-      "old": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.",
-      "new": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. The provider will only perform drift detection if a configuration value is provided."
-    },
-    {
       "old": "* `version` - (Required) EC2 Launch Template version number. While the API accepts values like `$Default` and `$Latest`, the API will convert the value to the associated version number (e.g., `1`) on read and Terraform will show a difference on next plan. Using the `default_version` or `latest_version` attribute of the `aws_launch_template` resource or data source is recommended for this argument.",
       "new": "* `version` - (Required) EC2 Launch Template version number. While the API accepts values like `$Default` and `$Latest`, the API will convert the value to the associated version number (e.g., `1`) on read and the provider will show a difference on next plan. Using the `default_version` or `latest_version` attribute of the `aws_launch_template` resource or data source is recommended for this argument."
+    },
+    {
+      "old": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. The provider will only perform drift detection if a configuration value is provided."
     }
   ],
   "website/docs/r/elasticache_global_replication_group.html.markdown": [
     {
-      "old": "or Terraform will always return a diff.",
-      "new": "or the provider will always return a diff."
-    },
-    {
       "old": "The member replication groups must have [`lifecycle.ignore_changes[engine_version]`](https://www.terraform.io/language/meta-arguments/lifecycle) set,",
       "new": "The member replication groups must have `lifecycle.ignore_changes[engine_version]` set,"
+    },
+    {
+      "old": "or Terraform will always return a diff.",
+      "new": "or the provider will always return a diff."
     }
   ],
   "website/docs/r/elasticache_security_group.html.markdown": [
@@ -568,16 +593,16 @@
       "new": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing the provider to want to recreate your Elasticsearch domain on every apply."
     },
     {
+      "old": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent Terraform detecting unwanted changes, use the key ARN instead.",
+      "new": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent the provider detecting unwanted changes, use the key ARN instead."
+    },
+    {
       "old": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. The provider will only perform drift detection if a configuration value is provided."
     },
     {
       "old": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `encrypt_at_rest`, Terraform with recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, Terraform will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, Terraform will also recreate the domain, potentially causing data loss.",
       "new": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `encrypt_at_rest`, the provider will recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, the provider will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, the provider will also recreate the domain, potentially causing data loss."
-    },
-    {
-      "old": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent Terraform detecting unwanted changes, use the key ARN instead.",
-      "new": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent the provider detecting unwanted changes, use the key ARN instead."
     },
     {
       "old": "~> **Note:** You can enable `node_to_node_encryption` _in place_ for an existing, unencrypted domain only if your Elasticsearch version is 6.7 or greater. For lower versions, if you enable `node_to_node_encryption`, Terraform will recreate the domain, potentially causing data loss. For any version, if you disable `node_to_node_encryption` for an existing, node-to-node encrypted domain, Terraform will recreate the domain, potentially causing data loss.",
@@ -598,6 +623,16 @@
     {
       "old": "Since the API does not return the actual values for Kerberos configurations, environments with those Terraform configurations will need to use the `lifecycle` configuration block `ignore_changes` argument available to all Terraform resources to prevent perpetual differences, e.g.,",
       "new": "Since the API does not return the actual values for Kerberos configurations, environments with those configurations will need to use the  `ignore_changes` option available to all resources to prevent perpetual differences, e.g.,"
+    }
+  ],
+  "website/docs/r/fsx_file_cache.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS FSx File Cache.",
+      "new": "  Resource for managing an AWS FSx File Cache."
+    },
+    {
+      "old": "Terraform resource for managing an AWS FSx File Cache.",
+      "new": "Resource for managing an AWS FSx File Cache."
     }
   ],
   "website/docs/r/fsx_ontap_file_system.html.markdown": [
@@ -642,12 +677,12 @@
   ],
   "website/docs/r/iam_group_policy.html.markdown": [
     {
-      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
-      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string."
-    },
-    {
       "old": "* `name` - (Optional) The name of the policy. If omitted, Terraform will",
       "new": "* `name` - (Optional) The name of the policy. If omitted, the provider will"
+    },
+    {
+      "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building IAM policy documents with Terraform, see the AWS IAM Policy Document Guide",
+      "new": "* `policy` - (Required) The policy document. This is a JSON formatted string."
     }
   ],
   "website/docs/r/iam_policy.html.markdown": [
@@ -729,6 +764,20 @@
       "new": "Resource for managing an AWS Inspector V2 Delegated Admin Account."
     }
   ],
+  "website/docs/r/inspector2_enabler.html.markdown": [
+    {
+      "old": "  Terraform resource for enabling AWS Inspector V2 resource scans.",
+      "new": "  Resource for enabling AWS Inspector V2 resource scans."
+    },
+    {
+      "old": "* `resource_types` - (Required) Type of resources to scan. Valid values are `EC2` and `ECR`. If you only use one type, Terraform will ignore the status of the other type.",
+      "new": "* `resource_types` - (Required) Type of resources to scan. Valid values are `EC2` and `ECR`. If you only use one type, the provider will ignore the status of the other type."
+    },
+    {
+      "old": "Terraform resource for enabling AWS Inspector V2 resource scans.",
+      "new": "Resource for enabling AWS Inspector V2 resource scans."
+    }
+  ],
   "website/docs/r/inspector2_organization_configuration.html.markdown": [
     {
       "old": "  Terraform resource for managing an AWS Inspector V2 Organization Configuration.",
@@ -767,16 +816,16 @@
       "new": "  Resource for managing an AWS Kendra Experience."
     },
     {
-      "old": "Terraform resource for managing an AWS Kendra Experience.",
-      "new": "Resource for managing an AWS Kendra Experience."
-    },
-    {
       "old": "* `configuration` - (Optional) Configuration information for your Amazon Kendra experience. Terraform will only perform drift detection of its value when present in a configuration. [Detailed below](#configuration).",
       "new": "* `configuration` - (Optional) Configuration information for your Amazon Kendra experience. The provider will only perform drift detection of its value when present in a configuration. [Detailed below](#configuration)."
     },
     {
       "old": "* `content_source_configuration` - (Optional, Required if `user_identity_configuration` not provided) The identifiers of your data sources and FAQs. Or, you can specify that you want to use documents indexed via the `BatchPutDocument API`. Terraform will only perform drift detection of its value when present in a configuration. [Detailed below](#content_source_configuration).",
       "new": "* `content_source_configuration` - (Optional, Required if `user_identity_configuration` not provided) The identifiers of your data sources and FAQs. Or, you can specify that you want to use documents indexed via the `BatchPutDocument API`. The provider will only perform drift detection of its value when present in a configuration. [Detailed below](#content_source_configuration)."
+    },
+    {
+      "old": "Terraform resource for managing an AWS Kendra Experience.",
+      "new": "Resource for managing an AWS Kendra Experience."
     }
   ],
   "website/docs/r/kendra_faq.html.markdown": [
@@ -811,12 +860,12 @@
   ],
   "website/docs/r/key_pair.html.markdown": [
     {
-      "old": "* `key_name` - (Optional) The name for the key pair. If neither `key_name` nor `key_name_prefix` is provided, Terraform will create a unique key name using the prefix `terraform-`.",
-      "new": "* `key_name` - (Optional) The name for the key pair. If neither `key_name` nor `key_name_prefix` is provided, the provider will create a unique key name."
-    },
-    {
       "old": "* `key_name_prefix` - (Optional) Creates a unique name beginning with the specified prefix. Conflicts with `key_name`. If neither `key_name` nor `key_name_prefix` is provided, Terraform will create a unique key name using the prefix `terraform-`.",
       "new": "* `key_name_prefix` - (Optional) Creates a unique name beginning with the specified prefix. Conflicts with `key_name`. If neither `key_name` nor `key_name_prefix` is provided, the provider will create a unique key name."
+    },
+    {
+      "old": "* `key_name` - (Optional) The name for the key pair. If neither `key_name` nor `key_name_prefix` is provided, Terraform will create a unique key name using the prefix `terraform-`.",
+      "new": "* `key_name` - (Optional) The name for the key pair. If neither `key_name` nor `key_name_prefix` is provided, the provider will create a unique key name."
     },
     {
       "old": "~> **NOTE:** The AWS API does not include the public key in the response, so `terraform apply` will attempt to replace the key pair. There is currently no supported workaround for this limitation.",
@@ -839,11 +888,6 @@
       "new": "Resource for managing an AWS KMS (Key Management) Custom Key Store."
     }
   ],
-  "website/docs/d/kms_ciphertext.html.markdown": [
-    {
-      "old": "Read more about sensitive data in state.\n"
-    }
-  ],
   "website/docs/r/kms_replica_external_key.html.markdown": [
     {
       "old": "For more information about building policy documents with Terraform, see the AWS IAM Policy Document Guide."
@@ -856,30 +900,30 @@
   ],
   "website/docs/r/lakeformation_permissions.html.markdown": [
     {
+      "old": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
+    },
+    {
+      "old": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
+    },
+    {
       "old": "~> **NOTE:** In general, the `principal` should _NOT_ be a Lake Formation administrator or the entity (e.g., IAM role) that is running Terraform. Administrators have implicit permissions. These should be managed by granting or not granting administrator rights using `aws_lakeformation_data_lake_settings`, _not_ with this resource.",
       "new": "~> **NOTE:** In general, the `principal` should _NOT_ be a Lake Formation administrator or the entity (e.g., IAM role) that is running the deployment. Administrators have implicit permissions. These should be managed by granting or not granting administrator rights using `aws_lakeformation_data_lake_settings`, _not_ with this resource."
     },
     {
       "old": "~> **NOTE:** We highly recommend that the `principal` _NOT_ be a Lake Formation administrator (granted using `aws_lakeformation_data_lake_settings`). The entity (e.g., IAM role) running Terraform will most likely need to be a Lake Formation administrator. As such, the entity will have implicit permissions and does not need permissions granted through this resource.",
       "new": "~> **NOTE:** We highly recommend that the `principal` _NOT_ be a Lake Formation administrator (granted using `aws_lakeformation_data_lake_settings`). The entity (e.g., IAM role) running the deployment will most likely need to be a Lake Formation administrator. As such, the entity will have implicit permissions and does not need permissions granted through this resource."
-    },
-    {
-      "old": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
-      "new": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
-    },
-    {
-      "old": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
-      "new": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
     }
   ],
   "website/docs/r/lakeformation_resource_lf_tags.html.markdown": [
     {
-      "old": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
-      "new": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
-    },
-    {
       "old": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
       "new": "* `excluded_column_names` - (Optional) Set of column names for the table to exclude. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
+    },
+    {
+      "old": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid Terraform reporting a difference.",
+      "new": "* `wildcard` - (Required, at least one of `column_names` or `wildcard`) Whether to use a column wildcard. If `excluded_column_names` is included, `wildcard` must be set to `true` to avoid the provider reporting a difference."
     }
   ],
   "website/docs/r/lambda_function.html.markdown": [
@@ -896,31 +940,31 @@
   ],
   "website/docs/r/lambda_layer_version.html.markdown": [
     {
-      "old": "~> **NOTE:** Setting `skip_destroy` to `true` means that the AWS Provider will _not_ destroy any layer version, even when running `terraform destroy`. Layer versions are thus intentional dangling resources that are _not_ managed by Terraform and may incur extra expense in your AWS account.",
-      "new": "~> **NOTE:** Setting `skip_destroy` to `true` means that the AWS Provider will _not_ destroy any layer version, even when running destroy. Layer versions are thus intentional dangling resources that are _not_ managed by the provider and may incur extra expense in your AWS account."
-    },
-    {
       "old": "* `source_code_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either `filename` or `s3_key`. The usual way to set this is `${filebase64sha256(\"file.zip\")}` (Terraform 0.11.12 or later) or `${base64sha256(file(\"file.zip\"))}` (Terraform 0.11.11 and earlier), where \"file.zip\" is the local filename of the lambda layer source archive.",
       "new": "* `source_code_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either `filename` or `s3_key`."
+    },
+    {
+      "old": "~> **NOTE:** Setting `skip_destroy` to `true` means that the AWS Provider will _not_ destroy any layer version, even when running `terraform destroy`. Layer versions are thus intentional dangling resources that are _not_ managed by Terraform and may incur extra expense in your AWS account.",
+      "new": "~> **NOTE:** Setting `skip_destroy` to `true` means that the AWS Provider will _not_ destroy any layer version, even when running destroy. Layer versions are thus intentional dangling resources that are _not_ managed by the provider and may incur extra expense in your AWS account."
     }
   ],
   "website/docs/r/lambda_permission.html.markdown": [
     {
-      "old": "* `statement_id` - (Optional) A unique statement identifier. By default generated by Terraform.",
-      "new": "* `statement_id` - (Optional) A unique statement identifier. By default generated by the provider."
-    },
-    {
       "old": "* `statement_id_prefix` - (Optional) A statement identifier prefix. Terraform will generate a unique suffix. Conflicts with `statement_id`.",
       "new": "* `statement_id_prefix` - (Optional) A statement identifier prefix. The provider will generate a unique suffix. Conflicts with `statement_id`."
+    },
+    {
+      "old": "* `statement_id` - (Optional) A unique statement identifier. By default generated by Terraform.",
+      "new": "* `statement_id` - (Optional) A unique statement identifier. By default generated by the provider."
     }
   ],
   "website/docs/r/launch_configuration.html.markdown": [
     {
-      "old": "[2]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html"
-    },
-    {
       "old": "-> **Note** When using `aws_launch_configuration` with `aws_autoscaling_group`, it is recommended to use the `name_prefix` (Optional) instead of the `name` (Optional) attribute. This will allow Terraform lifecycles to detect changes to the launch configuration and update the autoscaling group correctly.",
       "new": "-> **Note** When using `aws_launch_configuration` with `aws_autoscaling_group`, it is recommended to use the `name_prefix` (Optional) instead of the `name` (Optional) attribute."
+    },
+    {
+      "old": "[2]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html"
     }
   ],
   "website/docs/r/launch_template.html.markdown": [
@@ -1037,12 +1081,12 @@
   ],
   "website/docs/r/memorydb_parameter_group.html.markdown": [
     {
-      "old": "* `name` - (Optional, Forces new resource) Name of the parameter group. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
-      "new": "* `name` - (Optional, Forces new resource) Name of the parameter group. If omitted, the provider will assign a random, unique name. Conflicts with `name_prefix`."
-    },
-    {
       "old": "* `description` - (Optional, Forces new resource) Description for the parameter group. Defaults to `\"Managed by Terraform\"`.",
       "new": "* `description` - (Optional, Forces new resource) Description for the parameter group."
+    },
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the parameter group. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the parameter group. If omitted, the provider will assign a random, unique name. Conflicts with `name_prefix`."
     }
   ],
   "website/docs/r/memorydb_snapshot.html.markdown": [
@@ -1053,12 +1097,12 @@
   ],
   "website/docs/r/memorydb_subnet_group.html.markdown": [
     {
-      "old": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
-      "new": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, the provider will assign a random, unique name. Conflicts with `name_prefix`."
-    },
-    {
       "old": "* `description` - (Optional) Description for the subnet group. Defaults to `\"Managed by Terraform\"`.",
       "new": "* `description` - (Optional) Description for the subnet group."
+    },
+    {
+      "old": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, the provider will assign a random, unique name. Conflicts with `name_prefix`."
     }
   ],
   "website/docs/r/msk_scram_secret_association.html.markdown": [
@@ -1124,16 +1168,16 @@
       "new": "* `advanced_options` - (Optional) Key-value string pairs to specify advanced configuration options. Note that the values for these configuration options must be strings (wrapped in quotes) or they may be wrong and cause a perpetual diff, causing the provider to want to recreate your OpenSearch domain on every apply."
     },
     {
+      "old": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent Terraform detecting unwanted changes, use the key ARN instead.",
+      "new": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent the provider detecting unwanted changes, use the key ARN instead."
+    },
+    {
       "old": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `tls_security_policy` - (Optional) Name of the TLS security policy that needs to be applied to the HTTPS endpoint. Valid values:  `Policy-Min-TLS-1-0-2019-07` and `Policy-Min-TLS-1-2-2019-07`. The provider will only perform drift detection if a configuration value is provided."
     },
     {
       "old": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `encrypt_at_rest`, Terraform with recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, Terraform will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, Terraform will also recreate the domain, potentially causing data loss.",
       "new": "~> **Note:** You can enable `encrypt_at_rest` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `encrypt_at_rest`, the provider will recreate the domain, potentially causing data loss. For any version, if you disable `encrypt_at_rest` for an existing, encrypted domain, the provider will recreate the domain, potentially causing data loss. If you change the `kms_key_id`, the provider will also recreate the domain, potentially causing data loss."
-    },
-    {
-      "old": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent Terraform detecting unwanted changes, use the key ARN instead.",
-      "new": "* `kms_key_id` - (Optional) KMS key ARN to encrypt the Elasticsearch domain with. If not specified then it defaults to using the `aws/es` service KMS key. Note that KMS will accept a KMS key ID but will return the key ARN. To prevent the provider detecting unwanted changes, use the key ARN instead."
     },
     {
       "old": "~> **Note:** You can enable `node_to_node_encryption` _in place_ for an existing, unencrypted domain only if you are using OpenSearch or your Elasticsearch version is 6.7 or greater. For other versions, if you enable `node_to_node_encryption`, Terraform will recreate the domain, potentially causing data loss. For any version, if you disable `node_to_node_encryption` for an existing, node-to-node encrypted domain, Terraform will recreate the domain, potentially causing data loss.",
@@ -1187,16 +1231,16 @@
   ],
   "website/docs/r/rds_global_cluster.html.markdown": [
     {
-      "old": "When you upgrade the version of an `aws_rds_global_cluster`, Terraform will attempt to in-place upgrade the engine versions of all associated clusters. Since the `aws_rds_cluster` resource is being updated through the `aws_rds_global_cluster`, you are likely to get an error (`Provider produced inconsistent final plan`). To avoid this, use the `lifecycle` `ignore_changes` meta argument as shown below on the `aws_rds_cluster`.",
-      "new": "When you upgrade the version of an `aws_rds_global_cluster`, the provider will attempt to in-place upgrade the engine versions of all associated clusters. Since the `aws_rds_cluster` resource is being updated through the `aws_rds_global_cluster`, you are likely to get an error (`Provider produced inconsistent final plan`). To avoid this, use the `lifecycle` `ignore_changes` meta argument as shown below on the `aws_rds_cluster`."
+      "old": "* `engine_version` - (Optional) Engine version of the Aurora global database. The `engine`, `engine_version`, and `instance_class` (on the `aws_rds_cluster_instance`) must together support global databases. See [Using Amazon Aurora global databases](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) for more information. By upgrading the engine version, Terraform will upgrade cluster members. **NOTE:** To avoid an `inconsistent final plan` error while upgrading, use the `lifecycle` `ignore_changes` for `engine_version` meta argument on the associated `aws_rds_cluster` resource as shown above in [Upgrading Engine Versions](#upgrading-engine-versions) example.",
+      "new": "* `engine_version` - (Optional) Engine version of the Aurora global database. The `engine`, `engine_version`, and `instance_class` (on the `aws_rds_cluster_instance`) must together support global databases. See [Using Amazon Aurora global databases](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) for more information. By upgrading the engine version, the provider will upgrade cluster members. **NOTE:** To avoid an `inconsistent final plan` error while upgrading, use the `lifecycle` `ignore_changes` for `engine_version` meta argument on the associated `aws_rds_cluster` resource as shown above in [Upgrading Engine Versions](#upgrading-engine-versions) example."
     },
     {
       "old": "* `engine` - (Optional, Forces new resources) Name of the database engine to be used for this DB cluster. Terraform will only perform drift detection if a configuration value is provided. Valid values: `aurora`, `aurora-mysql`, `aurora-postgresql`. Defaults to `aurora`. Conflicts with `source_db_cluster_identifier`.",
       "new": "* `engine` - (Optional, Forces new resources) Name of the database engine to be used for this DB cluster. The provider will only perform drift detection if a configuration value is provided. Valid values: `aurora`, `aurora-mysql`, `aurora-postgresql`. Defaults to `aurora`. Conflicts with `source_db_cluster_identifier`."
     },
     {
-      "old": "* `engine_version` - (Optional) Engine version of the Aurora global database. The `engine`, `engine_version`, and `instance_class` (on the `aws_rds_cluster_instance`) must together support global databases. See [Using Amazon Aurora global databases](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) for more information. By upgrading the engine version, Terraform will upgrade cluster members. **NOTE:** To avoid an `inconsistent final plan` error while upgrading, use the `lifecycle` `ignore_changes` for `engine_version` meta argument on the associated `aws_rds_cluster` resource as shown above in [Upgrading Engine Versions](#upgrading-engine-versions) example.",
-      "new": "* `engine_version` - (Optional) Engine version of the Aurora global database. The `engine`, `engine_version`, and `instance_class` (on the `aws_rds_cluster_instance`) must together support global databases. See [Using Amazon Aurora global databases](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html) for more information. By upgrading the engine version, the provider will upgrade cluster members. **NOTE:** To avoid an `inconsistent final plan` error while upgrading, use the `lifecycle` `ignore_changes` for `engine_version` meta argument on the associated `aws_rds_cluster` resource as shown above in [Upgrading Engine Versions](#upgrading-engine-versions) example."
+      "old": "When you upgrade the version of an `aws_rds_global_cluster`, Terraform will attempt to in-place upgrade the engine versions of all associated clusters. Since the `aws_rds_cluster` resource is being updated through the `aws_rds_global_cluster`, you are likely to get an error (`Provider produced inconsistent final plan`). To avoid this, use the `lifecycle` `ignore_changes` meta argument as shown below on the `aws_rds_cluster`.",
+      "new": "When you upgrade the version of an `aws_rds_global_cluster`, the provider will attempt to in-place upgrade the engine versions of all associated clusters. Since the `aws_rds_cluster` resource is being updated through the `aws_rds_global_cluster`, you are likely to get an error (`Provider produced inconsistent final plan`). To avoid this, use the `lifecycle` `ignore_changes` meta argument as shown below on the `aws_rds_cluster`."
     }
   ],
   "website/docs/r/redshift_security_group.html.markdown": [
@@ -1231,12 +1275,20 @@
   ],
   "website/docs/r/s3_bucket.html.markdown": [
     {
-      "old": "  bucket = \"s3-website-test.hashicorp.com\"",
-      "new": "  bucket = \"s3-website-test.domain.example\""
-    },
-    {
       "old": "    allowed_origins = [\"https://s3-website-test.hashicorp.com\"]",
       "new": "    allowed_origins = [\"https://s3-website-test.domain.example\"]"
+    },
+    {
+      "old": "  Terraform wil only perform drift detection if a configuration value is provided.",
+      "new": "  the provider wil only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "  The provider will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "  bucket = \"s3-website-test.hashicorp.com\"",
+      "new": "  bucket = \"s3-website-test.domain.example\""
     },
     {
       "old": "* `acl` - (Optional, **Deprecated**) The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply. Valid values are `private`, `public-read`, `public-read-write`, `aws-exec-read`, `authenticated-read`, and `log-delivery-write`. Defaults to `private`.  Conflicts with `grant`. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead.",
@@ -1255,16 +1307,8 @@
       "new": "* `logging` - (Optional, **Deprecated**) A configuration of [S3 bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/UG/ManagingBucketLogging.html) parameters. See [Logging](#logging) below for details. The provider will only perform drift detection if a configuration value is provided."
     },
     {
-      "old": "  Terraform wil only perform drift detection if a configuration value is provided.",
-      "new": "  the provider wil only perform drift detection if a configuration value is provided."
-    },
-    {
       "old": "* `policy` - (Optional, **Deprecated**) A valid [bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html) JSON document. Note that if the policy document is not specific enough (but still valid), Terraform may view the policy as constantly changing in a `terraform plan`. In this case, please make sure you use the verbose/specific version of the policy. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
       "new": "* `policy` - (Optional, **Deprecated**) A valid [bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html) JSON document. Note that if the policy document is not specific enough (but still valid), the provider may view the policy as constantly changing in a preview. In this case, please make sure you use the verbose/specific version of the policy."
-    },
-    {
-      "old": "  Terraform will only perform drift detection if a configuration value is provided.",
-      "new": "  The provider will only perform drift detection if a configuration value is provided."
     },
     {
       "old": "* `replication_configuration` - (Optional, **Deprecated**) A configuration of [replication configuration](http://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html). See [Replication Configuration](#replication-configuration) below for details. Terraform will only perform drift detection if a configuration value is provided.",
@@ -1277,34 +1321,34 @@
   ],
   "website/docs/r/s3_bucket_accelerate_configuration.html.markdown": [
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_acl.html.markdown": [
     {
-      "old": "~> **Note:** `terraform destroy` does not delete the S3 Bucket ACL but does remove the resource from Terraform state.",
-      "new": "~> **Note:** destroy does not delete the S3 Bucket ACL but does remove the resource from state."
-    },
-    {
-      "old": "If the owner (account ID) of the source bucket is the _same_ account used to configure the Terraform AWS Provider, and the source bucket is **not configured** with a",
-      "new": "If the owner (account ID) of the source bucket is the _same_ account used to configure the AWS Provider, and the source bucket is **not configured** with a"
-    },
-    {
-      "old": "If the owner (account ID) of the source bucket is the _same_ account used to configure the Terraform AWS Provider, and the source bucket is **configured** with a",
-      "new": "If the owner (account ID) of the source bucket is the _same_ account used to configure the AWS Provider, and the source bucket is **configured** with a"
+      "old": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the Terraform AWS Provider, and the source bucket is **configured** with a",
+      "new": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the AWS Provider, and the source bucket is **configured** with a"
     },
     {
       "old": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the Terraform AWS Provider, and the source bucket is **not configured** with a",
       "new": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the AWS Provider, and the source bucket is **not configured** with a"
     },
     {
-      "old": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the Terraform AWS Provider, and the source bucket is **configured** with a",
-      "new": "If the owner (account ID) of the source bucket _differs_ from the account used to configure the AWS Provider, and the source bucket is **configured** with a"
+      "old": "If the owner (account ID) of the source bucket is the _same_ account used to configure the Terraform AWS Provider, and the source bucket is **configured** with a",
+      "new": "If the owner (account ID) of the source bucket is the _same_ account used to configure the AWS Provider, and the source bucket is **configured** with a"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the _same_ account used to configure the Terraform AWS Provider, and the source bucket is **not configured** with a",
+      "new": "If the owner (account ID) of the source bucket is the _same_ account used to configure the AWS Provider, and the source bucket is **not configured** with a"
+    },
+    {
+      "old": "~> **Note:** `terraform destroy` does not delete the S3 Bucket ACL but does remove the resource from Terraform state.",
+      "new": "~> **Note:** destroy does not delete the S3 Bucket ACL but does remove the resource from state."
     }
   ],
   "website/docs/r/s3_bucket_cors_configuration.html.markdown": [
@@ -1313,44 +1357,44 @@
       "new": "    allowed_origins = [\"https://s3-website-test.domain.example\"]"
     },
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_lifecycle_configuration.html.markdown": [
     {
-      "old": "parameter in the Terraform AWS Provider `aws_s3_bucket` resource prior to `v4.0`.",
-      "new": "parameter in the AWS Provider `aws_s3_bucket` resource prior to `v4.0`."
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     },
     {
       "old": "Since `prefix` is deprecated by Amazon S3 and will be removed in the next major version of the Terraform AWS Provider, we recommend users either specify `filter` or leave both `filter` and `prefix` unspecified.",
       "new": "Since `prefix` is deprecated by Amazon S3 and will be removed in the next major version of the AWS Provider, we recommend users either specify `filter` or leave both `filter` and `prefix` unspecified."
     },
     {
+      "old": "parameter in the Terraform AWS Provider `aws_s3_bucket` resource prior to `v4.0`.",
+      "new": "parameter in the AWS Provider `aws_s3_bucket` resource prior to `v4.0`."
+    },
+    {
       "old": "~> **NOTE** Terraform cannot distinguish a difference between configurations that use `rule.filter {}` and configurations that neither use `rule.filter` nor `rule.prefix`, so a rule cannot be updated from applying to all objects in the bucket via `rule.filter {}` to applying to a subset of objects based on the key prefix `\"\"` and vice versa.",
       "new": "~> **NOTE** The provider cannot distinguish a difference between configurations that use `rule.filter {}` and configurations that neither use `rule.filter` nor `rule.prefix`, so a rule cannot be updated from applying to all objects in the bucket via `rule.filter {}` to applying to a subset of objects based on the key prefix `\"\"` and vice versa."
-    },
-    {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
-      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_logging.html.markdown": [
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_notification.html.markdown": [
@@ -1361,10 +1405,10 @@
   ],
   "website/docs/r/s3_bucket_object.html.markdown": [
     {
-      "old": "  # The filemd5() function is available in Terraform 0.11.12 and later"
+      "old": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:"
     },
     {
-      "old": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:"
+      "old": "  # The filemd5() function is available in Terraform 0.11.12 and later"
     },
     {
       "old": "* `source_hash` - (Optional) Triggers updates like `etag` but useful to address `etag` encryption limitations. Set using `filemd5(\"path/to/source\")` (Terraform 0.11.12 or later). (The value is only stored in state and not saved by AWS.)",
@@ -1373,64 +1417,64 @@
   ],
   "website/docs/r/s3_bucket_object_lock_configuration.html.markdown": [
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_request_payment_configuration.html.markdown": [
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_server_side_encryption_configuration.html.markdown": [
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_bucket_versioning.html.markdown": [
     {
-      "old": "simply remove the resource from Terraform state if the associated S3 bucket is unversioned.",
-      "new": "simply remove the resource from state if the associated S3 bucket is unversioned."
+      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
     },
     {
       "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     },
     {
-      "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+      "old": "simply remove the resource from Terraform state if the associated S3 bucket is unversioned.",
+      "new": "simply remove the resource from state if the associated S3 bucket is unversioned."
     }
   ],
   "website/docs/r/s3_bucket_website_configuration.html.markdown": [
     {
-      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
-      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
-    },
-    {
       "old": "If the owner (account ID) of the source bucket differs from the account used to configure the Terraform AWS Provider,",
       "new": "If the owner (account ID) of the source bucket differs from the account used to configure the AWS Provider,"
+    },
+    {
+      "old": "If the owner (account ID) of the source bucket is the same account used to configure the Terraform AWS Provider,",
+      "new": "If the owner (account ID) of the source bucket is the same account used to configure the AWS Provider,"
     }
   ],
   "website/docs/r/s3_object.html.markdown": [
     {
-      "old": "  # The filemd5() function is available in Terraform 0.11.12 and later"
+      "old": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:"
     },
     {
-      "old": "  # For Terraform 0.11.11 and earlier, use the md5() function and the file() function:"
+      "old": "  # The filemd5() function is available in Terraform 0.11.12 and later"
     },
     {
       "old": "* `etag` - (Optional) Triggers updates when the value changes. The only meaningful value is `filemd5(\"path/to/file\")` (Terraform 0.11.12 or later) or `${md5(file(\"path/to/file\"))}` (Terraform 0.11.11 or earlier). This attribute is not compatible with KMS encryption, `kms_key_id` or `server_side_encryption = \"aws:kms\"`, also if an object is larger than 16 MB, the AWS Management Console will upload or copy that object as a Multipart Upload, and therefore the ETag will not be an MD5 digest (see `source_hash` instead).",
@@ -1505,12 +1549,12 @@
   ],
   "website/docs/r/security_group.html.markdown": [
     {
-      "old": "You must invert the default behavior of Terraform. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:",
-      "new": "You must invert the default behavior of the provider. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:"
-    },
-    {
       "old": "* `revoke_rules_on_delete` - (Optional) Instruct Terraform to revoke all of the Security Groups attached ingress and egress rules before deleting the rule itself. This is normally not needed, however certain AWS services such as Elastic Map Reduce may automatically add required rules to security groups used with the service, and those rules may contain a cyclic dependency that prevent the security groups from being destroyed without removing the dependency first. Default `false`.",
       "new": "* `revoke_rules_on_delete` - (Optional) Instruct the provider to revoke all of the Security Groups attached ingress and egress rules before deleting the rule itself. This is normally not needed, however certain AWS services such as Elastic Map Reduce may automatically add required rules to security groups used with the service, and those rules may contain a cyclic dependency that prevent the security groups from being destroyed without removing the dependency first. Default `false`."
+    },
+    {
+      "old": "You must invert the default behavior of Terraform. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:",
+      "new": "You must invert the default behavior of the provider. That is, first the new Security Group resource must be created, then associated to possible Network Interface resources and finally the old Security Group can be detached and deleted. To force this behavior, you must set the create_before_destroy property:"
     }
   ],
   "website/docs/r/securityhub_standards_control.markdown": [
@@ -1525,12 +1569,12 @@
   ],
   "website/docs/r/service_discovery_instance.html.markdown": [
     {
-      "old": "  name        = \"example.terraform.local\"",
-      "new": "  name        = \"example.domain.local\""
-    },
-    {
       "old": "  name        = \"example.terraform.com\"",
       "new": "  name        = \"example.domain.test\""
+    },
+    {
+      "old": "  name        = \"example.terraform.local\"",
+      "new": "  name        = \"example.domain.local\""
     }
   ],
   "website/docs/r/sesv2_configuration_set.html.markdown": [
@@ -1543,6 +1587,52 @@
       "new": "Resource for managing an AWS SESv2 (Simple Email V2) Configuration Set."
     }
   ],
+  "website/docs/r/sesv2_dedicated_ip_assignment.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment.",
+      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment."
+    }
+  ],
+  "website/docs/r/sesv2_dedicated_ip_pool.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "  Tesource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
+    }
+  ],
+  "website/docs/r/sesv2_email_identity.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity.",
+      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Email Identity."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Email Identity."
+    }
+  ],
+  "website/docs/r/sesv2_email_identity_feedback_attributes.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes.",
+      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes."
+    },
+    {
+      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes.",
+      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes."
+    }
+  ],
+  "website/docs/r/sfn_state_machine.html.markdown": [
+    {
+      "old": "* `name` - (Optional) The name of the state machine. The name should only contain `0`-`9`, `A`-`Z`, `a`-`z`, `-` and `_`. If omitted, Terraform will assign a random, unique name.",
+      "new": "* `name` - (Optional) The name of the state machine. The name should only contain `0`-`9`, `A`-`Z`, `a`-`z`, `-` and `_`. If omitted, the provider will assign a random, unique name."
+    }
+  ],
   "website/docs/r/sns_topic.html.markdown": [
     {
       "old": "* `policy` - (Optional) The fully-formed AWS policy as JSON. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
@@ -1550,18 +1640,6 @@
     }
   ],
   "website/docs/r/sqs_queue.html.markdown": [
-    {
-      "old": "  name                  = \"terraform-example-queue.fifo\"",
-      "new": "  name                  = \"example-queue.fifo\""
-    },
-    {
-      "old": "resource \"aws_sqs_queue\" \"terraform_queue_deadletter\" {",
-      "new": "resource \"aws_sqs_queue\" \"example_queue_deadletter\" {"
-    },
-    {
-      "old": "  name = \"terraform-example-deadletter-queue\"",
-      "new": "  name = \"example-deadletter-queue\""
-    },
     {
       "old": "    sourceQueueArns   = [aws_sqs_queue.terraform_queue.arn]",
       "new": "    sourceQueueArns   = [aws_sqs_queue.example_queue.arn]"
@@ -1571,18 +1649,40 @@
       "new": "  name                    = \"example-queue\""
     },
     {
+      "old": "  name                  = \"terraform-example-queue.fifo\"",
+      "new": "  name                  = \"example-queue.fifo\""
+    },
+    {
+      "old": "  name = \"terraform-example-deadletter-queue\"",
+      "new": "  name = \"example-deadletter-queue\""
+    },
+    {
       "old": "* `sqs_managed_sse_enabled` - (Optional) Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys. See [Encryption at rest](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html). Terraform will only perform drift detection of its value when present in a configuration.",
       "new": "* `sqs_managed_sse_enabled` - (Optional) Boolean to enable server-side encryption (SSE) of message content with SQS-owned encryption keys. See [Encryption at rest](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-server-side-encryption.html). The provider will only perform drift detection of its value when present in a configuration."
+    },
+    {
+      "old": "resource \"aws_sqs_queue\" \"terraform_queue_deadletter\" {",
+      "new": "resource \"aws_sqs_queue\" \"example_queue_deadletter\" {"
+    }
+  ],
+  "website/docs/r/ssm_default_patch_baseline.html.markdown": [
+    {
+      "old": "  Terraform resource for managing an AWS Systems Manager Default Patch Baseline.",
+      "new": "  Resource for managing an AWS Systems Manager Default Patch Baseline."
+    },
+    {
+      "old": "Terraform resource for registering an AWS Systems Manager Default Patch Baseline.",
+      "new": "Resource for registering an AWS Systems Manager Default Patch Baseline."
     }
   ],
   "website/docs/r/ssm_parameter.html.markdown": [
     {
-      "old": "~> **Note:** `overwrite` also makes it possible to overwrite an existing SSM Parameter that's not created by Terraform before.",
-      "new": "~> **Note:** `overwrite` also makes it possible to overwrite an existing SSM Parameter that's not created by the provider before."
-    },
-    {
       "old": "* `insecure_value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. **Use caution:** This value is _never_ marked as sensitive in the Terraform plan output. This argument is not valid with a `type` of `SecureString`.",
       "new": "* `insecure_value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. **Use caution:** This value is _never_ marked as sensitive in the preview. This argument is not valid with a `type` of `SecureString`."
+    },
+    {
+      "old": "~> **Note:** `overwrite` also makes it possible to overwrite an existing SSM Parameter that's not created by Terraform before.",
+      "new": "~> **Note:** `overwrite` also makes it possible to overwrite an existing SSM Parameter that's not created by the provider before."
     }
   ],
   "website/docs/r/transcribe_language_model.html.markdown": [
@@ -1661,116 +1761,16 @@
   ],
   "website/docs/r/vpn_connection.html.markdown": [
     {
-      "old": "  name            = \"terraform_ipsec_vpn_example\"",
-      "new": "  name            = \"example_ipsec_vpn_example\""
-    },
-    {
       "old": "    Name = \"terraform_ipsec_vpn_example\"",
       "new": "    Name = \"example_ipsec_vpn_example\""
     },
     {
       "old": "  description     = \"terraform_ipsec_vpn_example\"",
       "new": "  description     = \"example_ipsec_vpn_example\""
-    }
-  ],
-  "website/docs/d/sesv2_dedicated_ip_pool.html.markdown": [
-    {
-      "old": "  Terraform data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
-      "new": "  Data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
     },
     {
-      "old": "Terraform data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
-      "new": "Data source for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
-    }
-  ],
-  "website/docs/r/sesv2_dedicated_ip_pool.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
-      "new": "  Tesource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
-    },
-    {
-      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool.",
-      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Pool."
-    }
-  ],
-  "website/docs/d/dx_router_configuration.html.markdown": [
-    {
-      "old": "  Terraform data source for managing an AWS Direct Connect Router Configuration.",
-      "new": "  Data source for managing an AWS Direct Connect Router Configuration."
-    },
-    {
-      "old": "Terraform data source for retrieving Router Configuration instructions for a given AWS Direct Connect Virtual Interface and Router Type.",
-      "new": "Data source for retrieving Router Configuration instructions for a given AWS Direct Connect Virtual Interface and Router Type."
-    }
-  ],
-  "website/docs/r/fsx_file_cache.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS FSx File Cache.",
-      "new": "  Resource for managing an AWS FSx File Cache."
-    },
-    {
-      "old": "Terraform resource for managing an AWS FSx File Cache.",
-      "new": "Resource for managing an AWS FSx File Cache."
-    }
-  ],
-  "website/docs/r/inspector2_enabler.html.markdown": [
-    {
-      "old": "  Terraform resource for enabling AWS Inspector V2 resource scans.",
-      "new": "  Resource for enabling AWS Inspector V2 resource scans."
-    },
-    {
-      "old": "Terraform resource for enabling AWS Inspector V2 resource scans.",
-      "new": "Resource for enabling AWS Inspector V2 resource scans."
-    },
-    {
-      "old": "* `resource_types` - (Required) Type of resources to scan. Valid values are `EC2` and `ECR`. If you only use one type, Terraform will ignore the status of the other type.",
-      "new": "* `resource_types` - (Required) Type of resources to scan. Valid values are `EC2` and `ECR`. If you only use one type, the provider will ignore the status of the other type."
-    }
-  ],
-  "website/docs/r/sesv2_dedicated_ip_assignment.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment.",
-      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment."
-    },
-    {
-      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment.",
-      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Dedicated IP Assignment."
-    }
-  ],
-  "website/docs/r/sesv2_email_identity.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity.",
-      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Email Identity."
-    },
-    {
-      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity.",
-      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Email Identity."
-    }
-  ],
-  "website/docs/r/sesv2_email_identity_feedback_attributes.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes.",
-      "new": "  Resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes."
-    },
-    {
-      "old": "Terraform resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes.",
-      "new": "Resource for managing an AWS SESv2 (Simple Email V2) Email Identity Feedback Attributes."
-    }
-  ],
-  "website/docs/r/sfn_state_machine.html.markdown": [
-    {
-      "old": "* `name` - (Optional) The name of the state machine. The name should only contain `0`-`9`, `A`-`Z`, `a`-`z`, `-` and `_`. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `name` - (Optional) The name of the state machine. The name should only contain `0`-`9`, `A`-`Z`, `a`-`z`, `-` and `_`. If omitted, the provider will assign a random, unique name."
-    }
-  ],
-  "website/docs/r/ssm_default_patch_baseline.html.markdown": [
-    {
-      "old": "  Terraform resource for managing an AWS Systems Manager Default Patch Baseline.",
-      "new": "  Resource for managing an AWS Systems Manager Default Patch Baseline."
-    },
-    {
-      "old": "Terraform resource for registering an AWS Systems Manager Default Patch Baseline.",
-      "new": "Resource for registering an AWS Systems Manager Default Patch Baseline."
+      "old": "  name            = \"terraform_ipsec_vpn_example\"",
+      "new": "  name            = \"example_ipsec_vpn_example\""
     }
   ]
 }

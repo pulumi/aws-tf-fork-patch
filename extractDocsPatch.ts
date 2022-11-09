@@ -3,11 +3,21 @@ import { DocsReplacements, LineReplacement } from "./patches";
 import { groupBy, distinctBy, distinct, sortBy, init, sort } from "array-fns";
 import { EOL } from "os";
 
-export function extractDocsReplacements(patch: GitPatch): DocsReplacements {
+interface ExtractOptions {
+  includeAllChanges?: boolean;
+}
+
+export function extractDocsReplacements(
+  patch: GitPatch,
+  opts?: ExtractOptions
+): DocsReplacements {
+  const options: Required<ExtractOptions> = {
+    includeAllChanges: opts?.includeAllChanges ?? false,
+  };
   const replacements: DocsReplacements = {};
 
   for (const file of patch.files) {
-    const fileReplacements = getDocsReplacements(file);
+    const fileReplacements = getDocsReplacements(file, options);
     if (fileReplacements !== undefined) {
       replacements[file.afterName] = fileReplacements;
     }
@@ -16,7 +26,10 @@ export function extractDocsReplacements(patch: GitPatch): DocsReplacements {
   return replacements;
 }
 
-function getDocsReplacements(file: GitPatchFile) {
+function getDocsReplacements(
+  file: GitPatchFile,
+  opts: Required<ExtractOptions>
+) {
   if (!file.afterName.startsWith("website/docs/")) {
     return undefined;
   }
@@ -35,6 +48,7 @@ function getDocsReplacements(file: GitPatchFile) {
       const removed = lineA.added ? lineB : lineA;
       // Only include if the removed line mentioned something TF specific
       if (
+        opts.includeAllChanges ||
         removed.line.match(/(terraform)|(hashicorp)|(jsondecode)/i) !== null
       ) {
         fileReplacements.push({ old: removed.line, new: added.line });
@@ -69,7 +83,7 @@ function getDocsReplacements(file: GitPatchFile) {
     }
     if (changes.length === 1 && changes[0].added === false) {
       const line = changes[0].line;
-      if (line.match(/\*\*note:?\*\*/i)) {
+      if (opts.includeAllChanges || line.match(/\*\*note:?\*\*/i)) {
         fileReplacements.push({ old: line });
         usedLineNumbers.add(changes[0].lineNumber);
       }
