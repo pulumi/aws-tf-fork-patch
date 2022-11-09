@@ -58,8 +58,7 @@
   ],
   "website/docs/d/kms_secret.html.markdown": [
     {
-      "old": "!> **WARNING:** This data source was removed in version 2.0.0 of the Terraform AWS Provider. You can migrate existing configurations to the `aws_kms_secrets` data source following instructions available in the Version 2 Upgrade Guide.",
-      "new": "!> **WARNING:** This data source was removed in version 2.0.0 of the AWS Provider. You can migrate existing configurations to the `aws_kms_secrets` data source following instructions available in the Version 2 Upgrade Guide."
+      "old": "!> **WARNING:** This data source was removed in version 2.0.0 of the Terraform AWS Provider. You can migrate existing configurations to the `aws_kms_secrets` data source following instructions available in the Version 2 Upgrade Guide."
     }
   ],
   "website/docs/d/kms_secrets.html.markdown": [
@@ -838,6 +837,11 @@
     {
       "old": "Terraform resource for managing an AWS KMS (Key Management) Custom Key Store.",
       "new": "Resource for managing an AWS KMS (Key Management) Custom Key Store."
+    }
+  ],
+  "website/docs/d/kms_ciphertext.html.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
     }
   ],
   "website/docs/r/kms_replica_external_key.html.markdown": [
