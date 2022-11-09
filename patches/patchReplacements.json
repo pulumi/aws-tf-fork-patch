@@ -280,7 +280,8 @@
       "old": "An end-to-end example of a REST API configured with OpenAPI can be found in the [`/examples/api-gateway-rest-api-openapi` directory within the GitHub repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/api-gateway-rest-api-openapi).\n"
     },
     {
-      "old": "### Terraform Resources"
+      "old": "### Terraform Resources",
+      "new": "### Resources"
     },
     {
       "old": "    #       Terraform configuration file(s) or removing the .id references to"
@@ -301,9 +302,6 @@
     },
     {
       "old": "An end-to-end example of a REST API configured with OpenAPI can be found in the [`/examples/api-gateway-rest-api-openapi` directory within the GitHub repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/api-gateway-rest-api-openapi).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value map of resource tags. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/api_gateway_rest_api.html.markdown": [
@@ -324,16 +322,13 @@
   "website/docs/r/api_gateway_stage.html.markdown": [
     {
       "old": "API Gateway provides the ability to [enable CloudWatch API logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html). To manage the CloudWatch Log Group when this feature is enabled, the [`aws_cloudwatch_log_group` resource](/docs/providers/aws/r/cloudwatch_log_group.html) can be used where the name matches the API Gateway naming convention. If the CloudWatch Log Group previously exists, the [`aws_cloudwatch_log_group` resource can be imported into Terraform](/docs/providers/aws/r/cloudwatch_log_group.html#import) as a one time operation and recreation of the environment can occur without import.",
-      "new": "-> The below configuration uses [`dependsOn`](https://www.pulumi.com/docs/intro/concepts/programming-model/#dependson) to prevent ordering issues with API Gateway automatically creating the log group first and a variable for naming consistency. Other ordering and naming methodologies may be more appropriate for your environment."
+      "new": "API Gateway provides the ability to [enable CloudWatch API logging](https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html). To manage the CloudWatch Log Group when this feature is enabled, the `aws_cloudwatch_log_group` resource can be used where the name matches the API Gateway naming convention. If the CloudWatch Log Group previously exists, the `aws_cloudwatch_log_group` resource can be imported as a one time operation and recreation of the environment can occur without import.\n\n-> The below configuration uses [`dependsOn`](https://www.pulumi.com/docs/intro/concepts/programming-model/#dependson) to prevent ordering issues with API Gateway automatically creating the log group first and a variable for naming consistency. Other ordering and naming methodologies may be more appropriate for your environment."
     },
     {
       "old": "An end-to-end example of a REST API configured with OpenAPI can be found in the [`/examples/api-gateway-rest-api-openapi` directory within the GitHub repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/api-gateway-rest-api-openapi).\n"
     },
     {
       "old": "-> The below configuration uses [`depends_on`](https://www.terraform.io/language/meta-arguments/depends_on) to prevent ordering issues with API Gateway automatically creating the log group first and a variable for naming consistency. Other ordering and naming methodologies may be more appropriate for your environment."
-    },
-    {
-      "old": "* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/api_gateway_usage_plan.html.markdown": [
@@ -493,9 +488,6 @@
     {
       "old": "* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
       "new": "* `ops_item_sns_topic_arn` - (Optional) The SNS topic provided to Application Insights that is associated to the created opsItem. Allows you to receive notifications for updates to the opsItem."
-    },
-    {
-      "old": "* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/appmesh_gateway_route.html.markdown": [
@@ -676,6 +668,10 @@
     {
       "old": "~> **NOTE on Auto Scaling Groups and ASG Attachments:** Terraform currently provides",
       "new": "~> **NOTE on Auto Scaling Groups and ASG Attachments:** This provider currently provides"
+    },
+    {
+      "old": "arguments within a\n[`lifecycle` configuration block](https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html).",
+      "new": "arguments."
     }
   ],
   "website/docs/r/autoscaling_group.html.markdown": [
@@ -684,58 +680,64 @@
       "new": "~> **NOTE on Auto Scaling Groups and ASG Attachments:** This provider currently provides"
     },
     {
+      "old": "arguments within a\n[`lifecycle` configuration block](https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html).",
+      "new": "arguments."
+    },
+    {
       "old": "  [duration](https://golang.org/pkg/time/#ParseDuration) that Terraform should",
-      "new": "  this provider to skip all Capacity Waiting behavior."
+      "new": "  [duration](https://golang.org/pkg/time/#ParseDuration) that the provider should"
     },
     {
       "old": "Terraform will also wait for the correct number of healthy instances before",
-      "new": "This provider considers an instance \"healthy\" when the ASG reports `HealthStatus:"
+      "new": "this provider will also wait for the correct number of healthy instances before"
     },
     {
       "old": "reason, the Terraform apply will time out, and the ASG will be marked as",
-      "new": "As with ASG Capacity, this provider will wait for up to `wait_for_capacity_timeout`"
+      "new": "reason, the apply will time out, and the ASG will be marked as"
     },
     {
-      "old": "  name                      = \"foobar3-terraform-test\""
+      "old": "  name                      = \"foobar3-terraform-test\"",
+      "new": "  name                      = \"foobar3-test\""
     },
     {
-      "old": "  name                 = \"foobar3-terraform-test\""
+      "old": "  name                 = \"foobar3-terraform-test\"",
+      "new": "  name                 = \"foobar3-test\""
     },
     {
-      "old": "* `name` - (Optional) Name of the Auto Scaling Group. By default generated by Terraform. Conflicts with `name_prefix`."
+      "old": "* `name` - (Optional) Name of the Auto Scaling Group. By default generated by Terraform. Conflicts with `name_prefix`.",
+      "new": "* `name` - (Optional) Name of the Auto Scaling Group. By default generated by the provider. Conflicts with `name_prefix`."
     },
     {
-      "old": "  [`aws_autoscaling_lifecycle_hook`](/docs/providers/aws/r/autoscaling_lifecycle_hook.html)"
+      "old": "even if it's in the process of scaling a resource. Normally, Terraform",
+      "new": "even if it's in the process of scaling a resource. Normally, this provider"
     },
     {
-      "old": "   even if it's in the process of scaling a resource. Normally, Terraform"
+      "old": "* `wait_for_elb_capacity` - (Optional) Setting this will cause Terraform to wait",
+      "new": "* `wait_for_elb_capacity` - (Optional) Setting this will cause the provider to wait"
     },
     {
-      "old": "* `wait_for_elb_capacity` - (Optional) Setting this will cause Terraform to wait"
+      "old": "Terraform provides two mechanisms to help consistently manage ASG scale up",
+      "new": "This provider provides two mechanisms to help consistently manage ASG scale up"
     },
     {
-      "old": "~> **NOTE:** Other AWS APIs may automatically add special tags to their associated Auto Scaling Group for management purposes, such as ECS Capacity Providers adding the `AmazonECSManaged` tag. These generally should be included in the configuration so Terraform does not attempt to remove them and so if the `min_size` was greater than zero on creation, that these tag(s) are applied to any initial EC2 Instances in the Auto Scaling Group. If these tag(s) were missing in the Auto Scaling Group configuration on creation, affected EC2 Instances missing the tags may require manual intervention of adding the tags to ensure they work properly with the other AWS service."
+      "old": "The first is default behavior. Terraform waits after ASG creation for",
+      "new": "The first is default behavior. This provider waits after ASG creation for"
     },
     {
-      "old": "[`aws_autoscaling_lifecycle_hook`](/docs/providers/aws/r/autoscaling_lifecycle_hook.html)"
+      "old": "Terraform considers an instance \"healthy\" when the ASG reports `HealthStatus:",
+      "new": "This provider considers an instance \"healthy\" when the ASG reports `HealthStatus:"
     },
     {
-      "old": "Terraform provides two mechanisms to help consistently manage ASG scale up"
+      "old": "Terraform will wait for healthy instances for up to",
+      "new": "This provider will wait for healthy instances for up to"
     },
     {
-      "old": "The first is default behavior. Terraform waits after ASG creation for"
+      "old": "If `wait_for_elb_capacity` is set, Terraform will wait for exactly that number",
+      "new": "If `wait_for_elb_capacity` is set, the provider will wait for exactly that number"
     },
     {
-      "old": "Terraform considers an instance \"healthy\" when the ASG reports `HealthStatus:"
-    },
-    {
-      "old": "Terraform will wait for healthy instances for up to"
-    },
-    {
-      "old": "If `wait_for_elb_capacity` is set, Terraform will wait for exactly that number"
-    },
-    {
-      "old": "~> **NOTE:** Terraform has two types of ways you can add lifecycle hooks - via"
+      "old": "~> **NOTE:** Terraform has two types of ways you can add lifecycle hooks - via",
+      "new": "~> **NOTE:** The provider has two types of ways you can add lifecycle hooks - via"
     }
   ],
   "website/docs/r/autoscaling_lifecycle_hook.html.markdown": [

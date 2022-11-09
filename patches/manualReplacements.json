@@ -187,6 +187,9 @@
       "new": "    * `validation_method` - (Required) Which method to use for validation. `DNS` or `EMAIL` are valid, `NONE` can be used for certificates that were imported into ACM and then into the provider."
     },
     {
+      "old": "It's recommended to specify `create_before_destroy = true` in a [lifecycle][1] block to replace a certificate\nwhich is currently in use (eg, by `aws_lb_listener`).\n"
+    },
+    {
       "old": "[1]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html"
     }
   ],
@@ -194,6 +197,16 @@
     {
       "old": "~> **Note:** When you create/update an Amplify App from Terraform, you may end up with the error \"BadRequestException: You should at least provide one valid token\" because of authentication issues. See the section \"Repository with Tokens\" below.",
       "new": "~> **Note:** When you create/update an Amplify App from the provider, you may end up with the error \"BadRequestException: You should at least provide one valid token\" because of authentication issues. See the section \"Repository with Tokens\" below."
+    }
+  ],
+  "website/docs/r/api_gateway_base_path_mapping.html.markdown": [
+    {
+      "old": "An end-to-end example of a REST API configured with OpenAPI can be found in the `/examples/api-gateway-rest-api-openapi` directory within the GitHub repository.\n"
+    }
+  ],
+  "website/docs/r/api_gateway_method_settings.html.markdown": [
+    {
+      "old": "An end-to-end example of a REST API configured with OpenAPI can be found in the `/examples/api-gateway-rest-api-openapi` directory within the GitHub repository.\n"
     }
   ],
   "website/docs/r/api_gateway_rest_api.html.markdown": [
@@ -218,6 +231,9 @@
     {
       "old": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform.",
       "new": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments."
+    },
+    {
+      "old": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments.\n"
     }
   ],
   "website/docs/r/athena_database.html.markdown": [
@@ -249,6 +265,10 @@
     {
       "old": "The `min_elb_capacity` parameter causes Terraform to wait for at least the",
       "new": "The `min_elb_capacity` parameter causes the provider to wait for at least the"
+    },
+    {
+      "old": "~> **NOTE:** Other AWS APIs may automatically add special tags to their associated Auto Scaling Group for management purposes, such as ECS Capacity Providers adding the `AmazonECSManaged` tag. These generally should be included in the configuration so Terraform does not attempt to remove them and so if the `min_size` was greater than zero on creation, that these tag(s) are applied to any initial EC2 Instances in the Auto Scaling Group. If these tag(s) were missing in the Auto Scaling Group configuration on creation, affected EC2 Instances missing the tags may require manual intervention of adding the tags to ensure they work properly with the other AWS service.",
+      "new": "~> **NOTE:** Other AWS APIs may automatically add special tags to their associated Auto Scaling Group for management purposes, such as ECS Capacity Providers adding the `AmazonECSManaged` tag. These generally should be included in the configuration so the provider does not attempt to remove them and so if the `min_size` was greater than zero on creation, that these tag(s) are applied to any initial EC2 Instances in the Auto Scaling Group. If these tag(s) were missing in the Auto Scaling Group configuration on creation, affected EC2 Instances missing the tags may require manual intervention of adding the tags to ensure they work properly with the other AWS service."
     }
   ],
   "website/docs/r/autoscaling_group_tag.html.markdown": [
