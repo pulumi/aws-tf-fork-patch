@@ -82,6 +82,11 @@
       "new": "That encrypted output can now be inserted into provider configurations without exposing the plaintext secret directly."
     }
   ],
+  "website/docs/d/lb_listener.html.markdown": [
+    {
+      "old": "\n## Timeouts\n\nConfiguration options:\n\n- `read` - (Default `20m`)"
+    }
+  ],
   "website/docs/d/networkfirewall_firewall_policy.html.markdown": [
     {
       "old": "[1]: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ram_resource_share"
@@ -144,12 +149,26 @@
     {
       "old": "* `value` - Value of the parameter. This value is always marked as sensitive in the Terraform plan output, regardless of `type`. In Terraform CLI version 0.15 and later, this may require additional configuration handling for certain scenarios. For more information, see the Terraform v0.15 Upgrade Guide.",
       "new": "* `value` - Value of the parameter. This value is always marked as sensitive in the plan output, regardless of `type`."
+    },
+    {
+      "old": "~> **Note:** The unencrypted value of a SecureString will be stored in the raw state as plain-text.\nRead more about sensitive data in state.\n\n"
+    }
+  ],
+  "website/docs/d/ssm_parameters_by_path.html.markdown": [
+    {
+      "old": "~> **Note:** The unencrypted value of a SecureString will be stored in the raw state as plain-text.\nRead more about sensitive data in state.\n"
     }
   ],
   "website/docs/d/vpc_ipam_preview_next_cidr.html.markdown": [
     {
       "old": "~> **NOTE:** This functionality is also encapsulated in a resource sharing the same name. The data source can be used when you need to use the cidr in a calculation of the same Root module, `count` for example. However, once a cidr range has been allocated that was previewed, the next refresh will find a **new** cidr and may force new resources downstream. Make sure to use Terraform's lifecycle `ignore_changes` policy if this is undesirable.",
       "new": "~> **NOTE:** This functionality is also encapsulated in a resource sharing the same name. The data source can be used when you need to use the cidr in a calculation of the same Root module, `count` for example. However, once a cidr range has been allocated that was previewed, the next refresh will find a **new** cidr and may force new resources downstream. Make sure to use `ignore_changes` if this is undesirable."
+    }
+  ],
+  "website/docs/d/vpc_peering_connections.html.markdown": [
+    {
+      "old": "the data source, as noted in issue 4149",
+      "new": "the data source."
     }
   ],
   "website/docs/r/accessanalyzer_archive_rule.html.markdown": [

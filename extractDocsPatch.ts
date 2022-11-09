@@ -65,8 +65,9 @@ function getDocsReplacements(
   const removalBlocks = findRemovalBlocks(groupedByLine);
   if (removalBlocks.length > 0) {
     for (const block of removalBlocks) {
+      const isWhitespace = block.content.match(/^\s*$/) !== null;
       // Ignore whitespace-only removals
-      if (block.content.trim() !== "") {
+      if (!isWhitespace) {
         fileReplacements.push({ old: block.content });
         init({ from: block.start, to: block.end }).forEach((n) =>
           usedLineNumbers.add(n)
@@ -83,7 +84,7 @@ function getDocsReplacements(
     }
     if (changes.length === 1 && changes[0].added === false) {
       const line = changes[0].line;
-      if (opts.includeAllChanges || line.match(/\*\*note:?\*\*/i)) {
+      if (line.match(/\*\*note:?\*\*/i)) {
         fileReplacements.push({ old: line });
         usedLineNumbers.add(changes[0].lineNumber);
       }
@@ -199,6 +200,10 @@ function findRemovalBlocks(lineChanges: [number, GitPatchModifiedLine[]][]) {
           continue;
       }
     }
+  }
+  // Add final block
+  if (state.name === "block") {
+    finishBlock(state);
   }
   return removalBlocks;
 }

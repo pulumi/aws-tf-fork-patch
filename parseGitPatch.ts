@@ -83,16 +83,17 @@ export function parseGitPatch(patch: string) {
         nA++;
         nB++;
 
-        if (line.startsWith("-- ")) {
-          return;
-        }
+        // Not clear why this rule is here, but it excluded where we've removed a bullet point in markdown files
+        // if (line.startsWith("-- ")) {
+        //   return;
+        // }
         if (line.startsWith("+")) {
           nA--;
 
           fileData.modifiedLines.push({
             added: true,
             lineNumber: nB,
-            line: line.substr(1),
+            line: line.substring(1),
           });
         } else if (line.startsWith("-")) {
           nB--;
@@ -100,7 +101,7 @@ export function parseGitPatch(patch: string) {
           fileData.modifiedLines.push({
             added: false,
             lineNumber: nA,
-            line: line.substr(1),
+            line: line.substring(1),
           });
         }
       });
