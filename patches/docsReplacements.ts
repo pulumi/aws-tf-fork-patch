@@ -111,18 +111,3 @@ async function readManualReplacements(): Promise<DocsReplacements> {
   const manualReplacements = await import("./manualReplacements.json");
   return manualReplacements.default;
 }
-
-function mergeReplacements(
-  a: DocsReplacements,
-  b: DocsReplacements
-): DocsReplacements {
-  const result = { ...a };
-  for (const [k, v] of Object.entries(b)) {
-    if (k in result) {
-      result[k] = [...result[k], ...v];
-    } else {
-      result[k] = v;
-    }
-  }
-  return result;
-}
