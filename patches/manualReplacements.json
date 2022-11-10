@@ -194,7 +194,7 @@
       "old": "  or use the `terraform taint` command to trigger recreation."
     },
     {
-      "old": "It's recommended to specify `create_before_destroy = true` in a [lifecycle][1] block to replace a certificate\nwhich is currently in use (eg, by `aws_lb_listener`).\n"
+      "old": "It's recommended to specify `create_before_destroy = true` in a lifecycle block to replace a certificate\nwhich is currently in use (eg, by `aws_lb_listener`).\n"
     },
     {
       "old": "[1]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html"
@@ -2229,8 +2229,8 @@
       "old": "[2]: /docs/providers/aws/r/cloudfront_distribution.html#web_acl_id"
     },
     {
-      "old": "~> **NOTE on associating a WAFv2 Web ACL with a Cloudfront distribution:** Do not use this resource to associate a WAFv2 Web ACL with a Cloudfront Distribution. The [AWS API call backing this resource][1] notes that you should use the [`web_acl_id`][2] property on the [`cloudfront_distribution`][2] instead.",
-      "new": "~> **NOTE on associating a WAFv2 Web ACL with a Cloudfront distribution:** Do not use this resource to associate a WAFv2 Web ACL with a Cloudfront Distribution. The [AWS API call backing this resource][1] notes that you should use the [`web_acl_id`][2] property on the `cloudfront_distribution` instead."
+      "old": "~> **NOTE on associating a WAFv2 Web ACL with a Cloudfront distribution:** Do not use this resource to associate a WAFv2 Web ACL with a Cloudfront Distribution. The AWS API call backing this resource notes that you should use the [`web_acl_id`][2] property on the [`cloudfront_distribution`][2] instead.",
+      "new": "~> **NOTE on associating a WAFv2 Web ACL with a Cloudfront distribution:** Do not use this resource to associate a WAFv2 Web ACL with a Cloudfront Distribution. The AWS API call backing this resource notes that you should use the `web_acl_id` property on the `cloudfront_distribution` instead."
     }
   ]
 }

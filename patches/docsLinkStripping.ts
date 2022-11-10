@@ -10,7 +10,7 @@ export async function applyStripDocLinks(ctx: PatchContext) {
     const content = await readFile(filePath, { encoding: "utf-8" });
     // Match a "[", capture everything that's not "]"
     // Then match a "(" and everything up to ")"
-    const replaced = content.replace(
+    const linkReplaced = content.replace(
       /\[([^\]]*)\]\(([^\)]*)\)/g,
       (source: string, linkText: string, href: string) => {
         try {
@@ -93,8 +93,14 @@ export async function applyStripDocLinks(ctx: PatchContext) {
         return source;
       }
     );
-    if (replaced != content) {
-      await writeFile(filePath, replaced);
+    // Remove inline references as we don't handle these properly downstream and they appear strangely.
+    // E.g. [some text][10] -> some text
+    const referenceReplaced = linkReplaced.replace(
+      /\[([\w\s]+)\]\[\d+\]/g,
+      "$1"
+    );
+    if (referenceReplaced != content) {
+      await writeFile(filePath, referenceReplaced);
     }
   }
 }
