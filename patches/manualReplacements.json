@@ -917,6 +917,11 @@
       "new": "~> **NOTE:** Parameters with default values, including `NumberOfRetries`(default: 3), `RoleArn`(default: firehose role ARN), `BufferSizeInMBs`(default: 3), and `BufferIntervalInSeconds`(default: 60), are not stored in state. To prevent perpetual differences, it is therefore recommended to only include parameters with non-default values."
     }
   ],
+  "website/docs/r/kms_ciphertext.html.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
   "website/docs/r/kms_custom_key_store.html.markdown": [
     {
       "old": "  Terraform resource for managing an AWS KMS (Key Management) Custom Key Store.",
@@ -969,6 +974,9 @@
     {
       "old": "* `kms_key_arn` - (Optional) Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key. If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this configuration and Terraform will show a perpetual difference of adding the key. To fix the perpetual difference, remove this configuration.",
       "new": "* `kms_key_arn` - (Optional) Amazon Resource Name (ARN) of the AWS Key Management Service (KMS) key that is used to encrypt environment variables. If this configuration is not provided when environment variables are in use, AWS Lambda uses a default service key. If this configuration is provided when environment variables are not in use, the AWS Lambda API does not save this configuration and the provider will show a perpetual difference of adding the key. To fix the perpetual difference, remove this configuration."
+    },
+    {
+      "old": "For a detailed example of setting up Lambda and API Gateway, see [Serverless Applications with AWS Lambda and API Gateway.][11]\n"
     }
   ],
   "website/docs/r/lambda_invocation.html.markdown": [
@@ -1334,6 +1342,9 @@
       "new": "* `acl` - (Optional, **Deprecated**) The [canned ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) to apply. Valid values are `private`, `public-read`, `public-read-write`, `aws-exec-read`, `authenticated-read`, and `log-delivery-write`. Defaults to `private`.  Conflicts with `grant`. The provider will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead."
     },
     {
+      "old": "* `force_destroy` - (Optional, Default:`false`) A boolean that indicates all objects (including any [locked objects](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html)) should be deleted from the bucket so that the bucket can be destroyed without error. These objects are *not* recoverable."
+    },
+    {
       "old": "* `grant` - (Optional, **Deprecated**) An [ACL policy grant](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#sample-acl). See [Grant](#grant) below for details. Conflicts with `acl`. Terraform will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead.",
       "new": "* `grant` - (Optional, **Deprecated**) An [ACL policy grant](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#sample-acl). See [Grant](#grant) below for details. Conflicts with `acl`. The provider will only perform drift detection if a configuration value is provided. Use the resource `aws_s3_bucket_acl` instead."
     },
@@ -1356,6 +1367,9 @@
     {
       "old": "* `website` - (Optional, **Deprecated**) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `website` - (Optional, **Deprecated**) A configuration of the [S3 bucket website](https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html). See [Website](#website) below for details. The provider will only perform drift detection if a configuration value is provided."
+    },
+    {
+      "old": "-> **NOTE:** The parameters `acl` and `grant` are deprecated.\nUse the resource `aws_s3_bucket_acl` instead.\n"
     }
   ],
   "website/docs/r/s3_bucket_accelerate_configuration.html.markdown": [
