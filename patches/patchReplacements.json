@@ -156,15 +156,6 @@
     {
       "old": "Domain validation through email is also supported but should be avoided as it requires a manual step outside of Terraform.",
       "new": "Domain validation through email is also supported but should be avoided as it requires a manual step outside of this provider."
-    },
-    {
-      "old": "See the [`aws_acm_certificate_validation` resource](acm_certificate_validation.html) for a full example of performing DNS validation."
-    },
-    {
-      "old": "    * `subject_alternative_names` - (Optional) Set of domains that should be SANs in the issued certificate. To remove all elements of a previously configured list, set this value equal to an empty list (`[]`) or use the [`terraform taint` command](https://www.terraform.io/docs/commands/taint.html) to trigger recreation."
-    },
-    {
-      "old": "  To remove all elements of a previously configured list, set this value equal to an empty list (`[]`)\n  or use the [`terraform taint` command](https://www.terraform.io/docs/commands/taint.html) to trigger recreation.\n* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/acmpca_certificate_authority.html.markdown": [
@@ -284,13 +275,8 @@
       "new": "### Resources"
     },
     {
-      "old": "    #       Terraform configuration file(s) or removing the .id references to"
-    },
-    {
-      "old": "* `stage_name` - (Optional) Name of the stage to create with this deployment. If the specified stage already exists, it will be updated to point to the new deployment. We recommend using the [`aws_api_gateway_stage` resource](api_gateway_stage.html) instead to manage stages."
-    },
-    {
-      "old": "* `triggers` - (Optional) Map of arbitrary keys and values that, when changed, will trigger a redeployment. To force a redeployment without changing these keys/values, use the [`terraform taint` command](https://www.terraform.io/docs/commands/taint.html)."
+      "old": "    #       Terraform configuration file(s) or removing the .id references to",
+      "new": "    #       configuration file(s) or removing the .id references to"
     },
     {
       "old": "~> **NOTE:** Enable the [resource `lifecycle` configuration block `create_before_destroy` argument](https://www.terraform.io/language/meta-arguments/lifecycle#create_before_destroy) in this resource configuration to properly order redeployments in Terraform. Without enabling `create_before_destroy`, API Gateway can return errors such as `BadRequestException: Active stages pointing to this deployment must be moved or deleted` on recreation."
@@ -816,11 +802,6 @@
       "new": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block."
     }
   ],
-  "website/docs/r/batch_compute_environment.html.markdown": [
-    {
-      "old": "resource \"aws_vpc\" \"sample\" {\n  cidr_block = \"10.1.0.0/16\"\n}\n"
-    }
-  ],
   "website/docs/r/batch_job_definition.html.markdown": [
     {
       "old": "* `tags` - (Optional) Key-value map of resource tags. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
@@ -951,15 +932,6 @@
     {
       "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block).",
       "new": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider `default_tags` configuration block."
-    }
-  ],
-  "website/docs/r/cloudtrail.html.markdown": [
-    {
-      "old": "* `tags` - (Optional) Map of tags to assign to the trail. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
-      "new": "  \"Statement\": ["
-    },
-    {
-      "old": "* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/cloudwatch_composite_alarm.html.markdown": [
@@ -1533,27 +1505,6 @@
     },
     {
       "old": "~> **Note:** All arguments including the username and password will be stored in\nthe raw state as plain-text. [Read more about sensitive data in\nstate](https://www.terraform.io/docs/state/sensitive-data.html).\n\n> **Hands-on:** Try the [Manage AWS RDS Instances](https://learn.hashicorp.com/tutorials/terraform/aws-rds?in=terraform/modules&utm_source=WEBSITE&utm_medium=WEB_IO&utm_offer=ARTICLE_PAGE&utm_content=DOCS) tutorial on HashiCorp Learn.\n"
-    },
-    {
-      "old": "To enable Storage Autoscaling with instances that support the feature, define the `max_allocated_storage` argument higher than the `allocated_storage` argument. Terraform will automatically hide differences with the `allocated_storage` argument value if autoscaling occurs."
-    },
-    {
-      "old": "* `db_subnet_group_name` - (Optional) Name of [DB subnet group](/docs/providers/aws/r/db_subnet_group.html). DB instance will"
-    },
-    {
-      "old": "Note that for Amazon Aurora instances the engine must match the [DB cluster](/docs/providers/aws/r/rds_cluster.html)'s engine'."
-    },
-    {
-      "old": "Note that for Amazon Aurora instances the engine version must match the [DB cluster](/docs/providers/aws/r/rds_cluster.html)'s engine version'. Cannot be specified for a replica."
-    },
-    {
-      "old": "if omitted, Terraform will assign a random, unique identifier. Required if `restore_to_point_in_time` is specified."
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "This setting does not apply to `aurora-mysql` or `aurora-postgresql` DB engines. For Aurora, refer to the [`aws_rds_cluster` resource documentation](/docs/providers/aws/r/rds_cluster.html#restore_in_time)."
     }
   ],
   "website/docs/r/db_option_group.html.markdown": [
@@ -1661,9 +1612,6 @@
     },
     {
       "old": "> **Hands-on:** For an example of the `aws_db_subnet_group` in use, follow the [Manage AWS RDS Instances](https://learn.hashicorp.com/tutorials/terraform/aws-rds?in=terraform/aws&utm_source=WEBSITE&utm_medium=WEB_IO&utm_offer=ARTICLE_PAGE&utm_content=DOCS) tutorial on HashiCorp Learn.\n"
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/default_network_acl.html.markdown": [
@@ -1715,9 +1663,6 @@
     },
     {
       "old": "This argument is processed in [attribute-as-blocks mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html).\n"
-    },
-    {
-      "old": "* `destination_prefix_list_id` - (Optional) The ID of a [managed prefix list](ec2_managed_prefix_list.html) destination of the route."
     }
   ],
   "website/docs/r/default_security_group.html.markdown": [
@@ -1834,9 +1779,6 @@
   "website/docs/r/directory_service_directory.html.markdown": [
     {
       "old": "~> **Note:** All arguments including the password and customer username will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/dlm_lifecycle_policy.markdown": [
@@ -1856,17 +1798,11 @@
   "website/docs/r/dms_certificate.html.markdown": [
     {
       "old": "~> **Note:** All arguments including the PEM encoded certificate will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/dms_endpoint.html.markdown": [
     {
       "old": "~> **Note:** All arguments including the password will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/dms_event_subscription.html.markdown": [
@@ -1916,12 +1852,6 @@
     },
     {
       "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html)."
-    },
-    {
-      "old": "* `global_cluster_identifier` - (Optional) The global cluster identifier specified on [`aws_docdb_global_cluster`](/docs/providers/aws/r/docdb_global_cluster.html)."
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the DB cluster. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/docdb_cluster_instance.html.markdown": [
@@ -2104,18 +2034,12 @@
     {
       "old": "* `tags` - (Optional) A map of tags to assign to the snapshot. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
       "new": "* `tags` - (Optional) A map of tags to assign to the snapshot. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/ebs_snapshot_copy.html.markdown": [
     {
       "old": "* `tags` - A map of tags for the snapshot. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
       "new": "* `tags` - A map of tags for the snapshot. If configured with a provider `default_tags` configuration block](https://www.terraform.io/docs/providers/aws/index.html#default_tags-configuration-block present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/ebs_snapshot_import.html.markdown": [
@@ -2308,20 +2232,11 @@
   "website/docs/r/ec2_transit_gateway_peering_attachment.html.markdown": [
     {
       "old": "A full example of how to create a Transit Gateway in one AWS account, share it with a second AWS account, and attach a to a Transit Gateway in the second account via the `aws_ec2_transit_gateway_peering_attachment` resource can be found in [the `./examples/transit-gateway-cross-account-peering-attachment` directory within the Github Repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/transit-gateway-cross-account-peering-attachment).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value tags for the EC2 Transit Gateway Peering Attachment. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/ec2_transit_gateway_peering_attachment_accepter.html.markdown": [
     {
       "old": "A full example of how to create a Transit Gateway in one AWS account, share it with a second AWS account, and attach a to a Transit Gateway in the second account via the `aws_ec2_transit_gateway_peering_attachment` resource can be found in [the `./examples/transit-gateway-cross-account-peering-attachment` directory within the Github Repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/transit-gateway-cross-account-peering-attachment).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value tags for the EC2 Transit Gateway Peering Attachment. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/ec2_transit_gateway_policy_table.html.markdown": [
@@ -2343,17 +2258,11 @@
   "website/docs/r/ec2_transit_gateway_vpc_attachment.html.markdown": [
     {
       "old": "A full example of how to create a Transit Gateway in one AWS account, share it with a second AWS account, and attach a VPC in the second account to the Transit Gateway via the `aws_ec2_transit_gateway_vpc_attachment` and `aws_ec2_transit_gateway_vpc_attachment_accepter` resources can be found in [the `./examples/transit-gateway-cross-account-vpc-attachment` directory within the Github Repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/transit-gateway-cross-account-vpc-attachment).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value tags for the EC2 Transit Gateway VPC Attachment. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/ec2_transit_gateway_vpc_attachment_accepter.html.markdown": [
     {
       "old": "A full example of how to create a Transit Gateway in one AWS account, share it with a second AWS account, and attach a VPC in the second account to the Transit Gateway via the `aws_ec2_transit_gateway_vpc_attachment` and `aws_ec2_transit_gateway_vpc_attachment_accepter` resources can be found in [the `./examples/transit-gateway-cross-account-vpc-attachment` directory within the Github Repository](https://github.com/hashicorp/terraform-provider-aws/tree/main/examples/transit-gateway-cross-account-vpc-attachment).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value tags for the EC2 Transit Gateway VPC Attachment. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/ecr_lifecycle_policy.html.markdown": [
@@ -2398,12 +2307,6 @@
     {
       "old": "~> **NOTE on Clusters and Cluster Capacity Providers:** Terraform provides both a standalone [`aws_ecs_cluster_capacity_providers`](/docs/providers/aws/r/ecs_cluster_capacity_providers.html) resource, as well as allowing the capacity providers and default strategies to be managed in-line by the `aws_ecs_cluster` resource. You cannot use a Cluster with in-line capacity providers in conjunction with the Capacity Providers resource, nor use more than one Capacity Providers resource with a single Cluster, as doing so will cause a conflict and will lead to mutual overwrites.",
       "new": "~> **NOTE on Clusters and Cluster Capacity Providers:** this provider provides both a standalone `aws_ecs_cluster_capacity_providers` resource, as well as allowing the capacity providers and default strategies to be managed in-line by the `aws_ecs_cluster` resource. You cannot use a Cluster with in-line capacity providers in conjunction with the Capacity Providers resource, nor use more than one Capacity Providers resource with a single Cluster, as doing so will cause a conflict and will lead to mutual overwrites."
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value map of resource tags. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/ecs_service.html.markdown": [
@@ -2519,13 +2422,8 @@
       "old": "> **Hands-on:** For an example of `aws_eks_cluster` in use, follow the [Provision an EKS Cluster](https://learn.hashicorp.com/tutorials/terraform/eks) tutorial on HashiCorp Learn.\n"
     },
     {
-      "old": "-> The below configuration uses [`depends_on`](https://www.terraform.io/docs/configuration/meta-arguments/depends_on.html) to prevent ordering issues with EKS automatically creating the log group first and a variable for naming consistency. Other ordering and naming methodologies may be more appropriate for your environment."
-    },
-    {
-      "old": "After adding inline IAM Policies (e.g., [`aws_iam_role_policy` resource](/docs/providers/aws/r/iam_role_policy.html)) or attaching IAM Policies (e.g., [`aws_iam_policy` resource](/docs/providers/aws/r/iam_policy.html) and [`aws_iam_role_policy_attachment` resource](/docs/providers/aws/r/iam_role_policy_attachment.html)) with the desired permissions to the IAM Role, annotate the Kubernetes service account (e.g., [`kubernetes_service_account` resource](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account)) and recreate any pods."
-    },
-    {
-      "old": "* `role_arn` - (Required) ARN of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf. Ensure the resource configuration includes explicit dependencies on the IAM Role permissions by adding [`depends_on`](https://www.terraform.io/docs/configuration/meta-arguments/depends_on.html) if using the [`aws_iam_role_policy` resource](/docs/providers/aws/r/iam_role_policy.html) or [`aws_iam_role_policy_attachment` resource](/docs/providers/aws/r/iam_role_policy_attachment.html), otherwise EKS cannot delete EKS managed EC2 infrastructure such as Security Groups on EKS Cluster deletion."
+      "old": "-> The below configuration uses [`depends_on`](https://www.terraform.io/docs/configuration/meta-arguments/depends_on.html) to prevent ordering issues with EKS automatically creating the log group first and a variable for naming consistency. Other ordering and naming methodologies may be more appropriate for your environment.",
+      "new": "-> The below configuration uses [`dependsOn`](https://www.pulumi.com/docs/intro/concepts/programming-model/#dependson) to prevent ordering issues with EKS automatically creating the log group first and a variable for naming consistency. Other ordering and naming methodologies may be more appropriate for your environment."
     }
   ],
   "website/docs/r/eks_fargate_profile.html.markdown": [
@@ -2552,14 +2450,6 @@
     {
       "old": "You can utilize the generic Terraform resource [lifecycle configuration block](https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html) with `ignore_changes` to create an EKS Node Group with an initial size of running instances, then ignore any changes to that count caused externally (e.g., Application Autoscaling).",
       "new": "You can utilize [ignoreChanges](https://www.pulumi.com/docs/intro/concepts/programming-model/#ignorechanges) create an EKS Node Group with an initial size of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling)."
-    },
-    {
-      "old": "* `ami_type` - (Optional) Type of Amazon Machine Image (AMI) associated with the EKS Node Group. See the [AWS documentation](https://docs.aws.amazon.com/eks/latest/APIReference/API_Nodegroup.html#AmazonEKS-Type-Nodegroup-amiType) for valid values. Terraform will only perform drift detection if a configuration value is provided.",
-      "new": "* `capacity_type` - (Optional) Type of capacity associated with the EKS Node Group. Valid values: `ON_DEMAND`, `SPOT`. This provider will only perform drift detection if a configuration value is provided."
-    },
-    {
-      "old": "* `capacity_type` - (Optional) Type of capacity associated with the EKS Node Group. Valid values: `ON_DEMAND`, `SPOT`. Terraform will only perform drift detection if a configuration value is provided.",
-      "new": "* `disk_size` - (Optional) Disk size in GiB for worker nodes. Defaults to `20`. This provider will only perform drift detection if a configuration value is provided."
     },
     {
       "old": "  # Optional: Allow external changes without Terraform plan difference"
@@ -2758,9 +2648,6 @@
     },
     {
       "old": "This argument is processed in [attribute-as-blocks mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html).\n"
-    },
-    {
-      "old": "* `tags_all` - Map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/emr_instance_fleet.html.markdown": [
@@ -3209,9 +3096,6 @@
   "website/docs/r/iam_policy.html.markdown": [
     {
       "old": "  # Terraform's \"jsonencode\" function converts a\n  # Terraform expression result to valid JSON syntax."
-    },
-    {
-      "old": "* `name` - (Optional, Forces new resource) The name of the policy. If omitted, Terraform will assign a random, unique name."
     }
   ],
   "website/docs/r/iam_policy_attachment.html.markdown": [
@@ -3231,30 +3115,6 @@
     },
     {
       "old": "  # Terraform's \"jsonencode\" function converts a\n  # Terraform expression result to valid JSON syntax."
-    },
-    {
-      "old": "This example creates an IAM role with two inline IAM policies. If someone adds another inline policy out-of-band, on the next apply, Terraform will remove that policy. If someone deletes these policies out-of-band, Terraform will recreate them."
-    },
-    {
-      "old": "This example creates an IAM role with what appears to be empty IAM `inline_policy` argument instead of using `inline_policy` as a configuration block. The result is that if someone were to add an inline policy out-of-band, on the next apply, Terraform will remove that policy."
-    },
-    {
-      "old": "This example creates an IAM role and attaches two managed IAM policies. If someone attaches another managed policy out-of-band, on the next apply, Terraform will detach that policy. If someone detaches these policies out-of-band, Terraform will attach them again."
-    },
-    {
-      "old": "This example creates an IAM role with an empty `managed_policy_arns` argument. If someone attaches a policy out-of-band, on the next apply, Terraform will detach that policy."
-    },
-    {
-      "old": "~> **NOTE:** The `assume_role_policy` is very similar to but slightly different than a standard IAM policy and cannot use an `aws_iam_policy` resource.  However, it _can_ use an `aws_iam_policy_document` [data source](/docs/providers/aws/d/iam_policy_document.html). See the example above of how this works."
-    },
-    {
-      "old": "* `name` - (Optional, Forces new resource) Friendly name of the role. If omitted, Terraform will assign a random, unique name. See [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html) for more information."
-    },
-    {
-      "old": "* `tags` - Key-value mapping of tags for the IAM role. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `policy` - (Required) Policy document as a JSON formatted string. For more information about building IAM policy documents with Terraform, see the [AWS IAM Policy Document Guide](https://learn.hashicorp.com/tutorials/terraform/aws-iam-policy)."
     }
   ],
   "website/docs/r/iam_role_policy.html.markdown": [
@@ -3264,9 +3124,6 @@
     },
     {
       "old": "  # Terraform's \"jsonencode\" function converts a\n  # Terraform expression result to valid JSON syntax."
-    },
-    {
-      "old": "* `name` - (Optional) The name of the role policy. If omitted, Terraform will"
     }
   ],
   "website/docs/r/iam_role_policy_attachment.markdown": [
@@ -3290,16 +3147,12 @@
       "old": "~> **Note:** All arguments including the private key will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
     },
     {
-      "old": "`create_before_destroy` [lifecycle block][lifecycle]. This will allow Terraform"
+      "old": "`create_before_destroy` [lifecycle block][lifecycle]. This will allow Terraform",
+      "new": "`create_before_destroy`. This will allow this provider"
     },
     {
-      "old": "  name                      = \"terraform-asg-deployment-example\""
-    },
-    {
-      "old": "  path in this value. If omitted, Terraform will assign a random, unique name."
-    },
-    {
-      "old": "~> **NOTE:** AWS performs behind-the-scenes modifications to some certificate files if they do not adhere to a specific format. These modifications will result in terraform forever believing that it needs to update the resources since the local and AWS file contents will not match after theses modifications occur. In order to prevent this from happening you must ensure that all your PEM-encoded files use UNIX line-breaks and that `certificate_body` contains only one certificate. All other certificates should go in `certificate_chain`. It is common for some Certificate Authorities to issue certificate files that have DOS line-breaks and that are actually multiple certificates concatenated together in order to form a full certificate chain."
+      "old": "  name                      = \"terraform-asg-deployment-example\"",
+      "new": "  name                      = \"asg-deployment-example\""
     }
   ],
   "website/docs/r/iam_service_linked_role.html.markdown": [
@@ -3676,9 +3529,6 @@
   ],
   "website/docs/r/kms_external_key.html.markdown": [
     {
-      "old": "* `tags` - (Optional) A key-value map of tags to assign to the key. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
       "old": "~> **Note:** All arguments including the key material will be stored in the raw state as plain-text. [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html)."
     }
   ],
@@ -3741,19 +3591,7 @@
       "old": "### Lambda retries\n\nLambda Functions allow you to configure error handling for asynchronous invocation. The settings that it supports are `Maximum age of event` and `Retry attempts` as stated in [Lambda documentation for Configuring error handling for asynchronous invocation](https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-async-errors). To configure these settings, refer to the [aws_lambda_function_event_invoke_config resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function_event_invoke_config).\n\n## CloudWatch Logging and Permissions"
     },
     {
-      "old": "* `source_code_hash` - (Optional) Used to trigger updates. Must be set to a base64-encoded SHA256 hash of the package file specified with either `filename` or `s3_key`. The usual way to set this is `filebase64sha256(\"file.zip\")` (Terraform 0.11.12 and later) or `base64sha256(file(\"file.zip\"))` (Terraform 0.11.11 and earlier), where \"file.zip\" is the local filename of the lambda function source archive.\n* `tags` - (Optional) Map of tags to assign to the object. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `invoke_arn` - ARN to be used for invoking Lambda Function from API Gateway - to be used in [`aws_api_gateway_integration`](/docs/providers/aws/r/api_gateway_integration.html)'s `uri`."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
-    },
-    {
       "old": "[2]: https://docs.aws.amazon.com/lambda/latest/dg/walkthrough-s3-events-adminuser-create-test-function-create-function.html"
-    },
-    {
-      "old": "[8]: https://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html"
     },
     {
       "old": "[11]: https://learn.hashicorp.com/terraform/aws/lambda-api-gateway"
@@ -3771,9 +3609,6 @@
   "website/docs/r/lambda_permission.html.markdown": [
     {
       "old": "  # Terraform's \"jsonencode\" function converts a\n  # Terraform expression result to valid JSON syntax."
-    },
-    {
-      "old": "## Specify Lambda permissions for API Gateway REST API"
     }
   ],
   "website/docs/r/launch_configuration.html.markdown": [
@@ -4048,9 +3883,6 @@
       "new": "~> **NOTE:** Changes to an MQ Broker can occur when you change a parameter, such as `configuration` or `user`, and are reflected in the next maintenance window. Because of this, the provider may report a difference in its planning phase because a modification has not yet taken place. You can use the `apply_immediately` flag to instruct the service to apply the change immediately (see documentation below). Using `apply_immediately` can result in a brief downtime as the broker reboots."
     },
     {
-      "old": "* `tags` - (Optional) Map of tags to assign to the broker. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
       "old": "~> **NOTE:** All arguments including the username and password will be stored in the raw state as plain-text. [Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html)."
     }
   ],
@@ -4257,13 +4089,16 @@
       "old": "[1]: /docs/providers/aws/d/instance.html\n[2]: /docs/providers/aws/r/network_interface.html\n"
     },
     {
-      "old": "    type = \"terraform-test-instance\""
+      "old": "    type = \"terraform-test-instance\"",
+      "new": "    type = \"test-instance\""
     },
     {
-      "old": "    type = \"terraform-test-security-group\""
+      "old": "    type = \"terraform-test-security-group\"",
+      "new": "    type = \"test-security-group\""
     },
     {
-      "old": "fetching an external instance, possibly not managed by Terraform."
+      "old": "fetching an external instance, possibly not managed by Terraform.",
+      "new": "fetching an external instance, possibly not managed by this provider."
     }
   ],
   "website/docs/r/networkfirewall_firewall.html.markdown": [
@@ -4423,9 +4258,6 @@
   "website/docs/r/opsworks_mysql_layer.html.markdown": [
     {
       "old": "~> **Note:** All arguments including the root password will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/opsworks_nodejs_app_layer.html.markdown": [
@@ -4656,26 +4488,7 @@
       "new": "window. Because of this, this provider may report a difference in its planning"
     },
     {
-      "old": "* `availability_zones` - (Optional) List of EC2 Availability Zones for the DB cluster storage where DB cluster instances can be created. RDS automatically assigns 3 AZs if less than 3 AZs are configured, which will show as a difference requiring resource recreation next Terraform apply. We recommend specifying 3 AZs or using [the `lifecycle` configuration block `ignore_changes` argument](https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html#ignore_changes) if necessary.",
-      "new": "* `db_subnet_group_name` - (Optional) A DB subnet group to associate with this DB instance. **NOTE:** This must match the `db_subnet_group_name` specified on every `aws_rds_cluster_instance` in the cluster."
-    },
-    {
       "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n\n~> **NOTE on RDS Clusters and RDS Cluster Role Associations:** Terraform provides both a standalone [RDS Cluster Role Association](rds_cluster_role_association.html) - (an association between an RDS Cluster and a single IAM Role) and\nan RDS Cluster resource with `iam_roles` attributes.\nUse one resource or the other to associate IAM Roles and RDS Clusters.\nNot doing so will cause a conflict of associations and will result in the association being overwritten.\n"
-    },
-    {
-      "old": "* `cluster_identifier` - (Optional, Forces new resources) The cluster identifier. If omitted, Terraform will assign a random, unique identifier."
-    },
-    {
-      "old": "* `preferred_backup_window` - (Optional) The daily time range during which automated backups are created if automated backups are enabled using the BackupRetentionPeriod parameter.Time in UTC. Default: A 30-minute window selected at random from an 8-hour block of time per regionE.g., 04:00-09:00\n* `preferred_maintenance_window` - (Optional) The weekly time range during which system maintenance can occur, in (UTC) e.g., wed:04:00-wed:04:30\n* `replication_source_identifier` - (Optional) ARN of a source DB cluster or DB instance if this DB cluster is to be created as a Read Replica. If DB Cluster is part of a Global Cluster, use the [`lifecycle` configuration block `ignore_changes` argument](https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html#ignore_changes) to prevent Terraform from showing differences for this argument instead of configuring this value."
-    },
-    {
-      "old": "* `tags` - (Optional) A map of tags to assign to the DB cluster. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
-    },
-    {
-      "old": "* `db_subnet_group_name` - (Optional) A DB subnet group to associate with this DB instance. **NOTE:** This must match the `db_subnet_group_name` specified on every [`aws_rds_cluster_instance`](/docs/providers/aws/r/rds_cluster_instance.html) in the cluster."
     }
   ],
   "website/docs/r/rds_cluster_endpoint.html.markdown": [
@@ -4753,9 +4566,6 @@
     },
     {
       "old": "~> **Note:** All arguments including the username and password will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html)."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/redshift_event_subscription.html.markdown": [
@@ -4970,9 +4780,6 @@
     {
       "old": "* `tags` - (Optional) A map of tags to assign to the resource. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
       "new": "* `tags` - (Optional) A map of tags to assign to the resource. .If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `id` - The ID of the rule group."
     }
   ],
   "website/docs/r/route53_resolver_firewall_rule_group_association.markdown": [
@@ -5215,11 +5022,10 @@
       "old": "~> **NOTE:** The `aws_s3_bucket_object` resource is DEPRECATED and will be removed in a future version! Use `aws_s3_object` instead, where new features and fixes will be added. When replacing `aws_s3_bucket_object` with `aws_s3_object` in your configuration, on the next apply, Terraform will recreate the object. If you prefer to not have Terraform recreate the object, import the object using `aws_s3_object`.\n"
     },
     {
-      "old": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. Terraform will only perform drift detection if a configuration value is provided."
+      "old": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. Terraform will only perform drift detection if a configuration value is provided.",
+      "new": "* `kms_key_id` - (Optional) ARN of the KMS Key to use for object encryption. If the S3 Bucket has server-side encryption enabled, that value will automatically be used. If referencing the `aws_kms_key` resource, use the `arn` attribute. If referencing the `aws_kms_alias` data source or resource, use the `target_key_arn` attribute. The provider will only perform drift detection if a configuration value is provided."
     },
-    {
-      "old": "* `tags` - (Optional) Map of tags to assign to the object. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
+
     {
       "old": "-> **Note:** Terraform ignores all leading `/`s in the object's `key` and treats multiple `/`s in the rest of the object's `key` as a single `/`, so values of `/index.html` and `index.html` correspond to the same S3 object as do `first//second///third//` and `first/second/third/`."
     }
@@ -5528,9 +5334,6 @@
     },
     {
       "old": "-> **Note:** In Terraform 0.14 and later, use `sensitive = true` to protect the values of the variable from being printed in logs and console output (see [Protect Sensitive Input Variables](https://learn.hashicorp.com/tutorials/terraform/sensitive-variables))."
-    },
-    {
-      "old": "~> **NOTE:** If `version_stages` is configured, you must include the `AWSCURRENT` staging label if this secret version is the only version or if the label is currently present on this secret version, otherwise Terraform will show a perpetual difference."
     }
   ],
   "website/docs/r/security_group.html.markdown": [
@@ -5551,25 +5354,7 @@
       "new": "Security Group's Name [cannot be edited after the resource is created](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-security-groups.html#creating-security-group). In fact, the `name` and `name-prefix` arguments force the creation of a new Security Group resource when they change value. In that case, this provider first deletes the existing Security Group resource and then it creates a new one. If the existing Security Group is associated to a Network Interface resource, the deletion cannot complete. The reason is that Network Interface resources cannot be left with no Security Group attached and the new one is not yet available at that point."
     },
     {
-      "old": "* `description` - (Optional, Forces new resource) Security group description. Defaults to `Managed by Terraform`. Cannot be `\"\"`. **NOTE**: This field maps to the AWS `GroupDescription` attribute, for which there is no Update API. If you'd like to classify your security groups in a way that can be updated, use `tags`.",
-      "new": "* `ingress` - (Optional) Configuration block for egress rules. Can be specified multiple times for each ingress rule. Each ingress block supports fields documented below."
-    },
-    {
-      "old": "* `ingress` - (Optional) Configuration block for ingress rules. Can be specified multiple times for each ingress rule. Each ingress block supports fields documented below. This argument is processed in [attribute-as-blocks mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html).",
-      "new": "* `name` - (Optional, Forces new resource) Name of the security group. If omitted, this provider will assign a random, unique name."
-    },
-    {
-      "old": "* `name` - (Optional, Forces new resource) Name of the security group. If omitted, Terraform will assign a random, unique name.",
-      "new": "* `tags` - (Optional) Map of tags to assign to the resource. If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `protocol` - (Required) Protocol. If you select a protocol of `-1` (semantically equivalent to `all`, which is not a valid value here), you must specify a `from_port` and `to_port` equal to 0.  The supported values are defined in the `IpProtocol` argument on the [IpPermission](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_IpPermission.html) API reference. This argument is normalized to a lowercase value to match the AWS API requirement when using with Terraform 0.12.x and above, please make sure that the value of the protocol is specified as lowercase when using with older version of Terraform to avoid an issue during upgrade."
-    },
-    {
       "old": "This argument is processed in [attribute-as-blocks mode](https://www.terraform.io/docs/configuration/attr-as-blocks.html).\n"
-    },
-    {
-      "old": "* `protocol` - (Required) Protocol. If you select a protocol of `-1` (semantically equivalent to `all`, which is not a valid value here), you must specify a `from_port` and `to_port` equal to 0.  The supported values are defined in the `IpProtocol` argument in the [IpPermission](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_IpPermission.html) API reference. This argument is normalized to a lowercase value to match the AWS API requirement when using Terraform 0.12.x and above. Please make sure that the value of the protocol is specified as lowercase when used with older version of Terraform to avoid issues during upgrade."
     }
   ],
   "website/docs/r/security_group_rule.html.markdown": [
@@ -5786,26 +5571,6 @@
       "new": "* `platform_principal` - (Optional) Application Platform principal. See [Principal][2] for type of principal required for platform. The value of this attribute when stored into the state is only a hash of the real value, so therefore it is not practical to use this as an attribute for other resources."
     }
   ],
-  "website/docs/r/sns_topic.html.markdown": [
-    {
-      "old": "## Example with Delivery Policy"
-    },
-    {
-      "old": "## Example with Server-side encryption (SSE)"
-    },
-    {
-      "old": "## Example with First-In-First-Out (FIFO)"
-    },
-    {
-      "old": "* `name` - (Optional) The name of the topic. Topic names must be made up of only uppercase and lowercase ASCII letters, numbers, underscores, and hyphens, and must be between 1 and 256 characters long. For a FIFO (first-in-first-out) topic, the name must end with the `.fifo` suffix. If omitted, Terraform will assign a random, unique name. Conflicts with `name_prefix`"
-    },
-    {
-      "old": "* `tags` - (Optional) Key-value map of resource tags. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
-    }
-  ],
   "website/docs/r/sns_topic_policy.html.markdown": [
     {
       "old": "~> **NOTE:** If a Principal is specified as just an AWS account ID rather than an ARN, AWS silently converts it to the ARN for the root user, causing future terraform plans to differ. To avoid this problem, just specify the full ARN, e.g., `arn:aws:iam::123456789012:root`",
@@ -5896,9 +5661,6 @@
     {
       "old": "* `tags` - (Optional) A map of tags to assign to the Spot Instance Request. These tags are not automatically applied to the launched Instance. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level.",
       "new": "* `tags` - (Optional) A map of tags to assign to the Spot Instance Request. These tags are not automatically applied to the launched Instance. .If configured with a provider `default_tags` configuration block present, tags with matching keys will overwrite those defined at the provider-level."
-    },
-    {
-      "old": "* `tags_all` - A map of tags assigned to the resource, including those inherited from the provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block)."
     }
   ],
   "website/docs/r/sqs_queue.html.markdown": [
@@ -5985,14 +5747,7 @@
   ],
   "website/docs/r/ssm_parameter.html.markdown": [
     {
-      "old": "* `overwrite` - (Optional) Overwrite an existing parameter. If not specified, will default to `false` if the resource has not been created by terraform to avoid overwrite of existing resource and will default to `true` otherwise (terraform lifecycle rules should then be used to manage the update behavior).",
-      "new": "* `value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. This value is always marked as sensitive in the plan output, regardless of `type`."
-    },
-    {
       "old": "~> **Note:** The unencrypted value of a SecureString will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
-    },
-    {
-      "old": "* `value` - (Optional, exactly one of `value` or `insecure_value` is required) Value of the parameter. This value is always marked as sensitive in the Terraform plan output, regardless of `type`. In Terraform CLI version 0.15 and later, this may require additional configuration handling for certain scenarios. For more information, see the [Terraform v0.15 Upgrade Guide](https://www.terraform.io/upgrade-guides/0-15.html#sensitive-output-values)."
     }
   ],
   "website/docs/r/ssm_patch_baseline.html.markdown": [
@@ -6380,9 +6135,6 @@
   "website/docs/r/vpn_connection.html.markdown": [
     {
       "old": "~> **Note:** All arguments including `tunnel1_preshared_key` and `tunnel2_preshared_key` will be stored in the raw state as plain-text.\n[Read more about sensitive data in state](https://www.terraform.io/docs/state/sensitive-data.html).\n"
-    },
-    {
-      "old": "* `tags` - (Optional) Tags to apply to the connection. If configured with a provider [`default_tags` configuration block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs#default_tags-configuration-block) present, tags with matching keys will overwrite those defined at the provider-level."
     }
   ],
   "website/docs/r/vpn_gateway.html.markdown": [
