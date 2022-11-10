@@ -249,6 +249,60 @@
       "old": "-> Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments.\n"
     }
   ],
+  "website/docs/r/appmesh_gateway_route.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
+  "website/docs/r/appmesh_route.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
+  "website/docs/r/appmesh_virtual_gateway.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
+  "website/docs/r/appmesh_virtual_node.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
+  "website/docs/r/appmesh_virtual_router.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
+  "website/docs/r/appmesh_virtual_service.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
   "website/docs/r/athena_database.html.markdown": [
     {
       "old": "Certain resource arguments, like `encryption_configuration` and `bucket`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
@@ -316,10 +370,38 @@
       "old": "~> **NOTE:** The destroy operation of this resource marks the version as deprecated. If this was the only `LIVE` version, the type is marked as deprecated. Enable the resource `lifecycle` configuration block `create_before_destroy` argument in this resource configuration to properly order redeployments in Terraform."
     }
   ],
+  "website/docs/r/cloudfront_distribution.html.markdown": [
+    {
+      "old": "* `origin_access_control_id` (Optional) - The unique identifier of a [CloudFront origin access control][8] for this origin.",
+      "new": "* `origin_access_control_id` (Optional) - The unique identifier of a CloudFront origin access control for this origin."
+    },
+    {
+      "old": "* `origin_access_identity` (Required) - The [CloudFront origin access identity][5] to associate with the origin.",
+      "new": "* `origin_access_identity` (Required) - The CloudFront origin access identity to associate with the origin."
+    },
+    {
+      "old": "[3]: http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html"
+    },
+    {
+      "old": "[5]: /docs/providers/aws/r/cloudfront_origin_access_identity.html"
+    },
+    {
+      "old": "[8]: /docs/providers/aws/r/cloudfront_origin_access_control.html"
+    }
+  ],
   "website/docs/r/cloudfront_origin_access_control.html.markdown": [
     {
       "old": "  Terraform resource for managing an AWS CloudFront Origin Access Control.",
       "new": "  Resource for managing an AWS CloudFront Origin Access Control."
+    }
+  ],
+  "website/docs/r/cloudfront_origin_access_identity.html.markdown": [
+    {
+      "old": "[3]: /docs/providers/aws/r/cloudfront_distribution.html\n[4]: /docs/providers/aws/r/s3_bucket.html"
+    },
+    {
+      "old": "[`aws_cloudfront_distribution`][3] resource:",
+      "new": "`aws_cloudfront_distribution` resource:"
     }
   ],
   "website/docs/r/cloudsearch_domain.html.markdown": [
@@ -478,6 +560,11 @@
     {
       "old": "* `name` - (Optional, Forces new resource) The name of the DB subnet group. If omitted, Terraform will assign a random, unique name.",
       "new": "* `name` - (Optional, Forces new resource) The name of the DB subnet group. If omitted, this provider will assign a random, unique name."
+    }
+  ],
+  "website/docs/r/default_route_table.html.markdown": [
+    {
+      "old": "\n[aws-route-tables]: http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html#Route_Replacing_Main_Table\n[tf-route-tables]: /docs/providers/aws/r/route_table.html\n[tf-main-route-table-association]: /docs/providers/aws/r/main_route_table_association.html"
     }
   ],
   "website/docs/r/default_vpc.html.markdown": [
@@ -693,6 +780,11 @@
       "new": "!> **WARNING:** With the retirement of EC2-Classic the `aws_elasticache_security_group` resource has been deprecated and will be removed in a future version."
     }
   ],
+  "website/docs/r/elasticache_user.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the username and passwords will be stored in the raw state as plain-text.\nRead more about sensitive data in state.\n"
+    }
+  ],
   "website/docs/r/elasticache_user_group_association.html.markdown": [
     {
       "old": "~> **NOTE:** Terraform will detect changes in the `aws_elasticache_user_group` since `aws_elasticache_user_group_association` changes the user IDs associated with the user group. You can ignore these changes with the `lifecycle` `ignore_changes` meta argument as shown in the example.",
@@ -787,6 +879,23 @@
       "new": "~> **NOTE on user management:** Using `aws_iam_group_membership` or `aws_iam_user_group_membership` resources in addition to manually managing user/group membership using the console may lead to configuration drift or conflicts. For this reason, it's recommended to either manage membership entirely with the provider or entirely within the AWS console."
     }
   ],
+  "website/docs/r/iam_group_membership.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/r/iam_group.html\n[2]: /docs/providers/aws/r/iam_user.html\n[3]: /docs/providers/aws/r/iam_user_group_membership.html"
+    },
+    {
+      "old": "[IAM Users][2]",
+      "new": "IAM Users"
+    },
+    {
+      "old": "[`aws_iam_user_group_membership` resource][3].",
+      "new": "`aws_iam_user_group_membership` resource."
+    },
+    {
+      "old": "more information on managing IAM Groups or IAM Users, see [IAM Groups][1] or",
+      "new": "more information on managing IAM Groups or IAM Users, see IAM Groups or"
+    }
+  ],
   "website/docs/r/iam_group_policy.html.markdown": [
     {
       "old": "* `name` - (Optional) The name of the policy. If omitted, Terraform will",
@@ -857,12 +966,41 @@
       "new": "  path in this value. If omitted, this provider will assign a random, unique name."
     },
     {
+      "old": "[lifecycle]: /docs/configuration/resources.html"
+    },
+    {
       "old": "in use. In order for Terraform to effectively manage a Certificate in this situation, it is",
       "new": "in use. In order for the provider to effectively manage a Certificate in this situation, it is"
     },
     {
       "old": "~> **NOTE:** AWS performs behind-the-scenes modifications to some certificate files if they do not adhere to a specific format. These modifications will result in terraform forever believing that it needs to update the resources since the local and AWS file contents will not match after theses modifications occur. In order to prevent this from happening you must ensure that all your PEM-encoded files use UNIX line-breaks and that `certificate_body` contains only one certificate. All other certificates should go in `certificate_chain`. It is common for some Certificate Authorities to issue certificate files that have DOS line-breaks and that are actually multiple certificates concatenated together in order to form a full certificate chain.",
       "new": "~> **NOTE:** AWS performs behind-the-scenes modifications to some certificate files if they do not adhere to a specific format. These modifications will result in this provider forever believing that it needs to update the resources since the local and AWS file contents will not match after theses modifications occur. In order to prevent this from happening you must ensure that all your PEM-encoded files use UNIX line-breaks and that `certificate_body` contains only one certificate. All other certificates should go in `certificate_chain`. It is common for some Certificate Authorities to issue certificate files that have DOS line-breaks and that are actually multiple certificates concatenated together in order to form a full certificate chain."
+    }
+  ],
+  "website/docs/r/iam_signing_certificate.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the certificate body will be stored in the raw state as plain-text.\nRead more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/iam_user_group_membership.html.markdown": [
+    {
+      "old": "* `groups` - (Required) A list of [IAM Groups][1] to add the user to",
+      "new": "* `groups` - (Required) A list of IAM Groups to add the user to"
+    },
+    {
+      "old": "* `user` - (Required) The name of the [IAM User][2] to add to groups",
+      "new": "* `user` - (Required) The name of the IAM User to add to groups"
+    },
+    {
+      "old": "Provides a resource for adding an [IAM User][2] to [IAM Groups][1]. This",
+      "new": "Provides a resource for adding an IAM User to IAM Groups. This"
+    },
+    {
+      "old": "[1]: /docs/providers/aws/r/iam_group.html\n[2]: /docs/providers/aws/r/iam_user.html\n[3]: /docs/providers/aws/r/iam_group_membership.html\n"
+    },
+    {
+      "old": "[`aws_iam_group_membership` resource][3].",
+      "new": "`aws_iam_group_membership` resource."
     }
   ],
   "website/docs/r/iam_user_login_profile.html.markdown": [
@@ -882,6 +1020,11 @@
     {
       "old": "* `policy` - (Required) The policy document. This is a JSON formatted string. For more information about building AWS IAM policy documents with Terraform, see the AWS IAM Policy Document Guide.",
       "new": "* `policy` - (Required) The policy document. This is a JSON formatted string."
+    }
+  ],
+  "website/docs/r/iam_virtual_mfa_device.html.markdown": [
+    {
+      "old": "~> **Note:** All attributes will be stored in the raw state as plain-text.\nRead more about sensitive data in state.\n"
     }
   ],
   "website/docs/r/identitystore_group.html.markdown": [
@@ -1132,7 +1275,21 @@
       "new": "-> **Note** When using `aws_launch_configuration` with `aws_autoscaling_group`, it is recommended to use the `name_prefix` (Optional) instead of the `name` (Optional) attribute."
     },
     {
+      "old": "[1]: /docs/providers/aws/r/autoscaling_group.html"
+    },
+    {
       "old": "[2]: https://www.terraform.io/docs/configuration/meta-arguments/lifecycle.html"
+    },
+    {
+      "old": "[3]: /docs/providers/aws/r/spot_instance_request.html"
+    },
+    {
+      "old": "it's recommended to specify `create_before_destroy` in a [lifecycle][2] block.",
+      "new": "it's recommended to specify `create_before_destroy` in a lifecycle block."
+    },
+    {
+      "old": "use a Launch Configuration resource with an [AutoScaling Group resource][1],",
+      "new": "use a Launch Configuration resource with an AutoScaling Group resource,"
     }
   ],
   "website/docs/r/launch_template.html.markdown": [
@@ -1187,8 +1344,19 @@
   ],
   "website/docs/r/main_route_table_association.html.markdown": [
     {
+      "old": "\n[aws-route-tables]: http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html#Route_Replacing_Main_Table\n[tf-route-tables]: /docs/providers/aws/r/route_table.html\n[tf-default-route-table]: /docs/providers/aws/r/default_route_table.html"
+    },
+    {
+      "old": "* `original_route_table_id` - Used internally, see __Notes__ below",
+      "new": "* `original_route_table_id` - Used internally, see **Notes** below"
+    },
+    {
       "old": "For more information, see the Amazon VPC User Guide on [Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html). For information about managing normal route tables in Terraform, see `aws_route_table`.",
       "new": "For more information, see the Amazon VPC User Guide on [Route Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html). For information about managing normal route tables in the provider, see `aws_route_table`."
+    },
+    {
+      "old": "~> **NOTE:** **Do not** use both `aws_default_route_table` to manage a default route table **and** `aws_main_route_table_association` with the same VPC due to possible route conflicts. See [aws_default_route_table][tf-default-route-table] documentation for more details.",
+      "new": "~> **NOTE:** **Do not** use both `aws_default_route_table` to manage a default route table **and** `aws_main_route_table_association` with the same VPC due to possible route conflicts. See aws_default_route_table documentation for more details."
     }
   ],
   "website/docs/r/medialive_input.html.markdown": [
@@ -1273,6 +1441,11 @@
       "new": "* `name` - (Optional, Forces new resource) Name of the subnet group. If omitted, the provider will assign a random, unique name. Conflicts with `name_prefix`."
     }
   ],
+  "website/docs/r/memorydb_user.html.markdown": [
+    {
+      "old": "~> **Note:** All arguments including the username and passwords will be stored in the raw state as plain-text.\nRead more about sensitive data in state.\n"
+    }
+  ],
   "website/docs/r/msk_scram_secret_association.html.markdown": [
     {
       "old": "however, this policy will not be in terraform and as such, will present a diff on plan/apply. For that reason, you must use the `aws_secretsmanager_secret_policy`",
@@ -1286,6 +1459,10 @@
     }
   ],
   "website/docs/r/neptune_cluster_instance.html.markdown": [
+    {
+      "old": "You can simply add neptune instances and Neptune manages the replication. You can use the [count][1]",
+      "new": "You can simply add neptune instances and Neptune manages the replication. You can use the count"
+    },
     {
       "old": "[1]: https://www.terraform.io/docs/configuration/meta-arguments/count.html"
     }
@@ -1416,7 +1593,14 @@
   ],
   "website/docs/r/rds_cluster_instance.html.markdown": [
     {
+      "old": "[3]: /docs/providers/aws/r/rds_cluster.html"
+    },
+    {
       "old": "[5]: https://www.terraform.io/docs/configuration/meta-arguments/count.html"
+    },
+    {
+      "old": "attributes that are specific to a single instance in a [RDS Cluster][3],",
+      "new": "attributes that are specific to a single instance in a RDS Cluster,"
     }
   ],
   "website/docs/r/rds_global_cluster.html.markdown": [
@@ -2017,6 +2201,15 @@
       "new": "~> **NOTE on VPC Endpoints and VPC Endpoint Security Group Associations:** The provider provides"
     }
   ],
+  "website/docs/r/vpc_peering_connection.html.markdown": [
+    {
+      "old": "\n[1]: /docs/providers/aws/index.html"
+    },
+    {
+      "old": "   Defaults to the account ID the [AWS provider][1] is currently connected to.",
+      "new": "   Defaults to the account ID the AWS provider is currently connected to."
+    }
+  ],
   "website/docs/r/vpn_connection.html.markdown": [
     {
       "old": "    Name = \"terraform_ipsec_vpn_example\"",
@@ -2029,6 +2222,15 @@
     {
       "old": "  name            = \"terraform_ipsec_vpn_example\"",
       "new": "  name            = \"example_ipsec_vpn_example\""
+    }
+  ],
+  "website/docs/r/wafv2_web_acl_association.html.markdown": [
+    {
+      "old": "[2]: /docs/providers/aws/r/cloudfront_distribution.html#web_acl_id"
+    },
+    {
+      "old": "~> **NOTE on associating a WAFv2 Web ACL with a Cloudfront distribution:** Do not use this resource to associate a WAFv2 Web ACL with a Cloudfront Distribution. The [AWS API call backing this resource][1] notes that you should use the [`web_acl_id`][2] property on the [`cloudfront_distribution`][2] instead.",
+      "new": "~> **NOTE on associating a WAFv2 Web ACL with a Cloudfront distribution:** Do not use this resource to associate a WAFv2 Web ACL with a Cloudfront Distribution. The [AWS API call backing this resource][1] notes that you should use the [`web_acl_id`][2] property on the `cloudfront_distribution` instead."
     }
   ]
 }
