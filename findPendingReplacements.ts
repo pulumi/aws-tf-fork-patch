@@ -27,7 +27,7 @@ export function findFileReplacements(content: string): LineReplacement[] {
     .split(EOL)
     .filter(
       (line) =>
-        line.match(/(terraform)|(hashicorp)/i) !== null &&
+        line.match(/(terraform)|(hashicorp)|("tf_)/i) !== null &&
         !line.startsWith("```terraform") &&
         !line.startsWith(" ```terraform") &&
         !line.startsWith("$ terraform import") &&
@@ -46,6 +46,9 @@ function buildSuggestion(line: string): string {
   }
   if (line.match(/hashicorp/i)) {
     return line.replaceAll(/hashicorp/gi, "TODO");
+  }
+  if (line.match(/"tf_/)) {
+    return line.replaceAll(/"tf_/gi, `"my_`);
   }
   return line;
 }

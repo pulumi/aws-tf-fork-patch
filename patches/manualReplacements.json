@@ -23,6 +23,24 @@
       "new": "    Data source for managing an AWS AppConfig Environments."
     }
   ],
+  "website/docs/d/backup_framework.html.markdown": [
+    {
+      "old": "  name = \"tf_example_backup_framework_name\"",
+      "new": "  name = \"my_example_backup_framework_name\""
+    }
+  ],
+  "website/docs/d/backup_plan.html.markdown": [
+    {
+      "old": "  plan_id = \"tf_example_backup_plan_id\"",
+      "new": "  plan_id = \"my_example_backup_plan_id\""
+    }
+  ],
+  "website/docs/d/backup_report_plan.html.markdown": [
+    {
+      "old": "  name = \"tf_example_backup_report_plan_name\"",
+      "new": "  name = \"my_example_backup_report_plan_name\""
+    }
+  ],
   "website/docs/d/cloudfront_origin_access_identity.html.markdown": [],
   "website/docs/d/default_tags.markdown": [
     {
@@ -303,6 +321,22 @@
       "new": "* `mesh_owner` - (Optional) AWS account ID of the service mesh's owner. Defaults to the account ID the AWS provider is currently connected to."
     }
   ],
+  "website/docs/r/appsync_datasource.html.markdown": [
+    {
+      "old": "  name                = \"tf_appsync_example\"",
+      "new": "  name                = \"my_appsync_example\""
+    },
+    {
+      "old": "  name             = \"tf_appsync_example\"",
+      "new": "  name             = \"my_appsync_example\""
+    }
+  ],
+  "website/docs/r/appsync_resolver.html.markdown": [
+    {
+      "old": "  name   = \"tf_example\"",
+      "new": "  name   = \"my_example\""
+    }
+  ],
   "website/docs/r/athena_database.html.markdown": [
     {
       "old": "Certain resource arguments, like `encryption_configuration` and `bucket`, do not have an API method for reading the information after creation. If the argument is set in the Terraform configuration on an imported resource, Terraform will always show a difference. To workaround this behavior, either omit the argument from the Terraform configuration or use `ignore_changes` to hide the difference, e.g.,",
@@ -353,10 +387,36 @@
       "old": "> **Hands-on:** Try the Manage AWS Auto Scaling Groups tutorial on HashiCorp Learn."
     }
   ],
+  "website/docs/r/backup_plan.html.markdown": [
+    {
+      "old": "    rule_name         = \"tf_example_backup_rule\"",
+      "new": "    rule_name         = \"my_example_backup_rule\""
+    },
+    {
+      "old": "  name = \"tf_example_backup_plan\"",
+      "new": "  name = \"my_example_backup_plan\""
+    }
+  ],
+  "website/docs/r/backup_selection.html.markdown": [
+    {
+      "old": "  name         = \"tf_example_backup_selection\"",
+      "new": "  name         = \"my_example_backup_selection\""
+    }
+  ],
   "website/docs/r/batch_compute_environment.html.markdown": [
     {
       "old": "* `compute_environment_name` - (Optional, Forces new resource) The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed. If omitted, Terraform will assign a random, unique name.",
       "new": "* `compute_environment_name` - (Optional, Forces new resource) The name for your compute environment. Up to 128 letters (uppercase and lowercase), numbers, and underscores are allowed. If omitted, the provider will assign a random, unique name."
+    }
+  ],
+  "website/docs/r/batch_job_definition.html.markdown": [
+    {
+      "old": "  name               = \"tf_test_batch_exec_role\"",
+      "new": "  name               = \"my_test_batch_exec_role\""
+    },
+    {
+      "old": "  name = \"tf_test_batch_job_definition\"",
+      "new": "  name = \"my_test_batch_job_definition\""
     }
   ],
   "website/docs/r/cloudcontrolapi_resource.html.markdown": [
@@ -724,6 +784,19 @@
       "new": "You can utilize the generic resource lifecycle configuration block with `ignore_changes` to create an ECS service with an initial count of running instances, then ignore any changes to that count caused externally (e.g. Application Autoscaling)."
     }
   ],
+  "website/docs/r/eip.html.markdown": [
+    {
+      "old": "  subnet_id  = aws_subnet.tf_test_subnet.id",
+      "new": "  subnet_id  = aws_subnet.my_test_subnet.id"
+    },
+    {
+      "old": "[1]: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AssociateAddress.html"
+    },
+    {
+      "old": "resource \"aws_subnet\" \"tf_test_subnet\" {",
+      "new": "resource \"aws_subnet\" \"my_test_subnet\" {"
+    }
+  ],
   "website/docs/r/eks_cluster.html.markdown": [
     {
       "old": "* `kubernetes_network_config` - (Optional) Configuration block with kubernetes network configuration for the cluster. Detailed below. If removed, Terraform will only perform drift detection if a configuration value is provided.",
@@ -762,6 +835,21 @@
     {
       "old": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. Terraform will only perform drift detection if a configuration value is provided.",
       "new": "* `version` – (Optional) Kubernetes version. Defaults to EKS Cluster Kubernetes version. The provider will only perform drift detection if a configuration value is provided."
+    }
+  ],
+  "website/docs/r/elastic_beanstalk_application.html.markdown": [
+    {
+      "old": "$ terraform import aws_elastic_beanstalk_application.tf_test tf-test-name",
+      "new": "$ terraform import aws_elastic_beanstalk_application.my_test tf-test-name"
+    }
+  ],
+  "website/docs/r/elastic_beanstalk_configuration_template.html.markdown": [
+    {
+      "old": "[1]: https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html"
+    },
+    {
+      "old": "resource \"aws_elastic_beanstalk_configuration_template\" \"tf_template\" {",
+      "new": "resource \"aws_elastic_beanstalk_configuration_template\" \"my_template\" {"
     }
   ],
   "website/docs/r/elasticache_global_replication_group.html.markdown": [
@@ -819,6 +907,12 @@
       "new": "  Resource for managing SAML authentication options for an AWS Elasticsearch Domain."
     }
   ],
+  "website/docs/r/elastictranscoder_pipeline.html.markdown": [
+    {
+      "old": "  name         = \"aws_elastictranscoder_pipeline_tf_test_\"",
+      "new": "  name         = \"aws_elastictranscoder_pipeline_my_test_\""
+    }
+  ],
   "website/docs/r/emr_cluster.html.markdown": [
     {
       "old": "* `additional_info` - (Optional) JSON string for selecting additional features such as adding proxy information. Note: Currently there is no API to retrieve the value of this argument after EMR cluster creation from provider, therefore Terraform cannot detect drift from the actual EMR cluster if its value is changed outside Terraform.",
@@ -827,6 +921,12 @@
     {
       "old": "Since the API does not return the actual values for Kerberos configurations, environments with those Terraform configurations will need to use the `lifecycle` configuration block `ignore_changes` argument available to all Terraform resources to prevent perpetual differences, e.g.,",
       "new": "Since the API does not return the actual values for Kerberos configurations, environments with those configurations will need to use the  `ignore_changes` option available to all resources to prevent perpetual differences, e.g.,"
+    }
+  ],
+  "website/docs/r/emr_security_configuration.html.markdown": [
+    {
+      "old": "        \"AwsKmsKey\": \"arn:aws:kms:us-west-2:187416307283:alias/tf_emr_test_key\"",
+      "new": "        \"AwsKmsKey\": \"arn:aws:kms:us-west-2:187416307283:alias/my_emr_test_key\""
     }
   ],
   "website/docs/r/fsx_file_cache.html.markdown": [
@@ -1469,6 +1569,9 @@
   ],
   "website/docs/r/network_acl.html.markdown": [
     {
+      "old": "  This argument is processed in attribute-as-blocks mode."
+    },
+    {
       "old": "~> **NOTE on Network ACLs and Network ACL Associations:** Terraform provides both a standalone network ACL association",
       "new": "~> **NOTE on Network ACLs and Network ACL Associations:** the provider provides both a standalone network ACL association"
     }
@@ -1535,6 +1638,11 @@
       "new": "  Resource for managing SAML authentication options for an AWS OpenSearch Domain."
     }
   ],
+  "website/docs/r/opsworks_rds_db_instance.html.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
   "website/docs/r/opsworks_stack.html.markdown": [
     {
       "old": "* `password` - (Optional) Password to use when authenticating to the source. Terraform cannot perform drift detection of this configuration.",
@@ -1549,6 +1657,41 @@
     {
       "old": "* `create_govcloud` - (Optional) Whether to also create a GovCloud account. The GovCloud account is tied to the main (commercial) account this resource creates. If `true`, the GovCloud account ID is available in the `govcloud_id` attribute. The only way to manage the GovCloud account with Terraform is to subsequently import the account using this resource.",
       "new": "* `create_govcloud` - (Optional) Whether to also create a GovCloud account. The GovCloud account is tied to the main (commercial) account this resource creates. If `true`, the GovCloud account ID is available in the `govcloud_id` attribute. The only way to manage the GovCloud account with the provider is to subsequently import the account using this resource."
+    }
+  ],
+  "website/docs/r/pinpoint_adm_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/pinpoint_apns_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/pinpoint_apns_sandbox_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/pinpoint_apns_voip_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/pinpoint_apns_voip_sandbox_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/pinpoint_baidu_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
+    }
+  ],
+  "website/docs/r/pinpoint_gcm_channel.markdown": [
+    {
+      "old": "Read more about sensitive data in state.\n"
     }
   ],
   "website/docs/r/qldb_ledger.html.markdown": [
@@ -2222,6 +2365,24 @@
     {
       "old": "  name            = \"terraform_ipsec_vpn_example\"",
       "new": "  name            = \"example_ipsec_vpn_example\""
+    }
+  ],
+  "website/docs/r/waf_byte_match_set.html.markdown": [
+    {
+      "old": "  name = \"tf_waf_byte_match_set\"",
+      "new": "  name = \"my_waf_byte_match_set\""
+    }
+  ],
+  "website/docs/r/waf_regex_pattern_set.html.markdown": [
+    {
+      "old": "  name                  = \"tf_waf_regex_pattern_set\"",
+      "new": "  name                  = \"my_waf_regex_pattern_set\""
+    }
+  ],
+  "website/docs/r/wafregional_byte_match_set.html.markdown": [
+    {
+      "old": "  name = \"tf_waf_byte_match_set\"",
+      "new": "  name = \"my_waf_byte_match_set\""
     }
   ],
   "website/docs/r/wafv2_web_acl_association.html.markdown": [
