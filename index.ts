@@ -14,6 +14,7 @@ import { mergeReplacements } from "./mergeReplacements";
 import { sumBy } from "array-fns";
 import { promisify } from "util";
 import { exec, execSync, spawn } from "child_process";
+import { EOL } from "os";
 
 yargs(hideBin(process.argv))
   .command(
@@ -80,7 +81,7 @@ yargs(hideBin(process.argv))
     async (args) => {
       const existing = await readFile(args.path, "utf-8");
       const output = mergeReplacements(JSON.parse(existing), {});
-      await writeFile(args.path, JSON.stringify(output, null, 2));
+      await writeFile(args.path, JSON.stringify(output, null, 2) + EOL);
     }
   )
   .command(
@@ -104,7 +105,7 @@ yargs(hideBin(process.argv))
       });
       const existing = await readFile(args.outFile, "utf-8");
       const output = mergeReplacements(JSON.parse(existing), replacements);
-      await writeFile(args.outFile, JSON.stringify(output, null, 2));
+      await writeFile(args.outFile, JSON.stringify(output, null, 2) + EOL);
       const totalReplacements = sumBy(
         Object.entries(replacements),
         ([_, v]) => v.length
@@ -130,7 +131,7 @@ yargs(hideBin(process.argv))
       }
       const existing = await readFile(args.outFile, "utf-8");
       const output = mergeReplacements(JSON.parse(existing), replacements);
-      await writeFile(args.outFile, JSON.stringify(output, null, 2));
+      await writeFile(args.outFile, JSON.stringify(output, null, 2) + EOL);
       const totalReplacements = sumBy(
         Object.entries(replacements),
         ([_, v]) => v.length
