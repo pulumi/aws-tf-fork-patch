@@ -50,8 +50,19 @@ export async function applyDocsManualReplacements(ctx: PatchContext) {
       await writeFile(filePath, replaced);
     }
     if (unmatched.length > 0) {
-      console.warn("Missed replacements in", join(ctx.dir, file), ":");
-      console.warn(unmatched.map((m) => m.old).join(EOL));
+      console.log(`Replacements not applied in ${join(ctx.dir, file)}:`);
+      console.log(
+        unmatched
+          .map((m) => {
+            const old = " - " + JSON.stringify(m.old);
+            if (m.new !== undefined) {
+              return old + EOL + " + " + JSON.stringify(m.new);
+            }
+            return old;
+          })
+          .join(EOL + "~" + EOL)
+      );
+      console.log();
     }
     if (!replaced.includes("Terraform")) {
       continue;
@@ -86,7 +97,10 @@ function tryReplace(
         replacement.new ?? ""
       );
       if (replaced === newReplacement) {
-        unmatched.push(replacement);
+        const trimmed = (replacement.new ?? "").trim();
+        if (trimmed === "" || !replaced.includes(trimmed)) {
+          unmatched.push(replacement);
+        }
       }
       replaced = newReplacement;
     }
