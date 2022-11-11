@@ -2,7 +2,7 @@
 
 import { resolve } from "path";
 import { access, readFile, writeFile } from "fs/promises";
-import { constants } from "fs";
+import { constants, existsSync } from "fs";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { PatchContext } from "./config";
@@ -12,8 +12,7 @@ import { extractDocsReplacements } from "./extractDocsPatch";
 import { findPendingReplacements } from "./findPendingReplacements";
 import { mergeReplacements } from "./mergeReplacements";
 import { sumBy } from "array-fns";
-import { promisify } from "util";
-import { exec, execSync, spawn } from "child_process";
+import { execSync } from "child_process";
 import { EOL } from "os";
 
 yargs(hideBin(process.argv))
@@ -22,6 +21,24 @@ yargs(hideBin(process.argv))
     "Apply AWS TF fork patches onto working directory",
     {
       cwd: { desc: "Target directory", default: "." },
+      "pre-automated-replacements": {
+        desc: "Output replacement file path. Defaults to pre-replacements.json if it exists",
+        type: "string",
+      },
+      replacements: {
+        desc: "Replacements source file path",
+        default: "replacements.json",
+      },
+      "skip-link-stripping": {
+        desc: "Disable auto-stripping of links from docs",
+        type: "boolean",
+        default: false,
+      },
+      "skip-gofmt": {
+        desc: "Disable auto-formatting after edits",
+        type: "boolean",
+        default: false,
+      },
     },
     async (args) => {
       const dir = resolve(args.cwd);
@@ -34,17 +51,32 @@ yargs(hideBin(process.argv))
       await patches.applyFileEdits(config);
       // Fix tags_all fields
       await patches.applyTagsAll(config);
-      // Special set of replacements derived from the original git diff
-      await patches.applyDocsPatchReplacements(config);
+      const defaultPreAutomatedReplacementsPath = "pre-replacements.json";
+      if (args.preAutomatedReplacements === undefined) {
+        if (existsSync(defaultPreAutomatedReplacementsPath)) {
+          args.preAutomatedReplacements = defaultPreAutomatedReplacementsPath;
+        }
+      }
+      if (args.preAutomatedReplacements !== undefined) {
+        // Special set of replacements derived from the original git diff
+        await patches.applyDocsReplacements(
+          config,
+          args.preAutomatedReplacements
+        );
+      }
       // Auto-strip TF & relative links
-      await patches.applyStripDocLinks(config);
+      if (!args.skipLinkStripping) {
+        await patches.applyStripDocLinks(config);
+      }
       // Apply manual replacements - anything the automated steps can't handle
       // These are generated using the suggest command
-      await patches.applyDocsManualReplacements(config);
+      await patches.applyDocsReplacements(config, args.replacements);
       // Apply overlays last as they shouldn't be modified
       await patches.applyOverlays(config);
-      // Reformat internal code
-      await patches.applyGoFmt(config);
+      if (!args.skipGofmt) {
+        // Reformat internal code
+        await patches.applyGoFmt(config);
+      }
 
       // Generate replacements
       // Format replacements
@@ -56,42 +88,48 @@ yargs(hideBin(process.argv))
     "parse-patch [file]",
     "Parse a patch file",
     {
-      file: { desc: "Patch file path", type: "string", demand: true },
-      outFile: {
-        desc: "Output replacement file path",
-        default: "patchReplacements.json",
+      "patch-path": { desc: "Patch file path", type: "string", demand: true },
+      "replacements-path": {
+        desc: "Path to replacements file to format",
+        default: "replacements.json",
       },
     },
     async (args) => {
-      const content = await readFile(args.file, "utf-8");
+      const content = await readFile(args.patchPath, "utf-8");
       const patch = parseGitPatch(content);
       const replacement = extractDocsReplacements(patch);
-      await writeFile(args.outFile, JSON.stringify(replacement, null, 2));
+      await writeFile(
+        args.replacementsPath,
+        JSON.stringify(replacement, null, 2)
+      );
     }
   )
   .command(
-    "format-replacements",
+    "format",
     "Sort and de-duplicate a replacements file",
     {
-      path: {
-        desc: "Output suggestions file path",
-        default: "patches/manualReplacements.json",
+      "replacements-path": {
+        desc: "Path to replacements file to format",
+        default: "replacements.json",
       },
     },
     async (args) => {
-      const existing = await readFile(args.path, "utf-8");
+      const existing = await readFile(args.replacementsPath, "utf-8");
       const output = mergeReplacements(JSON.parse(existing), {});
-      await writeFile(args.path, JSON.stringify(output, null, 2) + EOL);
+      await writeFile(
+        args.replacementsPath,
+        JSON.stringify(output, null, 2) + EOL
+      );
     }
   )
   .command(
-    "add-working-docs",
-    "Adopt changes from working directory",
+    "adopt",
+    "Adopt changes from working directory. Supports line replacements and deletions.",
     {
       cwd: { desc: "Target directory", default: "." },
-      outFile: {
-        desc: "Output suggestions file path",
-        default: "patches/manualReplacements.json",
+      "replacements-path": {
+        desc: "Path to replacements file to append to",
+        default: "replacements.json",
       },
     },
     async (args) => {
@@ -103,24 +141,36 @@ yargs(hideBin(process.argv))
       const replacements = extractDocsReplacements(patch, {
         includeAllChanges: true,
       });
-      const existing = await readFile(args.outFile, "utf-8");
+      const existing = await readFile(args.replacementsPath, "utf-8");
       const output = mergeReplacements(JSON.parse(existing), replacements);
-      await writeFile(args.outFile, JSON.stringify(output, null, 2) + EOL);
+      await writeFile(
+        args.replacementsPath,
+        JSON.stringify(output, null, 2) + EOL
+      );
       const totalReplacements = sumBy(
         Object.entries(replacements),
         ([_, v]) => v.length
       );
-      console.log(totalReplacements, "new replacements added to", args.outFile);
+      console.log(
+        totalReplacements,
+        "new replacements added to",
+        args.replacementsPath
+      );
     }
   )
   .command(
-    "suggest",
-    "Suggest pending replacements",
+    "check",
+    "Check for pending replacements",
     {
       cwd: { desc: "Target directory", default: "." },
-      outFile: {
-        desc: "Output suggestions file path",
-        default: "patches/manualReplacements.json",
+      "replacements-path": {
+        desc: "Path to replacements file to append to",
+        default: "replacements.json",
+      },
+      "write-to-stdout": {
+        desc: "Write new replacements to stdout instead of merging them to the replacements-path",
+        type: "boolean",
+        default: false,
       },
     },
     async (args) => {
@@ -129,14 +179,28 @@ yargs(hideBin(process.argv))
         console.log("No replacements needed");
         return;
       }
-      const existing = await readFile(args.outFile, "utf-8");
-      const output = mergeReplacements(JSON.parse(existing), replacements);
-      await writeFile(args.outFile, JSON.stringify(output, null, 2) + EOL);
-      const totalReplacements = sumBy(
-        Object.entries(replacements),
-        ([_, v]) => v.length
-      );
-      console.log(totalReplacements, "new replacements added to", args.outFile);
+      const existing = await readFile(args.replacementsPath, "utf-8");
+      if (args.writeToStdout) {
+        console.log(JSON.stringify(replacements, null, 2));
+      } else {
+        const output = mergeReplacements(JSON.parse(existing), replacements);
+        await writeFile(
+          args.replacementsPath,
+          JSON.stringify(output, null, 2) + EOL
+        );
+        const totalReplacements = sumBy(
+          Object.entries(replacements),
+          ([_, v]) => v.length
+        );
+        console.log(
+          totalReplacements,
+          "new replacements added to",
+          args.replacementsPath
+        );
+        console.log(
+          `Search for "TODO" and substitute for an appropriate replacement.`
+        );
+      }
     }
   )
   .demandCommand()

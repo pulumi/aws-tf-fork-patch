@@ -4,11 +4,14 @@ import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
 import { EOL } from "os";
 
-export async function applyDocsPatchReplacements(ctx: PatchContext) {
-  const replacements = await readPatchReplacements();
-  const suggestions: DocsReplacements = {};
+export async function applyDocsReplacements(
+  ctx: PatchContext,
+  replacementsPath: string
+) {
+  const replacements = await readReplacements(replacementsPath);
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
   for (const file of files) {
+    // Skip index - we don't use this in docs gen.
     if (file === "website/docs/index.html.markdown") {
       continue;
     }
@@ -19,61 +22,8 @@ export async function applyDocsPatchReplacements(ctx: PatchContext) {
       await writeFile(filePath, replaced);
     }
     if (unmatched.length > 0) {
-      console.warn("Missed replacements in", join(ctx.dir, file), ":");
-      console.warn(unmatched.map((m) => m.old).join(EOL));
+      printUnmatched(ctx, file, unmatched);
     }
-    if (!replaced.includes("Terraform")) {
-      continue;
-    }
-  }
-  if (Object.keys(suggestions).length > 0) {
-    writeFile(
-      "suggestedReplacements.json",
-      JSON.stringify(suggestions, null, 2) + EOL
-    );
-    console.log(`"Terraform" found in docs, see suggestedReplacements.json`);
-  }
-}
-
-export async function applyDocsManualReplacements(ctx: PatchContext) {
-  const replacements = await readManualReplacements();
-  const suggestions: DocsReplacements = {};
-  const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
-  for (const file of files) {
-    if (file === "website/docs/index.html.markdown") {
-      continue;
-    }
-    const filePath = join(ctx.dir, file);
-    const content = await readFile(filePath, { encoding: "utf-8" });
-    const { replaced, unmatched } = tryReplace(replacements, file, content);
-    if (replaced != content) {
-      await writeFile(filePath, replaced);
-    }
-    if (unmatched.length > 0) {
-      console.log(`Replacements not applied in ${join(ctx.dir, file)}:`);
-      console.log(
-        unmatched
-          .map((m) => {
-            const old = " - " + JSON.stringify(m.old);
-            if (m.new !== undefined) {
-              return old + EOL + " + " + JSON.stringify(m.new);
-            }
-            return old;
-          })
-          .join(EOL + "~" + EOL)
-      );
-      console.log();
-    }
-    if (!replaced.includes("Terraform")) {
-      continue;
-    }
-  }
-  if (Object.keys(suggestions).length > 0) {
-    writeFile(
-      "suggestedReplacements.json",
-      JSON.stringify(suggestions, null, 2) + EOL
-    );
-    console.log(`"Terraform" found in docs, see suggestedReplacements.json`);
   }
 }
 
@@ -117,11 +67,27 @@ export type LineReplacement = {
 
 export type DocsReplacements = Record<string, LineReplacement[]>;
 
-async function readPatchReplacements(): Promise<DocsReplacements> {
-  const patchReplacements = await import("./patchReplacements.json");
-  return patchReplacements.default;
+async function readReplacements(path: string): Promise<DocsReplacements> {
+  const patchReplacements = await readFile(path, "utf-8");
+  return JSON.parse(patchReplacements);
 }
-async function readManualReplacements(): Promise<DocsReplacements> {
-  const manualReplacements = await import("./manualReplacements.json");
-  return manualReplacements.default;
+
+function printUnmatched(
+  ctx: PatchContext,
+  file: string,
+  unmatched: LineReplacement[]
+) {
+  console.log(`Replacements not applied in ${join(ctx.dir, file)}:`);
+  console.log(
+    unmatched
+      .map((m) => {
+        const old = " - " + JSON.stringify(m.old);
+        if (m.new !== undefined) {
+          return old + EOL + " + " + JSON.stringify(m.new);
+        }
+        return old;
+      })
+      .join(EOL + "~" + EOL)
+  );
+  console.log();
 }
