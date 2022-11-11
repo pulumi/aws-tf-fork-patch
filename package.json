@@ -1,10 +1,11 @@
 {
-  "name": "aws-tf-fork-patch",
+  "name": "tf-patch",
   "version": "1.0.0",
   "repository": "https://github.com/pulumi/aws-tf-fork-patch",
   "license": "MIT",
-  "private": true,
+  "bin": "cmd/index.js",
   "scripts": {
+    "build": "ncc build index.ts -o cmd",
     "start": "ts-node index.ts",
     "apply": "ts-node index.ts apply",
     "suggest": "ts-node index.ts suggest",
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/node": "^18.11.0",
     "@types/yargs": "^17.0.13",
+    "@vercel/ncc": "^0.34.0",
     "prettier": "^2.7.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
