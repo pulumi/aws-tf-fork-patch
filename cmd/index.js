@@ -10409,7 +10409,7 @@ const array_fns_1 = __nccwpck_require__(6085);
 const child_process_1 = __nccwpck_require__(2081);
 const os_1 = __nccwpck_require__(2037);
 (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
-    .command("apply [options]", "Apply AWS TF fork patches onto working directory", {
+    .command("apply", "Apply AWS TF fork patches onto working directory", {
     cwd: { desc: "Target directory", default: "." },
     "pre-automated-replacements": {
         desc: "Output replacement file path. Defaults to pre-replacements.json if it exists",
@@ -10467,49 +10467,6 @@ const os_1 = __nccwpck_require__(2037);
     // TODO: make better suggestions - e.g. 3 words each side
     // TODO: Apply replacements ignoring line breaks
 }))
-    .command("parse-patch [file]", "Parse a patch file", {
-    "patch-path": { desc: "Patch file path", type: "string", demand: true },
-    "replacements-path": {
-        desc: "Path to replacements file to format",
-        default: "replacements.json",
-    },
-}, (args) => __awaiter(void 0, void 0, void 0, function* () {
-    const content = yield (0, promises_1.readFile)(args.patchPath, "utf-8");
-    const patch = (0, parseGitPatch_1.parseGitPatch)(content);
-    const replacement = (0, extractDocsPatch_1.extractDocsReplacements)(patch);
-    yield (0, promises_1.writeFile)(args.replacementsPath, JSON.stringify(replacement, null, 2));
-}))
-    .command("format", "Sort and de-duplicate a replacements file", {
-    "replacements-path": {
-        desc: "Path to replacements file to format",
-        default: "replacements.json",
-    },
-}, (args) => __awaiter(void 0, void 0, void 0, function* () {
-    const existing = yield (0, promises_1.readFile)(args.replacementsPath, "utf-8");
-    const output = (0, mergeReplacements_1.mergeReplacements)(JSON.parse(existing), {});
-    yield (0, promises_1.writeFile)(args.replacementsPath, JSON.stringify(output, null, 2) + os_1.EOL);
-}))
-    .command("adopt", "Adopt changes from working directory. Supports line replacements and deletions.", {
-    cwd: { desc: "Target directory", default: "." },
-    "replacements-path": {
-        desc: "Path to replacements file to append to",
-        default: "replacements.json",
-    },
-}, (args) => __awaiter(void 0, void 0, void 0, function* () {
-    const content = (0, child_process_1.execSync)("git diff website", {
-        cwd: args.cwd,
-        encoding: "utf-8",
-    });
-    const patch = (0, parseGitPatch_1.parseGitPatch)(content);
-    const replacements = (0, extractDocsPatch_1.extractDocsReplacements)(patch, {
-        includeAllChanges: true,
-    });
-    const existing = yield (0, promises_1.readFile)(args.replacementsPath, "utf-8");
-    const output = (0, mergeReplacements_1.mergeReplacements)(JSON.parse(existing), replacements);
-    yield (0, promises_1.writeFile)(args.replacementsPath, JSON.stringify(output, null, 2) + os_1.EOL);
-    const totalReplacements = (0, array_fns_1.sumBy)(Object.entries(replacements), ([_, v]) => v.length);
-    console.log(totalReplacements, "new replacements added to", args.replacementsPath);
-}))
     .command("check", "Check for pending replacements", {
     cwd: { desc: "Target directory", default: "." },
     "replacements-path": {
@@ -10538,6 +10495,49 @@ const os_1 = __nccwpck_require__(2037);
         console.log(totalReplacements, "new replacements added to", args.replacementsPath);
         console.log(`Search for "TODO" and substitute for an appropriate replacement.`);
     }
+}))
+    .command("adopt", "Adopt changes from working directory. Supports line replacements and deletions.", {
+    cwd: { desc: "Target directory", default: "." },
+    "replacements-path": {
+        desc: "Path to replacements file to append to",
+        default: "replacements.json",
+    },
+}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    const content = (0, child_process_1.execSync)("git diff website", {
+        cwd: args.cwd,
+        encoding: "utf-8",
+    });
+    const patch = (0, parseGitPatch_1.parseGitPatch)(content);
+    const replacements = (0, extractDocsPatch_1.extractDocsReplacements)(patch, {
+        includeAllChanges: true,
+    });
+    const existing = yield (0, promises_1.readFile)(args.replacementsPath, "utf-8");
+    const output = (0, mergeReplacements_1.mergeReplacements)(JSON.parse(existing), replacements);
+    yield (0, promises_1.writeFile)(args.replacementsPath, JSON.stringify(output, null, 2) + os_1.EOL);
+    const totalReplacements = (0, array_fns_1.sumBy)(Object.entries(replacements), ([_, v]) => v.length);
+    console.log(totalReplacements, "new replacements added to", args.replacementsPath);
+}))
+    .command("format", "Sort and de-duplicate a replacements file", {
+    "replacements-path": {
+        desc: "Path to replacements file to format",
+        default: "replacements.json",
+    },
+}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    const existing = yield (0, promises_1.readFile)(args.replacementsPath, "utf-8");
+    const output = (0, mergeReplacements_1.mergeReplacements)(JSON.parse(existing), {});
+    yield (0, promises_1.writeFile)(args.replacementsPath, JSON.stringify(output, null, 2) + os_1.EOL);
+}))
+    .command("parse-patch [file]", "Parse a patch file", {
+    "patch-path": { desc: "Patch file path", type: "string", demand: true },
+    "replacements-path": {
+        desc: "Path to replacements file to format",
+        default: "replacements.json",
+    },
+}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    const content = yield (0, promises_1.readFile)(args.patchPath, "utf-8");
+    const patch = (0, parseGitPatch_1.parseGitPatch)(content);
+    const replacement = (0, extractDocsPatch_1.extractDocsReplacements)(patch);
+    yield (0, promises_1.writeFile)(args.replacementsPath, JSON.stringify(replacement, null, 2));
 }))
     .demandCommand()
     .strict()

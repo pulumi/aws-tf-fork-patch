@@ -17,7 +17,7 @@ import { EOL } from "os";
 
 yargs(hideBin(process.argv))
   .command(
-    "apply [options]",
+    "apply",
     "Apply AWS TF fork patches onto working directory",
     {
       cwd: { desc: "Target directory", default: "." },
@@ -85,80 +85,6 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
-    "parse-patch [file]",
-    "Parse a patch file",
-    {
-      "patch-path": { desc: "Patch file path", type: "string", demand: true },
-      "replacements-path": {
-        desc: "Path to replacements file to format",
-        default: "replacements.json",
-      },
-    },
-    async (args) => {
-      const content = await readFile(args.patchPath, "utf-8");
-      const patch = parseGitPatch(content);
-      const replacement = extractDocsReplacements(patch);
-      await writeFile(
-        args.replacementsPath,
-        JSON.stringify(replacement, null, 2)
-      );
-    }
-  )
-  .command(
-    "format",
-    "Sort and de-duplicate a replacements file",
-    {
-      "replacements-path": {
-        desc: "Path to replacements file to format",
-        default: "replacements.json",
-      },
-    },
-    async (args) => {
-      const existing = await readFile(args.replacementsPath, "utf-8");
-      const output = mergeReplacements(JSON.parse(existing), {});
-      await writeFile(
-        args.replacementsPath,
-        JSON.stringify(output, null, 2) + EOL
-      );
-    }
-  )
-  .command(
-    "adopt",
-    "Adopt changes from working directory. Supports line replacements and deletions.",
-    {
-      cwd: { desc: "Target directory", default: "." },
-      "replacements-path": {
-        desc: "Path to replacements file to append to",
-        default: "replacements.json",
-      },
-    },
-    async (args) => {
-      const content = execSync("git diff website", {
-        cwd: args.cwd,
-        encoding: "utf-8",
-      });
-      const patch = parseGitPatch(content);
-      const replacements = extractDocsReplacements(patch, {
-        includeAllChanges: true,
-      });
-      const existing = await readFile(args.replacementsPath, "utf-8");
-      const output = mergeReplacements(JSON.parse(existing), replacements);
-      await writeFile(
-        args.replacementsPath,
-        JSON.stringify(output, null, 2) + EOL
-      );
-      const totalReplacements = sumBy(
-        Object.entries(replacements),
-        ([_, v]) => v.length
-      );
-      console.log(
-        totalReplacements,
-        "new replacements added to",
-        args.replacementsPath
-      );
-    }
-  )
-  .command(
     "check",
     "Check for pending replacements",
     {
@@ -201,6 +127,80 @@ yargs(hideBin(process.argv))
           `Search for "TODO" and substitute for an appropriate replacement.`
         );
       }
+    }
+  )
+  .command(
+    "adopt",
+    "Adopt changes from working directory. Supports line replacements and deletions.",
+    {
+      cwd: { desc: "Target directory", default: "." },
+      "replacements-path": {
+        desc: "Path to replacements file to append to",
+        default: "replacements.json",
+      },
+    },
+    async (args) => {
+      const content = execSync("git diff website", {
+        cwd: args.cwd,
+        encoding: "utf-8",
+      });
+      const patch = parseGitPatch(content);
+      const replacements = extractDocsReplacements(patch, {
+        includeAllChanges: true,
+      });
+      const existing = await readFile(args.replacementsPath, "utf-8");
+      const output = mergeReplacements(JSON.parse(existing), replacements);
+      await writeFile(
+        args.replacementsPath,
+        JSON.stringify(output, null, 2) + EOL
+      );
+      const totalReplacements = sumBy(
+        Object.entries(replacements),
+        ([_, v]) => v.length
+      );
+      console.log(
+        totalReplacements,
+        "new replacements added to",
+        args.replacementsPath
+      );
+    }
+  )
+  .command(
+    "format",
+    "Sort and de-duplicate a replacements file",
+    {
+      "replacements-path": {
+        desc: "Path to replacements file to format",
+        default: "replacements.json",
+      },
+    },
+    async (args) => {
+      const existing = await readFile(args.replacementsPath, "utf-8");
+      const output = mergeReplacements(JSON.parse(existing), {});
+      await writeFile(
+        args.replacementsPath,
+        JSON.stringify(output, null, 2) + EOL
+      );
+    }
+  )
+  .command(
+    "parse-patch [file]",
+    "Parse a patch file",
+    {
+      "patch-path": { desc: "Patch file path", type: "string", demand: true },
+      "replacements-path": {
+        desc: "Path to replacements file to format",
+        default: "replacements.json",
+      },
+    },
+    async (args) => {
+      const content = await readFile(args.patchPath, "utf-8");
+      const patch = parseGitPatch(content);
+      const replacement = extractDocsReplacements(patch);
+      await writeFile(
+        args.replacementsPath,
+        JSON.stringify(replacement, null, 2)
+      );
     }
   )
   .demandCommand()
