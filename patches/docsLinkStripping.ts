@@ -93,14 +93,8 @@ export async function applyStripDocLinks(ctx: PatchContext) {
         return source;
       }
     );
-    // Remove inline references as we don't handle these properly downstream and they appear strangely.
-    // E.g. [some text][10] -> some text
-    const referenceReplaced = linkReplaced.replace(
-      /\[([\w\s]+)\]\[\d+\]/g,
-      "$1"
-    );
-    if (referenceReplaced != content) {
-      await writeFile(filePath, referenceReplaced);
+    if (linkReplaced != content) {
+      await writeFile(filePath, linkReplaced);
     }
   }
 }

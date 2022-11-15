@@ -10815,11 +10815,8 @@ function applyStripDocLinks(ctx) {
                 console.log("Unhandled link URL: ", href);
                 return source;
             });
-            // Remove inline references as we don't handle these properly downstream and they appear strangely.
-            // E.g. [some text][10] -> some text
-            const referenceReplaced = linkReplaced.replace(/\[([\w\s]+)\]\[\d+\]/g, "$1");
-            if (referenceReplaced != content) {
-                yield (0, promises_1.writeFile)(filePath, referenceReplaced);
+            if (linkReplaced != content) {
+                yield (0, promises_1.writeFile)(filePath, linkReplaced);
             }
         }
     });
