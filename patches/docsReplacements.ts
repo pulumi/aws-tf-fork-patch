@@ -3,16 +3,19 @@ import glob from "fast-glob";
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
 import { EOL } from "os";
+import ignore from "ignore";
 
 export async function applyDocsReplacements(
   ctx: PatchContext,
-  replacementsPath: string
+  replacementsPath: string,
+  ignores: string[]
 ) {
   const replacements = await readReplacements(replacementsPath);
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
   for (const file of files) {
+    const fileFilter = ignore().add(ignores);
     // Skip index - we don't use this in docs gen.
-    if (file === "website/docs/index.html.markdown") {
+    if (fileFilter.ignores(file)) {
       continue;
     }
     const filePath = join(ctx.dir, file);

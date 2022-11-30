@@ -15,7 +15,40 @@ import { sumBy } from "array-fns";
 import { execSync } from "child_process";
 import { EOL } from "os";
 
+const PatcherIgnoresPathDefault = ".patcher-ignores";
 yargs(hideBin(process.argv))
+  .command(
+    "replace",
+    "Apply docs replacements onto working directory",
+    {
+      cwd: { desc: "Target directory", default: "." },
+      replacements: {
+        desc: "Replacements source file path",
+        default: "replacements.json",
+      },
+      ignoresFile: {
+        desc: "Ignore file path",
+        default: PatcherIgnoresPathDefault,
+      },
+    },
+    async (args) => {
+      const dir = resolve(args.cwd);
+      // Fail fast if we don't have access
+      await access(dir, constants.W_OK | constants.R_OK);
+      const config: PatchContext = {
+        dir,
+      };
+
+      const ignores = await readIgnores(
+        args.ignoresFile,
+        args.ignoresFile !== PatcherIgnoresPathDefault
+      );
+
+      // Apply manual replacements - anything the automated steps can't handle
+      // These are generated using the suggest command
+      await patches.applyDocsReplacements(config, args.replacements, ignores);
+    }
+  )
   .command(
     "apply",
     "Apply AWS TF fork patches onto working directory",
@@ -61,7 +94,8 @@ yargs(hideBin(process.argv))
         // Special set of replacements derived from the original git diff
         await patches.applyDocsReplacements(
           config,
-          args.preAutomatedReplacements
+          args.preAutomatedReplacements,
+          ["website/docs/index.html.markdown"]
         );
       }
       // Auto-strip TF & relative links
@@ -70,7 +104,9 @@ yargs(hideBin(process.argv))
       }
       // Apply manual replacements - anything the automated steps can't handle
       // These are generated using the suggest command
-      await patches.applyDocsReplacements(config, args.replacements);
+      await patches.applyDocsReplacements(config, args.replacements, [
+        "website/docs/index.html.markdown",
+      ]);
       // Apply overlays last as they shouldn't be modified
       await patches.applyOverlays(config);
       if (!args.skipGofmt) {
@@ -207,3 +243,20 @@ yargs(hideBin(process.argv))
   .strict()
   .help()
   .parse();
+
+async function readIgnores(
+  ignoresFile: string,
+  require: boolean
+): Promise<string[]> {
+  const exists = existsSync(ignoresFile);
+  if (!exists) {
+    if (require) {
+      throw new Error(`Ignore file not found at path: ${ignoresFile}`);
+    } else {
+      return [];
+    }
+  }
+  const file = await readFile(ignoresFile, "utf-8");
+  const lines = file.split(EOL);
+  return lines;
+}
