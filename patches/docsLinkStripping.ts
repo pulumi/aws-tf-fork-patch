@@ -2,6 +2,7 @@ import { PatchContext } from "../config";
 import glob from "fast-glob";
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
+import { EOL } from "os";
 
 export async function applyStripDocLinks(ctx: PatchContext) {
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
@@ -89,7 +90,7 @@ export async function applyStripDocLinks(ctx: PatchContext) {
           }
         } catch {} // Not passable as a URL
 
-        console.log("Unhandled link URL: ", href);
+        console.log("Unhandled link URL: ", href, EOL);
         return source;
       }
     );
