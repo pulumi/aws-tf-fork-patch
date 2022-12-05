@@ -26,6 +26,10 @@ yargs(hideBin(process.argv))
         desc: "Replacements source file path",
         default: "replacements.json",
       },
+      target: {
+        desc: "Glob of paths to be checked for replacements",
+        default: "website/**/*.markdown",
+      },
       ignoresFile: {
         desc: "Ignore file path",
         default: PatcherIgnoresPathDefault,
@@ -40,7 +44,12 @@ yargs(hideBin(process.argv))
 
       // Apply manual replacements - anything the automated steps can't handle
       // These are generated using the suggest command
-      await patches.applyDocsReplacements(config, args.replacements, ignores);
+      await patches.applyDocsReplacements(
+        config,
+        args.target,
+        args.replacements,
+        ignores
+      );
     }
   )
   .command(
@@ -102,6 +111,7 @@ yargs(hideBin(process.argv))
         // Special set of replacements derived from the original git diff
         await patches.applyDocsReplacements(
           config,
+          "website/**/*.markdown",
           args.preAutomatedReplacements,
           ["website/docs/index.html.markdown"]
         );
@@ -113,9 +123,12 @@ yargs(hideBin(process.argv))
       }
       // Apply manual replacements - anything the automated steps can't handle
       // These are generated using the suggest command
-      await patches.applyDocsReplacements(config, args.replacements, [
-        "website/docs/index.html.markdown",
-      ]);
+      await patches.applyDocsReplacements(
+        config,
+        "website/**/*.markdown",
+        args.replacements,
+        ["website/docs/index.html.markdown"]
+      );
       // Apply overlays last as they shouldn't be modified
       await patches.applyOverlays(config);
       if (!args.skipGofmt) {

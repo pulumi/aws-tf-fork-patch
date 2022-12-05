@@ -7,11 +7,12 @@ import ignore from "ignore";
 
 export async function applyDocsReplacements(
   ctx: PatchContext,
+  pathPattern: string,
   replacementsPath: string,
   ignores: string[]
 ) {
   const replacements = await readReplacements(replacementsPath);
-  const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
+  const files = await glob(pathPattern, { cwd: ctx.dir });
   for (const file of files) {
     const fileFilter = ignore().add(ignores);
     // Skip index - we don't use this in docs gen.
