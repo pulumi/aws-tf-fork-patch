@@ -50,6 +50,30 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
+    "strip-links",
+    "Remove links to disallowed sources",
+    {
+      cwd: { desc: "Target directory", default: "." },
+      domains: {
+        desc: "Replacements source file path",
+        default: "replacements.json",
+      },
+    },
+    async (args) => {
+      const dir = resolve(args.cwd);
+      // Fail fast if we don't have access
+      await access(dir, constants.W_OK | constants.R_OK);
+      const config: PatchContext = {
+        dir,
+      };
+
+      // Auto-strip TF & relative links
+      if (!args.skipLinkStripping) {
+        await patches.applyStripDocLinks(config);
+      }
+    }
+  )
+  .command(
     "apply",
     "Apply AWS TF fork patches onto working directory",
     {
