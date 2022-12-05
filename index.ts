@@ -49,17 +49,14 @@ yargs(hideBin(process.argv))
     {
       cwd: { desc: "Target directory", default: "." },
       domains: {
-        desc: "Replacements source file path",
-        default: "replacements.json",
+        desc: "Domain rules path",
+        default: "domains.json",
       },
     },
     async (args) => {
       const config: PatchContext = await parseConfig(args);
-
-      // Auto-strip TF & relative links
-      if (!args.skipLinkStripping) {
-        await patches.applyStripDocLinks(config);
-      }
+      const domains = await patches.readDomains(args.domains);
+      await patches.applyStripDocLinks(config, domains);
     }
   )
   .command(
@@ -85,6 +82,10 @@ yargs(hideBin(process.argv))
         type: "boolean",
         default: false,
       },
+      domains: {
+        desc: "Domain rules path for link stripping",
+        default: "domains.json",
+      },
     },
     async (args) => {
       const config = await parseConfig(args);
@@ -107,7 +108,8 @@ yargs(hideBin(process.argv))
       }
       // Auto-strip TF & relative links
       if (!args.skipLinkStripping) {
-        await patches.applyStripDocLinks(config);
+        const domains = await patches.readDomains(args.domains);
+        await patches.applyStripDocLinks(config, domains);
       }
       // Apply manual replacements - anything the automated steps can't handle
       // These are generated using the suggest command

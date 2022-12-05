@@ -3,8 +3,35 @@ import glob from "fast-glob";
 import { readFile, writeFile } from "fs/promises";
 import { join } from "path";
 import { EOL } from "os";
+import z from "zod";
+import { existsSync } from "fs";
 
-export async function applyStripDocLinks(ctx: PatchContext) {
+const LinkStripConfig = z.object({
+  allowedDomains: z.string().array().optional(),
+  blockedDomains: z.string().array().optional(),
+  allowedGitHubOrgs: z.string().array().optional(),
+  blockedGitHubOrgs: z.string().array().optional(),
+});
+
+export async function readDomains(path: string): Promise<LinkStripConfig> {
+  if (path === "domains.json" && !existsSync(path)) {
+    return defaultConfig;
+  }
+  const content = await readFile(path, "utf-8");
+  const json = JSON.parse(content);
+  return LinkStripConfig.parse(json);
+}
+
+type LinkStripConfig = z.infer<typeof LinkStripConfig>;
+
+export async function applyStripDocLinks(
+  ctx: PatchContext,
+  domains: LinkStripConfig
+) {
+  const allowedDomains = new Set(domains.allowedDomains);
+  const blockedDomains = new Set(domains.blockedDomains);
+  const allowedGitHubOrgs = new Set(domains.allowedGitHubOrgs);
+  const blockedGitHubOrgs = new Set(domains.blockedGitHubOrgs);
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
   for (const file of files) {
     const filePath = join(ctx.dir, file);
@@ -16,63 +43,20 @@ export async function applyStripDocLinks(ctx: PatchContext) {
       (source: string, linkText: string, href: string) => {
         try {
           const url = new URL(href);
-          switch (url.hostname) {
-            // Allowed link domains
-            case "activemq.apache.org":
-            case "aws.amazon.com":
-            case "awscli.amazonaws.com":
-            case "bitbucket.org":
-            case "ci.apache.org":
-            case "console.aws.amazon.com":
-            case "developer.amazon.com":
-            case "developer.mozilla.org":
-            case "docs.aws.amazon.com":
-            case "docs.aws.amazon.com":
-            case "en.wikipedia.org":
-            case "enterprise.github.com":
-            case "forums.aws.amazon.com":
-            case "goessner.net":
-            case "golang.org":
-            case "help.github.com":
-            case "hub.docker.com":
-            case "lightsail.aws.amazon.com":
-            case "linux.die.net":
-            case "man7.org":
-            case "manpages.ubuntu.com":
-            case "manual-snort-org.s3-website-us-east-1.amazonaws.com":
-            case "openid.net":
-            case "orc.apache.org":
-            case "parquet.apache.org":
-            case "redis.io":
-            case "suricata.readthedocs.io":
-            case "tools.ietf.org":
-            case "velocity.apache.org":
-            case "www.envoyproxy.io":
-            case "www.iana.org":
-            case "www.icann.org":
-            case "www.ietf.org":
-            case "www.iso.org":
-            case "www.joda.org":
-            case "www.pulumi.com":
-            case "www.rfc-editor.org":
-            case "www.w3.org":
-              return source;
-            // Disallow hashicorp links
-            case "developer.hashicorp.com":
-            case "learn.hashicorp.com":
-            case "registry.terraform.io":
-            case "www.terraform.io":
-              return linkText;
-            // Check Github org
-            case "github.com":
-              if (url.pathname.startsWith("/hashicorp")) {
-                // Remove hashicorp org links
-                return linkText;
-              }
-              return source;
-            default:
-              console.log("Unhandled link URL: ", href);
-              return source;
+          if (url.hostname === "github.com") {
+            const org = url.pathname.split("/")[1];
+            if (allowedGitHubOrgs.has(org)) {
+              return source; // unchanged
+            }
+            if (blockedGitHubOrgs.has(org)) {
+              return linkText; // strip link
+            }
+          }
+          if (allowedDomains.has(url.hostname)) {
+            return source; // unchanged
+          }
+          if (blockedDomains.has(url.hostname)) {
+            return linkText; // strip link
           }
         } catch {} // Not passable as a URL
 
@@ -99,3 +83,53 @@ export async function applyStripDocLinks(ctx: PatchContext) {
     }
   }
 }
+
+const defaultConfig: LinkStripConfig = {
+  blockedGitHubOrgs: ["hashicorp"],
+  allowedDomains: [
+    "activemq.apache.org",
+    "aws.amazon.com",
+    "awscli.amazonaws.com",
+    "bitbucket.org",
+    "ci.apache.org",
+    "console.aws.amazon.com",
+    "developer.amazon.com",
+    "developer.mozilla.org",
+    "docs.aws.amazon.com",
+    "docs.aws.amazon.com",
+    "en.wikipedia.org",
+    "enterprise.github.com",
+    "forums.aws.amazon.com",
+    "goessner.net",
+    "golang.org",
+    "help.github.com",
+    "hub.docker.com",
+    "lightsail.aws.amazon.com",
+    "linux.die.net",
+    "man7.org",
+    "manpages.ubuntu.com",
+    "manual-snort-org.s3-website-us-east-1.amazonaws.com",
+    "openid.net",
+    "orc.apache.org",
+    "parquet.apache.org",
+    "redis.io",
+    "suricata.readthedocs.io",
+    "tools.ietf.org",
+    "velocity.apache.org",
+    "www.envoyproxy.io",
+    "www.iana.org",
+    "www.icann.org",
+    "www.ietf.org",
+    "www.iso.org",
+    "www.joda.org",
+    "www.pulumi.com",
+    "www.rfc-editor.org",
+    "www.w3.org",
+  ],
+  blockedDomains: [
+    "developer.hashicorp.com",
+    "learn.hashicorp.com",
+    "registry.terraform.io",
+    "www.terraform.io",
+  ],
+};
