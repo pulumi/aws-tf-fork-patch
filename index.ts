@@ -32,13 +32,7 @@ yargs(hideBin(process.argv))
       },
     },
     async (args) => {
-      const dir = resolve(args.cwd);
-      // Fail fast if we don't have access
-      await access(dir, constants.W_OK | constants.R_OK);
-      const config: PatchContext = {
-        dir,
-      };
-
+      const config = await parseConfig(args);
       const ignores = await readIgnores(
         args.ignoresFile,
         args.ignoresFile !== PatcherIgnoresPathDefault
@@ -60,12 +54,7 @@ yargs(hideBin(process.argv))
       },
     },
     async (args) => {
-      const dir = resolve(args.cwd);
-      // Fail fast if we don't have access
-      await access(dir, constants.W_OK | constants.R_OK);
-      const config: PatchContext = {
-        dir,
-      };
+      const config: PatchContext = await parseConfig(args);
 
       // Auto-strip TF & relative links
       if (!args.skipLinkStripping) {
@@ -98,13 +87,7 @@ yargs(hideBin(process.argv))
       },
     },
     async (args) => {
-      const dir = resolve(args.cwd);
-      // Fail fast if we don't have access
-      await access(dir, constants.W_OK | constants.R_OK);
-      const config: PatchContext = {
-        dir,
-      };
-
+      const config = await parseConfig(args);
       await patches.applyFileEdits(config);
       // Fix tags_all fields
       await patches.applyTagsAll(config);
@@ -160,7 +143,8 @@ yargs(hideBin(process.argv))
       },
     },
     async (args) => {
-      const replacements = await findPendingReplacements({ dir: args.cwd });
+      const config = await parseConfig(args);
+      const replacements = await findPendingReplacements(config);
       if (Object.keys(replacements).length === 0) {
         console.log("No replacements needed");
         return;
@@ -267,6 +251,16 @@ yargs(hideBin(process.argv))
   .strict()
   .help()
   .parse();
+
+async function parseConfig(args: { cwd: string }) {
+  const dir = resolve(args.cwd);
+  // Fail fast if we don't have access
+  await access(dir, constants.W_OK | constants.R_OK);
+  const config: PatchContext = {
+    dir,
+  };
+  return config;
+}
 
 async function readIgnores(
   ignoresFile: string,
