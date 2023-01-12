@@ -98,7 +98,6 @@ yargs(hideBin(process.argv))
     },
     async (args) => {
       const config = await parseConfig(args);
-      await patches.applyFileEdits(config);
       // Fix tags_all fields
       await patches.applyTagsAll(config);
       const defaultPreAutomatedReplacementsPath = "pre-replacements.json";
