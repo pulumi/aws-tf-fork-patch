@@ -14332,7 +14332,6 @@ const PatcherIgnoresPathDefault = ".patcher-ignores";
     },
 }, (args) => __awaiter(void 0, void 0, void 0, function* () {
     const config = yield parseConfig(args);
-    yield patches.applyFileEdits(config);
     // Fix tags_all fields
     yield patches.applyTagsAll(config);
     const defaultPreAutomatedReplacementsPath = "pre-replacements.json";
@@ -14875,119 +14874,6 @@ function printUnmatched(ctx, file, unmatched) {
 
 /***/ }),
 
-/***/ 3692:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.applyFileEdits = void 0;
-const promises_1 = __nccwpck_require__(3292);
-const os_1 = __nccwpck_require__(2037);
-const path_1 = __nccwpck_require__(1017);
-function applyFileEdits(context) {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield Promise.all([
-            edit(context, "internal/provider/provider.go", addLineAfter(/^import \($/im, `\t"github.com/hashicorp/terraform-provider-aws/internal/service/s3legacy"`), addLineAfter(/^\s*"aws_ecr_repository":\s*ecr\.DataSourceRepository\(\),$/im, `\t\t\t"aws_ecr_credentials":         ecr.DataSourceCredentials(),`), addLineAfter(/^\s*"aws_fsx_openzfs_snapshot":\s*fsx.DataSourceOpenzfsSnapshot\(\),$/im, os_1.EOL +
-                `\t\t\t"aws_globalaccelerator_accelerator": globalaccelerator.DataSourceAccelerator(),`), addLineAfter(/^\s*"aws_location_tracker_associations":\s*location.DataSourceTrackerAssociations\(\),$/im, os_1.EOL +
-                `\t\t\t"aws_arn":                     meta.DataSourceARN(), // Upstream this is currently implemented using Terraform Plugin Framework. See also: https://github.com/pulumi/pulumi-terraform-bridge/issues/590` +
-                os_1.EOL +
-                `\t\t\t"aws_billing_service_account": meta.DataSourceBillingServiceAccount(),` +
-                os_1.EOL +
-                `\t\t\t"aws_default_tags":            meta.DataSourceDefaultTags(),` +
-                os_1.EOL +
-                `\t\t\t"aws_ip_ranges":               meta.DataSourceIPRanges(),` +
-                os_1.EOL +
-                `\t\t\t"aws_partition":               meta.DataSourcePartition(),` +
-                os_1.EOL +
-                `\t\t\t"aws_region":                  meta.DataSourceRegion(),` +
-                os_1.EOL +
-                `\t\t\t"aws_regions":                 meta.DataSourceRegions(),` +
-                os_1.EOL +
-                `\t\t\t"aws_service":                 meta.DataSourceService(),`), addLineAfter(/^\s*"aws_storagegateway_local_disk":\s*storagegateway.DataSourceLocalDisk\(\),$/im, os_1.EOL + `\t\t\t"aws_caller_identity": sts.DataSourceCallerIdentity(),`), addLineAfter(/^\s*"aws_s3_bucket":\s*s3.ResourceBucket\(\),$/im, `\t\t\t"aws_s3_bucket_legacy":                               s3legacy.ResourceBucketLegacy(),`), addLineAfter(/^\s*"aws_signer_signing_profile_permission": signer.ResourceSigningProfilePermission\(\),$/im, os_1.EOL + `\t\t\t"aws_simpledb_domain": simpledb.ResourceDomain(),`)),
-            edit(context, "internal/conns/conns.go", replace(/PartnerName: "\w+"/, `PartnerName: "Pulumi"`), replace(`{Name: "Terraform", Version: terraformVersion, Comment: "+https://www.terraform.io"}`, `{Name: "Pulumi", Version: "1.0"}`), replace(`{Name: "terraform-provider-aws", Version: version.ProviderVersion, Comment: "+https://registry.terraform.io/providers/hashicorp/aws"}`, `{Name: "Pulumi-Aws", Version: terraformVersion, Comment: "+https://www.pulumi.com"}`)),
-        ]);
-    });
-}
-exports.applyFileEdits = applyFileEdits;
-function replace(matcher, replacement) {
-    return (content) => {
-        const found = typeof matcher === "string"
-            ? content.includes(matcher)
-            : content.match(matcher) !== null;
-        if (!found) {
-            if (content.includes(replacement)) {
-                // Already replaced
-                return content;
-            }
-            throw new UnmatchedError(`can't find ${matcher}`);
-        }
-        const replaced = content.replace(matcher, replacement);
-        return replaced;
-    };
-}
-function addLineAfter(matchLine, extraContent) {
-    return (content) => {
-        const match = content.match(matchLine);
-        if (match === null || match.index === undefined) {
-            throw new UnmatchedError(`couldn't find ${matchLine}`);
-        }
-        const endOfMatch = match.index + match[0].length;
-        const prefix = content.substring(0, endOfMatch);
-        const suffix = content.substring(endOfMatch);
-        // Check if we've already added this
-        if (suffix.startsWith(os_1.EOL + extraContent)) {
-            return content;
-        }
-        return prefix + os_1.EOL + extraContent + suffix;
-    };
-}
-class UnmatchedError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = "UnmatchedError";
-    }
-}
-function edit(context, path, ...edits) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const filePath = (0, path_1.join)(context.dir, path);
-        const content = yield (0, promises_1.readFile)(filePath, "utf-8");
-        let unmatched = [];
-        let output = content;
-        for (const edit of edits) {
-            try {
-                output = edit(output);
-            }
-            catch (err) {
-                if (err instanceof UnmatchedError) {
-                    unmatched.push(err.message);
-                }
-                else {
-                    throw err;
-                }
-            }
-        }
-        if (output !== content) {
-            yield (0, promises_1.writeFile)(filePath, output);
-        }
-        if (unmatched.length > 0) {
-            console.warn("Unmatched edits for", path, os_1.EOL, unmatched.join(os_1.EOL));
-        }
-    });
-}
-
-
-/***/ }),
-
 /***/ 3318:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -15050,7 +14936,6 @@ __exportStar(__nccwpck_require__(953), exports);
 __exportStar(__nccwpck_require__(1397), exports);
 __exportStar(__nccwpck_require__(1561), exports);
 __exportStar(__nccwpck_require__(1818), exports);
-__exportStar(__nccwpck_require__(3692), exports);
 __exportStar(__nccwpck_require__(3318), exports);
 
 
