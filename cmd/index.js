@@ -14684,44 +14684,49 @@ function applyStripDocLinks(ctx, domains) {
             // Match a "[", capture everything that's not "]"
             // Then match a "(" and everything up to ")"
             const linkReplaced = content.replace(/\[([^\]]*)\]\(([^\)]*)\)/g, (source, linkText, href) => {
+                const unchanged = source;
+                const stripped = linkText;
                 try {
                     const url = new URL(href);
                     if (url.hostname === "github.com") {
                         const org = url.pathname.split("/")[1];
                         if (allowedGitHubOrgs.has(org)) {
-                            return source; // unchanged
+                            return unchanged;
                         }
                         if (blockedGitHubOrgs.has(org)) {
-                            return linkText; // strip link
+                            return stripped;
                         }
                         console.log("Unhandled GitHub org: ", org);
                         // Avoid falling through to generic domain handling for github.com
-                        return source; // unchanged
+                        return unchanged;
                     }
                     if (allowedDomains.has(url.hostname)) {
-                        return source; // unchanged
+                        return unchanged;
                     }
                     if (blockedDomains.has(url.hostname)) {
-                        return linkText; // strip link
+                        return stripped;
                     }
+                    console.log("Unhandled link domain: ", url.hostname);
+                    // Avoid falling through to relative link handling
+                    return unchanged;
                 }
-                catch (_a) { } // Not passable as a URL
+                catch (_a) { } // Not passable as a full URL
                 try {
                     // Parse with fake domain for relative links
                     const url = new URL("http://domain.test/" + href);
                     const { hash, pathname } = url;
                     // Disallow path based links
                     if (pathname !== "/") {
-                        return linkText;
+                        return stripped;
                     }
                     // Allow same-page links
                     if (hash !== "") {
-                        return source;
+                        return unchanged;
                     }
                 }
                 catch (_b) { } // Not passable as a URL
                 console.log("Unhandled link URL: ", href, os_1.EOL);
-                return source;
+                return unchanged;
             });
             if (linkReplaced != content) {
                 yield (0, promises_1.writeFile)(filePath, linkReplaced);

@@ -41,27 +41,32 @@ export async function applyStripDocLinks(
     const linkReplaced = content.replace(
       /\[([^\]]*)\]\(([^\)]*)\)/g,
       (source: string, linkText: string, href: string) => {
+        const unchanged = source;
+        const stripped = linkText;
         try {
           const url = new URL(href);
           if (url.hostname === "github.com") {
             const org = url.pathname.split("/")[1];
             if (allowedGitHubOrgs.has(org)) {
-              return source; // unchanged
+              return unchanged;
             }
             if (blockedGitHubOrgs.has(org)) {
-              return linkText; // strip link
+              return stripped;
             }
             console.log("Unhandled GitHub org: ", org);
             // Avoid falling through to generic domain handling for github.com
-            return source; // unchanged
+            return unchanged;
           }
           if (allowedDomains.has(url.hostname)) {
-            return source; // unchanged
+            return unchanged;
           }
           if (blockedDomains.has(url.hostname)) {
-            return linkText; // strip link
+            return stripped;
           }
-        } catch {} // Not passable as a URL
+          console.log("Unhandled link domain: ", url.hostname);
+          // Avoid falling through to relative link handling
+          return unchanged;
+        } catch {} // Not passable as a full URL
 
         try {
           // Parse with fake domain for relative links
@@ -69,16 +74,16 @@ export async function applyStripDocLinks(
           const { hash, pathname } = url;
           // Disallow path based links
           if (pathname !== "/") {
-            return linkText;
+            return stripped;
           }
           // Allow same-page links
           if (hash !== "") {
-            return source;
+            return unchanged;
           }
         } catch {} // Not passable as a URL
 
         console.log("Unhandled link URL: ", href, EOL);
-        return source;
+        return unchanged;
       }
     );
     if (linkReplaced != content) {
