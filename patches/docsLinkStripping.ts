@@ -22,70 +22,24 @@ export async function readDomains(path: string): Promise<LinkStripConfig> {
   return LinkStripConfig.parse(json);
 }
 
-type LinkStripConfig = z.infer<typeof LinkStripConfig>;
+export type LinkStripConfig = z.infer<typeof LinkStripConfig>;
 
 export async function applyStripDocLinks(
   ctx: PatchContext,
   domains: LinkStripConfig
 ) {
-  const allowedDomains = new Set(domains.allowedDomains);
-  const blockedDomains = new Set(domains.blockedDomains);
-  const allowedGitHubOrgs = new Set(domains.allowedGitHubOrgs);
-  const blockedGitHubOrgs = new Set(domains.blockedGitHubOrgs);
+  const indexedDomains = {
+    allowedDomains: new Set(domains.allowedDomains),
+    blockedDomains: new Set(domains.blockedDomains),
+    allowedGitHubOrgs: new Set(domains.allowedGitHubOrgs),
+    blockedGitHubOrgs: new Set(domains.blockedGitHubOrgs),
+  };
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
   for (const file of files) {
     const filePath = join(ctx.dir, file);
     const content = await readFile(filePath, { encoding: "utf-8" });
-    // Match a "[", capture everything that's not "]"
-    // Then match a "(" and everything up to ")"
-    const linkReplaced = content.replace(
-      /\[([^\]]*)\]\(([^\)]*)\)/g,
-      (source: string, linkText: string, href: string) => {
-        const unchanged = source;
-        const stripped = linkText;
-        try {
-          const url = new URL(href);
-          if (url.hostname === "github.com") {
-            const org = url.pathname.split("/")[1];
-            if (allowedGitHubOrgs.has(org)) {
-              return unchanged;
-            }
-            if (blockedGitHubOrgs.has(org)) {
-              return stripped;
-            }
-            console.log("Unhandled GitHub org: ", org);
-            // Avoid falling through to generic domain handling for github.com
-            return unchanged;
-          }
-          if (allowedDomains.has(url.hostname)) {
-            return unchanged;
-          }
-          if (blockedDomains.has(url.hostname)) {
-            return stripped;
-          }
-          console.log("Unhandled link domain: ", url.hostname);
-          // Avoid falling through to relative link handling
-          return unchanged;
-        } catch {} // Not passable as a full URL
 
-        try {
-          // Parse with fake domain for relative links
-          const url = new URL("http://domain.test/" + href);
-          const { hash, pathname } = url;
-          // Disallow path based links
-          if (pathname !== "/") {
-            return stripped;
-          }
-          // Allow same-page links
-          if (hash !== "") {
-            return unchanged;
-          }
-        } catch {} // Not passable as a URL
-
-        console.log("Unhandled link URL: ", href, EOL);
-        return unchanged;
-      }
-    );
+    const linkReplaced = replaceLinks(content, indexedDomains);
     if (linkReplaced != content) {
       await writeFile(filePath, linkReplaced);
     }
@@ -141,3 +95,71 @@ const defaultConfig: LinkStripConfig = {
     "www.terraform.io",
   ],
 };
+
+type IndexedDomains = {
+  allowedGitHubOrgs: Set<string>;
+  blockedGitHubOrgs: Set<string>;
+  allowedDomains: Set<string>;
+  blockedDomains: Set<string>;
+};
+
+export function replaceLinks(
+  content: string,
+  {
+    allowedGitHubOrgs,
+    blockedGitHubOrgs,
+    allowedDomains,
+    blockedDomains,
+  }: IndexedDomains
+) {
+  // Match a "[", capture everything that's not "]"
+  // Then match a "(" and everything up to ")"
+  return content.replace(
+    /\[([^\]]*)\]\(([^\)]*)\)/g,
+    (source: string, linkText: string, href: string) => {
+      const unchanged = source;
+      const stripped = linkText;
+      try {
+        const url = new URL(href);
+        if (url.hostname === "github.com") {
+          const org = url.pathname.split("/")[1];
+          if (allowedGitHubOrgs.has(org)) {
+            return unchanged;
+          }
+          if (blockedGitHubOrgs.has(org)) {
+            return stripped;
+          }
+          console.log("Unhandled GitHub org: ", org);
+          // Avoid falling through to generic domain handling for github.com
+          return unchanged;
+        }
+        if (allowedDomains.has(url.hostname)) {
+          return unchanged;
+        }
+        if (blockedDomains.has(url.hostname)) {
+          return stripped;
+        }
+        console.log("Unhandled link domain: ", url.hostname);
+        // Avoid falling through to relative link handling
+        return unchanged;
+      } catch {} // Not passable as a full URL
+
+      try {
+        // Parse with fake domain for relative links
+        const url = new URL("http://domain.test/" + href);
+        const { hash, pathname } = url;
+        // Disallow path based links
+        if (pathname !== "/") {
+          return stripped;
+        }
+        // Allow same-page links
+        if (hash !== "") {
+          return unchanged;
+        }
+      } catch {} // Not passable as a URL
+
+      console.log("Unhandled link URL: ", href, EOL);
+      return unchanged;
+    }
+  );
+}

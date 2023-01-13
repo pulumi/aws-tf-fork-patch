@@ -14647,7 +14647,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.applyStripDocLinks = exports.readDomains = void 0;
+exports.replaceLinks = exports.applyStripDocLinks = exports.readDomains = void 0;
 const fast_glob_1 = __importDefault(__nccwpck_require__(3664));
 const promises_1 = __nccwpck_require__(3292);
 const path_1 = __nccwpck_require__(1017);
@@ -14673,61 +14673,17 @@ function readDomains(path) {
 exports.readDomains = readDomains;
 function applyStripDocLinks(ctx, domains) {
     return __awaiter(this, void 0, void 0, function* () {
-        const allowedDomains = new Set(domains.allowedDomains);
-        const blockedDomains = new Set(domains.blockedDomains);
-        const allowedGitHubOrgs = new Set(domains.allowedGitHubOrgs);
-        const blockedGitHubOrgs = new Set(domains.blockedGitHubOrgs);
+        const indexedDomains = {
+            allowedDomains: new Set(domains.allowedDomains),
+            blockedDomains: new Set(domains.blockedDomains),
+            allowedGitHubOrgs: new Set(domains.allowedGitHubOrgs),
+            blockedGitHubOrgs: new Set(domains.blockedGitHubOrgs),
+        };
         const files = yield (0, fast_glob_1.default)("website/**/*.markdown", { cwd: ctx.dir });
         for (const file of files) {
             const filePath = (0, path_1.join)(ctx.dir, file);
             const content = yield (0, promises_1.readFile)(filePath, { encoding: "utf-8" });
-            // Match a "[", capture everything that's not "]"
-            // Then match a "(" and everything up to ")"
-            const linkReplaced = content.replace(/\[([^\]]*)\]\(([^\)]*)\)/g, (source, linkText, href) => {
-                const unchanged = source;
-                const stripped = linkText;
-                try {
-                    const url = new URL(href);
-                    if (url.hostname === "github.com") {
-                        const org = url.pathname.split("/")[1];
-                        if (allowedGitHubOrgs.has(org)) {
-                            return unchanged;
-                        }
-                        if (blockedGitHubOrgs.has(org)) {
-                            return stripped;
-                        }
-                        console.log("Unhandled GitHub org: ", org);
-                        // Avoid falling through to generic domain handling for github.com
-                        return unchanged;
-                    }
-                    if (allowedDomains.has(url.hostname)) {
-                        return unchanged;
-                    }
-                    if (blockedDomains.has(url.hostname)) {
-                        return stripped;
-                    }
-                    console.log("Unhandled link domain: ", url.hostname);
-                    // Avoid falling through to relative link handling
-                    return unchanged;
-                }
-                catch (_a) { } // Not passable as a full URL
-                try {
-                    // Parse with fake domain for relative links
-                    const url = new URL("http://domain.test/" + href);
-                    const { hash, pathname } = url;
-                    // Disallow path based links
-                    if (pathname !== "/") {
-                        return stripped;
-                    }
-                    // Allow same-page links
-                    if (hash !== "") {
-                        return unchanged;
-                    }
-                }
-                catch (_b) { } // Not passable as a URL
-                console.log("Unhandled link URL: ", href, os_1.EOL);
-                return unchanged;
-            });
+            const linkReplaced = replaceLinks(content, indexedDomains);
             if (linkReplaced != content) {
                 yield (0, promises_1.writeFile)(filePath, linkReplaced);
             }
@@ -14784,6 +14740,56 @@ const defaultConfig = {
         "www.terraform.io",
     ],
 };
+function replaceLinks(content, { allowedGitHubOrgs, blockedGitHubOrgs, allowedDomains, blockedDomains, }) {
+    // Match a "[", capture everything that's not "]"
+    // Then match a "(" and everything up to ")"
+    return content.replace(/\[([^\]]*)\]\(([^\)]*)\)/g, (source, linkText, href) => {
+        const unchanged = source;
+        const stripped = linkText;
+        try {
+            const url = new URL(href);
+            if (url.hostname === "github.com") {
+                const org = url.pathname.split("/")[1];
+                if (allowedGitHubOrgs.has(org)) {
+                    return unchanged;
+                }
+                if (blockedGitHubOrgs.has(org)) {
+                    return stripped;
+                }
+                console.log("Unhandled GitHub org: ", org);
+                // Avoid falling through to generic domain handling for github.com
+                return unchanged;
+            }
+            if (allowedDomains.has(url.hostname)) {
+                return unchanged;
+            }
+            if (blockedDomains.has(url.hostname)) {
+                return stripped;
+            }
+            console.log("Unhandled link domain: ", url.hostname);
+            // Avoid falling through to relative link handling
+            return unchanged;
+        }
+        catch (_a) { } // Not passable as a full URL
+        try {
+            // Parse with fake domain for relative links
+            const url = new URL("http://domain.test/" + href);
+            const { hash, pathname } = url;
+            // Disallow path based links
+            if (pathname !== "/") {
+                return stripped;
+            }
+            // Allow same-page links
+            if (hash !== "") {
+                return unchanged;
+            }
+        }
+        catch (_b) { } // Not passable as a URL
+        console.log("Unhandled link URL: ", href, os_1.EOL);
+        return unchanged;
+    });
+}
+exports.replaceLinks = replaceLinks;
 
 
 /***/ }),
