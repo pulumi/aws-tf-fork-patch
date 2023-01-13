@@ -14694,6 +14694,9 @@ function applyStripDocLinks(ctx, domains) {
                         if (blockedGitHubOrgs.has(org)) {
                             return linkText; // strip link
                         }
+                        console.log("Unhandled GitHub org: ", org);
+                        // Avoid falling through to generic domain handling for github.com
+                        return source; // unchanged
                     }
                     if (allowedDomains.has(url.hostname)) {
                         return source; // unchanged
