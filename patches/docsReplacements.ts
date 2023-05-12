@@ -31,35 +31,17 @@ export async function applyDocsReplacements(
   }
 }
 
-function tryReplace(
+export function tryReplace(
   replacements: DocsReplacements,
   file: string,
   content: string
 ): { replaced: string; unmatched: LineReplacement[] } {
-  const unmatched: LineReplacement[] = [];
   let replaced = content;
   if (file in replacements) {
     const fileReplacements = replacements[file];
-    for (const replacement of fileReplacements) {
-      const matcher = replacement.regExp
-        ? new RegExp(replacement.old, replacement.regExpFlags ?? "g") // Regex
-        : replacement.new !== undefined
-        ? replacement.old // Simple find/replace
-        : EOL + replacement.old; // Remove whole line
-      const newReplacement = replaced.replaceAll(
-        matcher,
-        replacement.new ?? ""
-      );
-      if (replaced === newReplacement) {
-        const trimmed = (replacement.new ?? "").trim();
-        if (trimmed === "" || !replaced.includes(trimmed)) {
-          unmatched.push(replacement);
-        }
-      }
-      replaced = newReplacement;
-    }
+    return tryReplaceFile(fileReplacements, replaced);
   }
-  return { replaced, unmatched };
+  return { replaced, unmatched: [] };
 }
 
 export type LineReplacement = {
@@ -69,7 +51,40 @@ export type LineReplacement = {
   new?: string;
 };
 
+export function printReplacement(r: LineReplacement): string {
+  if (r.regExp) {
+    return `/${r.old}/${r.new}/${r.regExpFlags ?? "g"}`;
+  } else if (r.new) {
+    return `${r.old} -> ${r.new}`;
+  } else {
+    return `${r.old} -> removed`;
+  }
+}
+
 export type DocsReplacements = Record<string, LineReplacement[]>;
+
+export function tryReplaceFile(
+  fileReplacements: LineReplacement[],
+  replaced: string
+): { replaced: string; unmatched: LineReplacement[] } {
+  const unmatched: LineReplacement[] = [];
+  for (const replacement of fileReplacements) {
+    const matcher = replacement.regExp
+      ? new RegExp(replacement.old, replacement.regExpFlags ?? "g") // Regex
+      : replacement.new !== undefined
+      ? replacement.old // Simple find/replace
+      : EOL + replacement.old; // Remove whole line
+    const newReplacement = replaced.replaceAll(matcher, replacement.new ?? "");
+    if (replaced === newReplacement) {
+      const trimmed = (replacement.new ?? "").trim();
+      if (trimmed === "" || !replaced.includes(trimmed)) {
+        unmatched.push(replacement);
+      }
+    }
+    replaced = newReplacement;
+  }
+  return { replaced, unmatched };
+}
 
 async function readReplacements(path: string): Promise<DocsReplacements> {
   const patchReplacements = await readFile(path, "utf-8");

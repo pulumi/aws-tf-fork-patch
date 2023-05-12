@@ -14295,6 +14295,21 @@ const PatcherIgnoresPathDefault = ".patcher-ignores";
     // These are generated using the suggest command
     yield patches.applyDocsReplacements(config, args.target, args.replacements, ignores);
 }))
+    .command("global-replace", "Apply global replacements onto working directory", {
+    cwd: { desc: "Target directory", default: "." },
+    replacements: {
+        desc: "Global replacements source file path",
+        default: "global-replacements.json",
+    },
+    ignoresFile: {
+        desc: "Ignore file path",
+        default: PatcherIgnoresPathDefault,
+    },
+}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    const config = yield parseConfig(args);
+    const ignores = yield readIgnores(args.ignoresFile, args.ignoresFile !== PatcherIgnoresPathDefault);
+    yield patches.globReplace(config, args.replacements, ignores);
+}))
     .command("strip-links", "Remove links to disallowed sources", {
     cwd: { desc: "Target directory", default: "." },
     domains: {
@@ -14812,7 +14827,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.applyDocsReplacements = void 0;
+exports.tryReplaceFile = exports.printReplacement = exports.tryReplace = exports.applyDocsReplacements = void 0;
 const fast_glob_1 = __importDefault(__nccwpck_require__(3664));
 const promises_1 = __nccwpck_require__(3292);
 const path_1 = __nccwpck_require__(1017);
@@ -14842,29 +14857,48 @@ function applyDocsReplacements(ctx, pathPattern, replacementsPath, ignores) {
 }
 exports.applyDocsReplacements = applyDocsReplacements;
 function tryReplace(replacements, file, content) {
-    var _a, _b, _c;
-    const unmatched = [];
     let replaced = content;
     if (file in replacements) {
         const fileReplacements = replacements[file];
-        for (const replacement of fileReplacements) {
-            const matcher = replacement.regExp
-                ? new RegExp(replacement.old, (_a = replacement.regExpFlags) !== null && _a !== void 0 ? _a : "g") // Regex
-                : replacement.new !== undefined
-                    ? replacement.old // Simple find/replace
-                    : os_1.EOL + replacement.old; // Remove whole line
-            const newReplacement = replaced.replaceAll(matcher, (_b = replacement.new) !== null && _b !== void 0 ? _b : "");
-            if (replaced === newReplacement) {
-                const trimmed = ((_c = replacement.new) !== null && _c !== void 0 ? _c : "").trim();
-                if (trimmed === "" || !replaced.includes(trimmed)) {
-                    unmatched.push(replacement);
-                }
+        return tryReplaceFile(fileReplacements, replaced);
+    }
+    return { replaced, unmatched: [] };
+}
+exports.tryReplace = tryReplace;
+function printReplacement(r) {
+    var _a;
+    if (r.regExp) {
+        return `/${r.old}/${r.new}/${(_a = r.regExpFlags) !== null && _a !== void 0 ? _a : "g"}`;
+    }
+    else if (r.new) {
+        return `${r.old} -> ${r.new}`;
+    }
+    else {
+        return `${r.old} -> removed`;
+    }
+}
+exports.printReplacement = printReplacement;
+function tryReplaceFile(fileReplacements, replaced) {
+    var _a, _b, _c;
+    const unmatched = [];
+    for (const replacement of fileReplacements) {
+        const matcher = replacement.regExp
+            ? new RegExp(replacement.old, (_a = replacement.regExpFlags) !== null && _a !== void 0 ? _a : "g") // Regex
+            : replacement.new !== undefined
+                ? replacement.old // Simple find/replace
+                : os_1.EOL + replacement.old; // Remove whole line
+        const newReplacement = replaced.replaceAll(matcher, (_b = replacement.new) !== null && _b !== void 0 ? _b : "");
+        if (replaced === newReplacement) {
+            const trimmed = ((_c = replacement.new) !== null && _c !== void 0 ? _c : "").trim();
+            if (trimmed === "" || !replaced.includes(trimmed)) {
+                unmatched.push(replacement);
             }
-            replaced = newReplacement;
         }
+        replaced = newReplacement;
     }
     return { replaced, unmatched };
 }
+exports.tryReplaceFile = tryReplaceFile;
 function readReplacements(path) {
     return __awaiter(this, void 0, void 0, function* () {
         const patchReplacements = yield (0, promises_1.readFile)(path, "utf-8");
@@ -14883,6 +14917,66 @@ function printUnmatched(ctx, file, unmatched) {
     })
         .join(os_1.EOL + "~" + os_1.EOL));
     console.log();
+}
+
+
+/***/ }),
+
+/***/ 7240:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.globReplace = void 0;
+const fast_glob_1 = __importDefault(__nccwpck_require__(3664));
+const promises_1 = __nccwpck_require__(3292);
+const docsReplacements_1 = __nccwpck_require__(1561);
+const ignore_1 = __importDefault(__nccwpck_require__(4777));
+const path_1 = __nccwpck_require__(1017);
+function globReplace(ctx, replacementsPath, ignores) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const fileFilter = (0, ignore_1.default)().add(ignores);
+        const replacements = yield readGlobalReplacements(replacementsPath);
+        for (const globReplacement of replacements) {
+            console.log(`Replacing ${globReplacement.glob}: ${globReplacement.replacements}`);
+            for (const replacement of globReplacement.replacements) {
+                console.log((0, docsReplacements_1.printReplacement)(replacement));
+            }
+            const files = yield (0, fast_glob_1.default)(globReplacement.glob, { cwd: ctx.dir });
+            for (const file of files) {
+                if (fileFilter.ignores(file)) {
+                    continue;
+                }
+                const filePath = (0, path_1.join)(ctx.dir, file);
+                const content = yield (0, promises_1.readFile)(filePath, { encoding: "utf-8" });
+                const { replaced } = (0, docsReplacements_1.tryReplaceFile)(globReplacement.replacements, content);
+                if (replaced != content) {
+                    console.log(`Replacing ${file}`);
+                    yield (0, promises_1.writeFile)(filePath, replaced);
+                }
+            }
+        }
+    });
+}
+exports.globReplace = globReplace;
+function readGlobalReplacements(path) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const patchReplacements = yield (0, promises_1.readFile)(path, "utf-8");
+        return JSON.parse(patchReplacements);
+    });
 }
 
 
@@ -14951,6 +15045,7 @@ __exportStar(__nccwpck_require__(1397), exports);
 __exportStar(__nccwpck_require__(1561), exports);
 __exportStar(__nccwpck_require__(1818), exports);
 __exportStar(__nccwpck_require__(3318), exports);
+__exportStar(__nccwpck_require__(7240), exports);
 
 
 /***/ }),

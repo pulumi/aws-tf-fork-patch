@@ -53,6 +53,29 @@ yargs(hideBin(process.argv))
     }
   )
   .command(
+    "global-replace",
+    "Apply global replacements onto working directory",
+    {
+      cwd: { desc: "Target directory", default: "." },
+      replacements: {
+        desc: "Global replacements source file path",
+        default: "global-replacements.json",
+      },
+      ignoresFile: {
+        desc: "Ignore file path",
+        default: PatcherIgnoresPathDefault,
+      },
+    },
+    async (args) => {
+      const config = await parseConfig(args);
+      const ignores = await readIgnores(
+        args.ignoresFile,
+        args.ignoresFile !== PatcherIgnoresPathDefault
+      );
+      await patches.globReplace(config, args.replacements, ignores);
+    }
+  )
+  .command(
     "strip-links",
     "Remove links to disallowed sources",
     {
