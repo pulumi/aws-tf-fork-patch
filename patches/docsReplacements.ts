@@ -13,8 +13,8 @@ export async function applyDocsReplacements(
 ) {
   const replacements = await readReplacements(replacementsPath);
   const files = await glob(pathPattern, { cwd: ctx.dir });
+  const fileFilter = ignore().add(ignores);
   for (const file of files) {
-    const fileFilter = ignore().add(ignores);
     // Skip index - we don't use this in docs gen.
     if (fileFilter.ignores(file)) {
       continue;
