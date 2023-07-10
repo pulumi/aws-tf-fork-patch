@@ -4,12 +4,14 @@ import { join } from "path";
 import { PatchContext } from "./config";
 import { DocsReplacements, LineReplacement } from "./patches/docsReplacements";
 import glob from "fast-glob";
+import ignore from "ignore";
 
-export async function findPendingReplacements(ctx: PatchContext) {
+export async function findPendingReplacements(ctx: PatchContext, ignores: string[]) {
   const suggestions: DocsReplacements = {};
   const files = await glob("website/**/*.markdown", { cwd: ctx.dir });
+  const filter = ignore().add(ignores).add(["website/docs/index.html.markdown"]);
   for (const file of files) {
-    if (file === "website/docs/index.html.markdown") {
+    if (filter.ignores(file)) {
       continue;
     }
     const filePath = join(ctx.dir, file);

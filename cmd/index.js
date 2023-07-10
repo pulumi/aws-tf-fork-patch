@@ -14168,12 +14168,14 @@ const promises_1 = __nccwpck_require__(3292);
 const os_1 = __nccwpck_require__(2037);
 const path_1 = __nccwpck_require__(1017);
 const fast_glob_1 = __importDefault(__nccwpck_require__(3664));
-function findPendingReplacements(ctx) {
+const ignore_1 = __importDefault(__nccwpck_require__(4777));
+function findPendingReplacements(ctx, ignores) {
     return __awaiter(this, void 0, void 0, function* () {
         const suggestions = {};
         const files = yield (0, fast_glob_1.default)("website/**/*.markdown", { cwd: ctx.dir });
+        const filter = (0, ignore_1.default)().add(ignores).add(["website/docs/index.html.markdown"]);
         for (const file of files) {
-            if (file === "website/docs/index.html.markdown") {
+            if (filter.ignores(file)) {
                 continue;
             }
             const filePath = (0, path_1.join)(ctx.dir, file);
@@ -14272,42 +14274,30 @@ const mergeReplacements_1 = __nccwpck_require__(5689);
 const array_fns_1 = __nccwpck_require__(6085);
 const child_process_1 = __nccwpck_require__(2081);
 const os_1 = __nccwpck_require__(2037);
-const PatcherIgnoresPathDefault = ".patcher-ignores";
+const ignoresFile = {
+    desc: "File path .gitignore style file for upstream docs",
+    default: ".patcher-ignores",
+};
 (0, yargs_1.default)((0, helpers_1.hideBin)(process.argv))
-    .command("replace", "Apply docs replacements onto working directory", {
-    cwd: { desc: "Target directory", default: "." },
-    replacements: {
+    .command("replace", "Apply docs replacements onto working directory", Object.assign({ cwd: { desc: "Target directory", default: "." }, replacements: {
         desc: "Replacements source file path",
         default: "replacements.json",
-    },
-    target: {
+    }, target: {
         desc: "Glob of paths to be checked for replacements",
         default: "website/**/*.markdown",
-    },
-    ignoresFile: {
-        desc: "Ignore file path",
-        default: PatcherIgnoresPathDefault,
-    },
-}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    } }, { ignoresFile }), (args) => __awaiter(void 0, void 0, void 0, function* () {
     const config = yield parseConfig(args);
-    const ignores = yield readIgnores(args.ignoresFile, args.ignoresFile !== PatcherIgnoresPathDefault);
+    const ignores = yield readIgnores(args.ignoresFile);
     // Apply manual replacements - anything the automated steps can't handle
     // These are generated using the suggest command
     yield patches.applyDocsReplacements(config, args.target, args.replacements, ignores);
 }))
-    .command("global-replace", "Apply global replacements onto working directory", {
-    cwd: { desc: "Target directory", default: "." },
-    replacements: {
+    .command("global-replace", "Apply global replacements onto working directory", Object.assign({ cwd: { desc: "Target directory", default: "." }, replacements: {
         desc: "Global replacements source file path",
         default: "global-replacements.json",
-    },
-    ignoresFile: {
-        desc: "Ignore file path",
-        default: PatcherIgnoresPathDefault,
-    },
-}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    } }, { ignoresFile }), (args) => __awaiter(void 0, void 0, void 0, function* () {
     const config = yield parseConfig(args);
-    const ignores = yield readIgnores(args.ignoresFile, args.ignoresFile !== PatcherIgnoresPathDefault);
+    const ignores = yield readIgnores(args.ignoresFile);
     yield patches.globReplace(config, args.replacements, ignores);
 }))
     .command("strip-links", "Remove links to disallowed sources", {
@@ -14378,20 +14368,17 @@ const PatcherIgnoresPathDefault = ".patcher-ignores";
     // TODO: make better suggestions - e.g. 3 words each side
     // TODO: Apply replacements ignoring line breaks
 }))
-    .command("check", "Check for pending replacements", {
-    cwd: { desc: "Target directory", default: "." },
-    "replacements-path": {
+    .command("check", "Check for pending replacements", Object.assign({ cwd: { desc: "Target directory", default: "." }, "replacements-path": {
         desc: "Path to replacements file to append to",
         default: "replacements.json",
-    },
-    "write-to-stdout": {
+    }, "write-to-stdout": {
         desc: "Write new replacements to stdout instead of merging them to the replacements-path",
         type: "boolean",
         default: false,
-    },
-}, (args) => __awaiter(void 0, void 0, void 0, function* () {
+    } }, { ignoresFile }), (args) => __awaiter(void 0, void 0, void 0, function* () {
     const config = yield parseConfig(args);
-    const replacements = yield (0, findPendingReplacements_1.findPendingReplacements)(config);
+    const ignores = yield readIgnores(args.ignoresFile);
+    const replacements = yield (0, findPendingReplacements_1.findPendingReplacements)(config, ignores);
     if (Object.keys(replacements).length === 0) {
         console.log("No replacements needed");
         return;
@@ -14466,20 +14453,20 @@ function parseConfig(args) {
         return config;
     });
 }
-function readIgnores(ignoresFile, require) {
+function readIgnores(path) {
     return __awaiter(this, void 0, void 0, function* () {
-        const exists = (0, fs_1.existsSync)(ignoresFile);
-        if (!exists) {
-            if (require) {
-                throw new Error(`Ignore file not found at path: ${ignoresFile}`);
-            }
-            else {
+        try {
+            const file = yield (0, promises_1.readFile)(path, "utf8");
+            return file.split(os_1.EOL);
+        }
+        catch (err) {
+            // If the error is Error NO ENTity, then the file does not exist.  If we
+            // are searching for the default path, we swallow the error.
+            if (err.code === 'ENOENT' && path === ignoresFile.default) {
                 return [];
             }
+            throw err;
         }
-        const file = yield (0, promises_1.readFile)(ignoresFile, "utf-8");
-        const lines = file.split(os_1.EOL);
-        return lines;
     });
 }
 
@@ -14837,8 +14824,8 @@ function applyDocsReplacements(ctx, pathPattern, replacementsPath, ignores) {
     return __awaiter(this, void 0, void 0, function* () {
         const replacements = yield readReplacements(replacementsPath);
         const files = yield (0, fast_glob_1.default)(pathPattern, { cwd: ctx.dir });
+        const fileFilter = (0, ignore_1.default)().add(ignores);
         for (const file of files) {
-            const fileFilter = (0, ignore_1.default)().add(ignores);
             // Skip index - we don't use this in docs gen.
             if (fileFilter.ignores(file)) {
                 continue;

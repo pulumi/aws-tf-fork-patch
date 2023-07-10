@@ -15,7 +15,11 @@ import { sumBy } from "array-fns";
 import { execSync } from "child_process";
 import { EOL } from "os";
 
-const PatcherIgnoresPathDefault = ".patcher-ignores";
+const ignoresFile = {
+    desc: "File path .gitignore style file for upstream docs",
+    default: ".patcher-ignores",
+}
+
 yargs(hideBin(process.argv))
   .command(
     "replace",
@@ -30,17 +34,11 @@ yargs(hideBin(process.argv))
         desc: "Glob of paths to be checked for replacements",
         default: "website/**/*.markdown",
       },
-      ignoresFile: {
-        desc: "Ignore file path",
-        default: PatcherIgnoresPathDefault,
-      },
+      ...{ignoresFile},
     },
     async (args) => {
       const config = await parseConfig(args);
-      const ignores = await readIgnores(
-        args.ignoresFile,
-        args.ignoresFile !== PatcherIgnoresPathDefault
-      );
+      const ignores = await readIgnores(args.ignoresFile);
 
       // Apply manual replacements - anything the automated steps can't handle
       // These are generated using the suggest command
@@ -61,17 +59,11 @@ yargs(hideBin(process.argv))
         desc: "Global replacements source file path",
         default: "global-replacements.json",
       },
-      ignoresFile: {
-        desc: "Ignore file path",
-        default: PatcherIgnoresPathDefault,
-      },
+      ...{ignoresFile},
     },
     async (args) => {
       const config = await parseConfig(args);
-      const ignores = await readIgnores(
-        args.ignoresFile,
-        args.ignoresFile !== PatcherIgnoresPathDefault
-      );
+      const ignores = await readIgnores(args.ignoresFile);
       await patches.globReplace(config, args.replacements, ignores);
     }
   )
@@ -178,10 +170,12 @@ yargs(hideBin(process.argv))
         type: "boolean",
         default: false,
       },
+      ...{ignoresFile},
     },
     async (args) => {
       const config = await parseConfig(args);
-      const replacements = await findPendingReplacements(config);
+      const ignores = await readIgnores(args.ignoresFile)
+      const replacements = await findPendingReplacements(config, ignores);
       if (Object.keys(replacements).length === 0) {
         console.log("No replacements needed");
         return;
@@ -299,19 +293,16 @@ async function parseConfig(args: { cwd: string }) {
   return config;
 }
 
-async function readIgnores(
-  ignoresFile: string,
-  require: boolean
-): Promise<string[]> {
-  const exists = existsSync(ignoresFile);
-  if (!exists) {
-    if (require) {
-      throw new Error(`Ignore file not found at path: ${ignoresFile}`);
-    } else {
+async function readIgnores(path: string): Promise<string[]> {
+  try {
+    const file = await readFile(path,"utf8");
+    return file.split(EOL);
+  } catch (err: any) {
+    // If the error is Error NO ENTity, then the file does not exist.  If we
+    // are searching for the default path, we swallow the error.
+    if (err.code === 'ENOENT' && path === ignoresFile.default) {
       return [];
     }
+    throw err;
   }
-  const file = await readFile(ignoresFile, "utf-8");
-  const lines = file.split(EOL);
-  return lines;
 }
